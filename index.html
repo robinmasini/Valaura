@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valaura | Logiciel de Suivi Commercial & Client pour Cabinet de Prévoyance</title>
+  <meta name="description" content="Valaura centralise, organise et automatise le suivi commercial des cabinets de prévoyance. Augmentez vos contrats signés et libérez du temps administratif pour vos équipes.">
+  <link rel="icon" type="image/png" href="/src/assets/umbrella.png">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Custom stylesheet -->
+  <link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Elements -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-dot" id="customCursorDot"></div>
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Scroll-Animated Background Umbrella -->
+  <div class="scroll-umbrella-container" id="scrollUmbrella">
+    <img src="/src/assets/umbrella.png" alt="Valaura Background Umbrella" class="scroll-umbrella-img" id="scrollUmbrellaImg">
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo-link cursor-hover" aria-label="Valaura Accueil">
+        <div class="logo-container">
+          <img src="/src/assets/Valaura.png" alt="Valaura Logo" class="logo-img">
+        </div>
+      </a>
+      
+      <nav class="nav-menu" role="navigation">
+        <ul class="nav-list">
+          <li><a href="#problems" class="nav-link cursor-hover">Problèmes</a></li>
+          <li><a href="#categories" class="nav-link cursor-hover">Modules</a></li>
+          <li><a href="#triggers-section" class="nav-link cursor-hover">Déclencheurs</a></li>
+          <li><a href="#roles" class="nav-link cursor-hover">Fonctionnalités</a></li>
+          <li><a href="#demo-section" class="nav-link cursor-hover">Démo Live</a></li>
+          <li><a href="#roi" class="nav-link cursor-hover">Calculateur ROI</a></li>
+          <li><a href="#onboarding" class="nav-link cursor-hover">Accompagnement</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-primary cursor-hover" id="openDemoBtnHeader">
+          <span>Démo Privée</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="section-container hero-container">
+        
+
+
+        <h1 class="hero-title reveal-split">Combien de contrats potentiels perdez-vous chaque mois par manque de relance ?</h1>
+        
+        <p class="hero-subtitle reveal-fade-delay">
+          Valaura permet à chaque conseiller de savoir exactement quels clients contacter et quelles actions effectuer. L'outil qui organise votre cabinet, sécurise le suivi commercial et libère du temps pour vos clients.
+        </p>
+
+        <div class="hero-actions reveal-fade-delay-2">
+          <button class="btn btn-primary btn-large cursor-hover" id="openDemoBtnHero">
+            <span>Accéder au Dashboard de Démo</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <line x1="9" y1="9" x2="21" y2="9"></line>
+            </svg>
+          </button>
+          <a href="#roi" class="btn btn-secondary btn-large cursor-hover">
+            <span>Estimer mon ROI</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="hero-scroll-indicator reveal-fade-delay-2" style="margin-top: 4rem; position: relative; bottom: 0;">
+          <span class="scroll-text">Découvrir les enjeux</span>
+          <div class="scroll-line-container">
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Les Problèmes du Cabinet -->
+    <section class="simulator-section" id="problems" style="background: rgba(10, 14, 23, 0.3); padding-bottom: 5rem;">
+      <div class="section-container">
+        <header class="section-header reveal-fade" style="margin-bottom: 4rem;">
+          <span class="section-subtitle">Le Constat Commercial</span>
+          <h2 class="section-title reveal-split">Pourquoi les cabinets de prévoyance perdent-ils en moyenne 15% de leur chiffre d'affaires ?</h2>
+          <p class="section-desc">
+            Ne passez pas à côté de votre potentiel. Posez-vous ces questions concrètes sur l'organisation quotidienne de votre équipe :
+          </p>
+        </header>
+
+        <!-- Interactive Question Cards Grid -->
+        <div class="moments-grid active" style="margin-bottom: 2rem;">
+          <div class="moment-card cursor-hover reveal-fade" data-problem="1" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">01</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Comment suivez-vous actuellement vos prospects ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Les opportunités se perdent souvent entre les fichiers Excel et les agendas de chaque conseiller.
+              </p>
+            </div>
+          </div>
+
+          <div class="moment-card cursor-hover reveal-fade" data-problem="2" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">02</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Combien de temps passez-vous à relancer vos clients ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Les relances manuelles sont chronophages. Valaura les planifie et les automatise intelligemment.
+              </p>
+            </div>
+          </div>
+
+          <div class="moment-card cursor-hover reveal-fade" data-problem="3" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">03</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Comment priorisez-vous les dossiers urgents ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Sans vue globale, on traite le dernier dossier reçu plutôt que le plus critique pour le cabinet.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="moments-grid active" style="margin-bottom: 3rem;">
+          <div class="moment-card cursor-hover reveal-fade" data-problem="4" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">04</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Certains devis restent-ils sans relance ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Un devis non relancé dans les 3 jours a 70% de chances de moins d'être signé. Valaura évite ces oublis.
+              </p>
+            </div>
+          </div>
+
+          <div class="moment-card cursor-hover reveal-fade" data-problem="5" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">05</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Comment suivez-vous l'activité de vos conseillers ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Difficile d'avoir des indicateurs sans surcharger vos conseillers de rapports de saisie.
+              </p>
+            </div>
+          </div>
+
+          <div class="moment-card cursor-hover reveal-fade" data-problem="6" style="height: 220px;">
+            <div class="moment-content" style="height: 100%; justify-content: space-between;">
+              <span style="font-size: 1.25rem; color: var(--color-accent); font-weight:700;">06</span>
+              <h3 class="moment-title" style="font-size: 1.15rem;">Comment organisez-vous les bilans annuels ?</h3>
+              <p class="problem-answer" style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
+                Fidéliser le portefeuille nécessite une planification proactive. Valaura anticipe les dates anniversaires.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem Reformulation Card -->
+        <div class="reveal-fade" style="max-width: 900px; margin: 0 auto;">
+          <div class="simulator-card" style="background: rgba(216, 180, 143, 0.03); border-color: rgba(216, 180, 143, 0.15); padding: 2.5rem;">
+            <div style="display: flex; gap: 2rem; align-items: center;">
+              <div style="font-size: 2.5rem; color: var(--color-accent); line-height: 1;">💡</div>
+              <div>
+                <h4 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; color: #fff;">Le constat :</h4>
+                <p style="color: #CBD5E0; line-height: 1.5; font-size: 0.95rem; font-weight: 300;">
+                  « Aujourd’hui, vos conseillers utilisent les mails, l’agenda et plusieurs fichiers. Les informations sont présentes, mais elles ne sont pas réunies. Vous perdez donc du temps et certains prospects risquent de ne pas être relancés au bon moment. »
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Les 5 Catégories / Modules de Prévoyance (Priorité, les 5 du bas) -->
+    <section class="categories-section" id="categories" style="padding-top: 5rem;">
+      <div class="section-container">
+        <header class="section-header reveal-fade">
+          <span class="section-subtitle">Modules de Valaura</span>
+          <h2 class="section-title reveal-split">Cinq modules de prévoyance pour organiser votre cabinet</h2>
+          <p class="section-desc">
+            Découvrez nos 5 architectures logicielles conçues pour automatiser, suivre et sécuriser chaque typologie de risque. Cliquez sur un module pour afficher les détails du logiciel.
+          </p>
+        </header>
+
+        <!-- The 5 Category Cards Grid (User preferred) -->
+        <div class="categories-grid">
+          
+          <!-- Category 1: Santé -->
+          <article class="category-card cursor-hover reveal-fade" data-category="health">
+            <div class="category-img-wrapper">
+              <img src="/src/assets/category_health.png" alt="Santé & Soins" class="category-img" loading="lazy">
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-content">
+              <span class="category-number">01</span>
+              <h3 class="category-card-title">Santé & Soins</h3>
+              <p class="category-card-desc">Télétransmission Noémie, règlements instantanés et gestion des réseaux de soins.</p>
+              <button class="category-cta" aria-label="En savoir plus sur Santé et Soins">
+                <span>Découvrir le module</span>
+                <span class="cta-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Category 2: Famille -->
+          <article class="category-card cursor-hover reveal-fade" data-category="family">
+            <div class="category-img-wrapper">
+              <img src="/src/assets/category_family.png" alt="Famille & Prévoyance" class="category-img" loading="lazy">
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-content">
+              <span class="category-number">02</span>
+              <h3 class="category-card-title">Famille & Prévoyance</h3>
+              <p class="category-card-desc">Gestion des rentes éducation, barèmes d'invalidité et capitaux décès.</p>
+              <button class="category-cta" aria-label="En savoir plus sur Famille et Prévoyance">
+                <span>Découvrir le module</span>
+                <span class="cta-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Category 3: Activité -->
+          <article class="category-card cursor-hover reveal-fade" data-category="income">
+            <div class="category-img-wrapper">
+              <img src="/src/assets/category_income.png" alt="Activité & Revenus" class="category-img" loading="lazy">
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-content">
+              <span class="category-number">03</span>
+              <h3 class="category-card-title">Activité & Revenus</h3>
+              <p class="category-card-desc">Indemnités journalières, analyse DSN et rapprochement DSN/Cotisations.</p>
+              <button class="category-cta" aria-label="En savoir plus sur Activité et Revenus">
+                <span>Découvrir le module</span>
+                <span class="cta-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Category 4: Retraite -->
+          <article class="category-card cursor-hover reveal-fade" data-category="retirement">
+            <div class="category-img-wrapper">
+              <img src="/src/assets/category_retirement.png" alt="Retraite & Épargne" class="category-img" loading="lazy">
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-content">
+              <span class="category-number">04</span>
+              <h3 class="category-card-title">Retraite & Épargne</h3>
+              <p class="category-card-desc">Simulation PER individuel/collectif, Solvabilité II et calculs de réversion.</p>
+              <button class="category-cta" aria-label="En savoir plus sur Retraite et Épargne">
+                <span>Découvrir le module</span>
+                <span class="cta-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Category 5: Accompagnement -->
+          <article class="category-card cursor-hover reveal-fade" data-category="support">
+            <div class="category-img-wrapper">
+              <img src="/src/assets/category_support.png" alt="Accompagnement & Décès" class="category-img" loading="lazy">
+              <div class="category-overlay"></div>
+            </div>
+            <div class="category-content">
+              <span class="category-number">05</span>
+              <h3 class="category-card-title">Accompagnement</h3>
+              <p class="category-card-desc">Assistance obsèques, cellule psychologique 24/7 et démarches de succession.</p>
+              <button class="category-cta" aria-label="En savoir plus sur Accompagnement et Décès">
+                <span>Découvrir le module</span>
+                <span class="cta-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2b: Triggers d'événements et Moments clés (Les 3 du haut, placés en priorité secondaire) -->
+    <section class="simulator-section" id="triggers-section" style="padding-top: 3rem; padding-bottom: 5rem; background: rgba(18, 25, 41, 0.2);">
+      <div class="section-container">
+        <header class="section-header reveal-fade" style="margin-bottom: 3rem;">
+          <span class="section-subtitle">Déclencheurs Clients</span>
+          <h2 class="section-title reveal-split">Comment Valaura capte les opportunités de vos assurés</h2>
+          <p class="section-desc">
+            Le logiciel identifie et planifie des actions commerciales ciblées dès qu'un changement de situation survient chez vos assurés particuliers ou professionnels.
+          </p>
+        </header>
+
+        <div class="moments-toggle-container reveal-fade-delay">
+          <button class="moment-toggle-btn active cursor-hover" data-group="particuliers">Changements Particuliers</button>
+          <button class="moment-toggle-btn cursor-hover" data-group="professionnels">Événements Professionnels</button>
+        </div>
+
+        <!-- Grid for Particuliers -->
+        <div class="moments-grid active" id="group-particuliers">
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="moving">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_moving.png" alt="Je déménage" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Déménagement client</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Transfert automatique des adresses de contrats et recalcul des taxes locales.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur le Déménagement">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="baby">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_baby.png" alt="Ma famille s'agrandit" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Naissance / Famille s'agrandit</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Ajout immédiat d'ayant-droit, déblocage de prime et offres de capitaux décès.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur Naissance">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="retirement">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_retirement.png" alt="Je prépare ma retraite" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Liquidation / Retraite</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Conversion automatique d'épargne en rente et maintien de la mutuelle collective.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur Retraite">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Grid for Professionnels -->
+        <div class="moments-grid" id="group-professionnels">
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="sale">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_sale.png" alt="Cession entreprise" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Cession de l'entreprise</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Audit IFC, valorisation des passifs sociaux et transfert des régimes de santé.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur la Cession">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="expansion">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_expansion.png" alt="Expansion" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Croissance / Recrutement</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Affiliation automatique DSN des nouveaux arrivants et conformité CCN.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur l'Expansion">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+
+          <article class="moment-card cursor-hover reveal-fade" data-trigger="risks">
+            <div class="moment-img-wrapper">
+              <img src="/src/assets/trigger_risks.png" alt="Risques" class="moment-img" loading="lazy">
+              <div class="moment-overlay"></div>
+            </div>
+            <div class="moment-content">
+              <h3 class="moment-title">Risques Homme Clé & RCMS</h3>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Identification automatique des fonctions critiques et devis Homme Clé instantané.</p>
+              <button class="moment-btn" aria-label="En savoir plus sur les Risques">
+                <span>Détails du déclencheur</span>
+                <span class="moment-btn-circle">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </button>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Side Panel Drawer for Category/Trigger Details (Restored) -->
+    <div class="side-panel" id="categoryDrawer" role="dialog" aria-hidden="true" aria-labelledby="drawerTitle">
+      <div class="side-panel-overlay" id="drawerOverlay"></div>
+      <div class="side-panel-content">
+        <button class="side-panel-close cursor-hover" id="drawerClose" aria-label="Fermer le volet">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        
+        <div class="drawer-body">
+          <span class="drawer-tag" id="drawerTag">Catégorie</span>
+          <h2 class="drawer-title" id="drawerTitle">Titre de la catégorie</h2>
+          
+          <div class="drawer-image-container">
+            <img src="" alt="" id="drawerImg" class="drawer-img">
+            <div class="drawer-image-gradient"></div>
+          </div>
+
+          <div class="drawer-details">
+            <h4 class="drawer-section-heading">Fonctionnalités Clés du Logiciel</h4>
+            <ul class="drawer-features-list" id="drawerFeatures">
+              <!-- Dynamically populated via JS -->
+            </ul>
+
+            <h4 class="drawer-section-heading">Bénéfices pour votre Cabinet</h4>
+            <p class="drawer-benefits-text" id="drawerBenefits">
+              Texte de bénéfices pré-rempli.
+            </p>
+
+            <div class="drawer-cta-container">
+              <button class="btn btn-primary cursor-hover btn-full" id="drawerCTA">
+                <span>Tester ce module en Démo Live</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Fonctionnalités par Rôle -->
+    <section class="software-section" id="roles">
+      <div class="section-container">
+        <header class="section-header reveal-fade">
+          <span class="section-subtitle">Interface Adaptée</span>
+          <h2 class="section-title reveal-split">Présentez seulement les fonctions utiles à chacun</h2>
+          <p class="section-desc">
+            Ne surchargez pas vos collaborateurs avec des menus inutiles. Valaura filtre et adapte son interface selon le rôle de l'utilisateur.
+          </p>
+        </header>
+
+        <div class="software-grid">
+          
+          <div class="software-text reveal-fade">
+            <span class="section-subtitle">Changement d'onglet interactif</span>
+            <h3 class="section-title" style="font-size: 2rem; margin-bottom: 1rem;" id="roleTitle">Pour les Dirigeants</h3>
+            
+            <div class="feature-tabs" id="roleTabs">
+              <button class="feature-tab active cursor-hover" data-role-tab="dirigeant">
+                <span class="tab-dot"></span>
+                <span class="tab-title">Dirigeant</span>
+              </button>
+              <button class="feature-tab cursor-hover" data-role-tab="conseiller">
+                <span class="tab-dot"></span>
+                <span class="tab-title">Conseiller</span>
+              </button>
+              <button class="feature-tab cursor-hover" data-role-tab="assistante">
+                <span class="tab-dot"></span>
+                <span class="tab-title">Assistante RH/Admin</span>
+              </button>
+            </div>
+
+            <!-- Role Tab Panels -->
+            <div class="tab-contents" style="margin-top: 1.5rem;">
+              <!-- Dirigeant Panel -->
+              <div class="tab-panel active" id="panel-dirigeant">
+                <p>Pilotez l'activité globale du cabinet en temps réel. Suivez les performances de vente, anticipez les commissions et débloquez les situations critiques instantanément.</p>
+                <ul class="check-list">
+                  <li><strong>Suivi global de l’activité :</strong> Tableau de bord de performance et volume de commissions.</li>
+                  <li><strong>Dossiers bloqués :</strong> Alerte en cas de non-relance ou pièce manquante critique.</li>
+                  <li><strong>Opportunités commerciales :</strong> Vue globale du pipeline de prévoyance par conseiller.</li>
+                  <li><strong>Indicateurs de performance (KPIs) :</strong> Taux de signature, délais de transformation.</li>
+                  <li><strong>Organisation de l’équipe :</strong> Attribution intelligente des portefeuilles et des tâches.</li>
+                </ul>
+              </div>
+
+              <!-- Conseiller Panel -->
+              <div class="tab-panel" id="panel-conseiller">
+                <p>Concentrez-vous sur le conseil et la relation humaine. Valaura supprime le stress administratif et vous guide chaque jour vers les prospects les plus chauds.</p>
+                <ul class="check-list">
+                  <li><strong>Tâches du jour :</strong> To-Do list priorisée automatiquement chaque matin.</li>
+                  <li><strong>Clients à rappeler :</strong> Alertes intelligentes sur les relances urgentes à effectuer.</li>
+                  <li><strong>Documents manquants :</strong> Liste claire des pièces manquantes pour chaque devis en cours.</li>
+                  <li><strong>Relances automatiques :</strong> Relances mails personnalisées programmables en un clic.</li>
+                  <li><strong>Historique des échanges :</strong> Centralisation de tous les mails, appels et notes par client.</li>
+                </ul>
+              </div>
+
+              <!-- Assistante Panel -->
+              <div class="tab-panel" id="panel-assistante">
+                <p>Fluidifiez la gestion administrative. Suivez l'avancement des pièces justificatives et programmez sereinement les bilans d'échéance annuelle.</p>
+                <ul class="check-list">
+                  <li><strong>Centralisation des documents :</strong> Hub de stockage crypté et conforme RGPD.</li>
+                  <li><strong>Rappels automatiques :</strong> Relance automatisée des assurés pour les pièces manquantes.</li>
+                  <li><strong>Gestion des rendez-vous :</strong> Agenda intégré et synchronisé pour planifier les appels.</li>
+                  <li><strong>Suivi des dossiers incomplets :</strong> Tableau de suivi des pièces en cours de validation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Image Showcase -->
+          <div class="software-mockup reveal-fade">
+            <div class="mockup-frame">
+              <img src="/src/assets/dashboard_mockup.png" alt="Valaura Interface Rôles" class="mockup-img" id="roleMockupImg">
+              <div class="mockup-glow"></div>
+              
+              <!-- Dynamic Badges -->
+              <div class="floating-badge badge-1" id="roleBadge1">
+                <div class="badge-icon">💼</div>
+                <div class="badge-info">
+                  <span class="badge-label">Opportunités Actives</span>
+                  <span class="badge-value" id="roleBadge1Val">48 Leads</span>
+                </div>
+              </div>
+
+              <div class="floating-badge badge-2" id="roleBadge2">
+                <div class="badge-icon">📈</div>
+                <div class="badge-info">
+                  <span class="badge-label">Taux de Signature</span>
+                  <span class="badge-value" id="roleBadge2Val">82.4%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Parcours Démo & CTA -->
+    <section class="categories-section" id="demo-section" style="background: linear-gradient(180deg, rgba(10, 14, 23, 0) 0%, rgba(18, 25, 41, 0.4) 50%, rgba(10, 14, 23, 0) 100%);">
+      <div class="section-container" style="text-align: center;">
+        <header class="section-header reveal-fade" style="margin-bottom: 3.5rem;">
+          <span class="section-subtitle">Démonstration Interactive</span>
+          <h2 class="section-title reveal-split">Vivez le parcours complet d'un cas réel de prévoyance</h2>
+          <p class="section-desc">
+            Ne croyez pas seulement notre liste de fonctionnalités. Regardez comment Valaura réagit pas-à-pas lors de l'arrivée d'un prospect intéressé par une solution de prévoyance.
+          </p>
+        </header>
+
+        <div class="reveal-fade" style="max-width: 800px; margin: 0 auto;">
+          <div class="simulator-card" style="border-color: var(--color-primary); position: relative; overflow: hidden; padding: 4rem 2rem;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent));"></div>
+            
+            <h3 style="font-size: 1.75rem; font-weight: 500; margin-bottom: 1.5rem; color: #fff;">Le Scénario de Démo Interactive</h3>
+            <p style="color: #A0AEC0; font-size: 1rem; margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto;">
+              Suivez l'onboarding du prospect fictif <strong>Jean Dupont</strong> : de son premier contact web à l'édition de la proposition, les relances automatiques, la signature électronique et le bilan annuel.
+            </p>
+
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.03); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border-light);">
+                <span style="color: var(--color-primary);">✓</span> Centralisé
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.03); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border-light);">
+                <span style="color: var(--color-primary);">✓</span> 9 Étapes Clés
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.03); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--border-light);">
+                <span style="color: var(--color-primary);">✓</span> Chronométré (1 min)
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-large cursor-hover" id="openDemoBtnPromo" style="font-size: 1.05rem; padding: 1.25rem 3rem;">
+              <span>Lancer le Tableau de Bord de Démo</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" style="margin-left: 0.5rem;">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Calculateur de ROI -->
+    <section class="simulator-section" id="roi">
+      <div class="section-container">
+        <header class="section-header reveal-fade">
+          <span class="section-subtitle">Outil de Rentabilité</span>
+          <h2 class="section-title reveal-split">Calculez le retour sur investissement pour votre cabinet</h2>
+          <p class="section-desc">
+            Estimez précisément les gains de temps administratif et le chiffre d'affaires supplémentaire que Valaura peut générer pour votre équipe.
+          </p>
+        </header>
+
+        <div class="simulator-container reveal-fade">
+          <div class="simulator-card" style="padding: 3rem;">
+            
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3.5rem;">
+              <!-- Sliders Column -->
+              <div style="display: flex; flex-direction: column; gap: 2rem;">
+                <h3 style="font-size: 1.35rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                  <span>⚙️</span> Paramètres du Cabinet
+                </h3>
+                
+                <!-- Advisor slider -->
+                <div class="slider-container" style="width: 100%; margin: 0;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: 0.9rem; color: #CBD5E0;">Nombre de conseillers</span>
+                    <span style="font-weight: 700; color: var(--color-primary);" id="roiValAdvisors">5</span>
+                  </div>
+                  <input type="range" id="roiSliderAdvisors" min="1" max="50" step="1" value="5" class="premium-slider cursor-hover">
+                </div>
+
+                <!-- Hours saved slider -->
+                <div class="slider-container" style="width: 100%; margin: 0;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: 0.9rem; color: #CBD5E0;">Temps économisé / conseiller / semaine</span>
+                    <span style="font-weight: 700; color: var(--color-primary);" id="roiValHours">2 h</span>
+                  </div>
+                  <input type="range" id="roiSliderHours" min="1" max="10" step="1" value="2" class="premium-slider cursor-hover">
+                  <span style="font-size: 0.75rem; color: var(--text-gray-dark); display: block; margin-top: 0.25rem;">(Grâce aux relances automatiques et à l'unification des outils)</span>
+                </div>
+
+                <!-- Contract Commission slider -->
+                <div class="slider-container" style="width: 100%; margin: 0;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: 0.9rem; color: #CBD5E0;">Commission moyenne par contrat</span>
+                    <span style="font-weight: 700; color: var(--color-primary);" id="roiValCommission">500 €</span>
+                  </div>
+                  <input type="range" id="roiSliderCommission" min="100" max="3000" step="100" value="500" class="premium-slider cursor-hover">
+                </div>
+
+                <!-- Extra contracts signed slider -->
+                <div class="slider-container" style="width: 100%; margin: 0;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: 0.9rem; color: #CBD5E0;">Contrats supp. signés / mois / conseiller</span>
+                    <span style="font-weight: 700; color: var(--color-primary);" id="roiValContracts">1</span>
+                  </div>
+                  <input type="range" id="roiSliderContracts" min="0" max="5" step="1" value="1" class="premium-slider cursor-hover">
+                  <span style="font-size: 0.75rem; color: var(--text-gray-dark); display: block; margin-top: 0.25rem;">(Grâce à un meilleur suivi et zéro prospect oublié)</span>
+                </div>
+              </div>
+
+              <!-- Results Column -->
+              <div style="display: flex; flex-direction: column; justify-content: space-between; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-light); border-radius: 16px; padding: 2rem;">
+                <div>
+                  <span class="chart-tag" style="display: block; margin-bottom: 1.5rem;">Valeur Économique Générée</span>
+                  
+                  <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="display: flex; flex-direction: column; border-left: 2px solid var(--color-primary); padding-left: 1rem;">
+                      <span style="font-size: 0.8rem; color: var(--text-gray-light); text-transform: uppercase;">Temps administratif récupéré / an</span>
+                      <span style="font-size: 1.5rem; font-weight: 700; color: #fff;" id="roiResHours">470 heures</span>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; border-left: 2px solid var(--color-accent); padding-left: 1rem;">
+                      <span style="font-size: 0.8rem; color: var(--text-gray-light); text-transform: uppercase;">Gain de Commissions / an</span>
+                      <span style="font-size: 1.5rem; font-weight: 700; color: #fff;" id="roiResCommissions">30 000 €</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem;">
+                  <span style="font-size: 0.8rem; color: var(--text-gray-light); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Valeur économique de Valaura</span>
+                  <span style="font-size: 2.25rem; font-weight: 700; color: var(--color-primary); display: block;" id="roiResTotal">39 400 € / an</span>
+                  <span style="font-size: 0.75rem; color: var(--color-accent); display: block; margin-top: 0.5rem; font-weight: 500;">Le coût de l'outil devient rapidement secondaire.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Accompagnement & Programme Pilote -->
+    <section class="simulator-section" id="onboarding" style="background: rgba(10, 14, 23, 0.2); border-top: 1px solid var(--border-light);">
+      <div class="section-container">
+        <header class="section-header reveal-fade">
+          <span class="section-subtitle">Déploiement Simplifié</span>
+          <h2 class="section-title reveal-split">Une mise en place simple et progressive</h2>
+          <p class="section-desc">
+            Ne refusez pas l'outil par peur du changement. Nous n'imposons pas une restructuration lourde. Nous adaptons Valaura à votre méthode, puis nous l'améliorons.
+          </p>
+        </header>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start;">
+          <!-- 6 Steps Onboarding -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Paramétrage initial personnalisé</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Configuration de vos typologies de risques de prévoyance et vos automatismes.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Import de vos contacts existants</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Migration sans perte de données de vos fichiers Excel et portefeuilles actuels.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Formation courte des conseillers</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Une session de 45 minutes suffit pour que les équipes soient autonomes.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Accompagnement renforcé au démarrage</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Assistance réactive en direct et ajustement quotidien de vos processus.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">5</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Phase pilote avec quelques utilisateurs</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Lancement avec 2 ou 3 conseillers pour valider les bénéfices avant généralisation.</p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); padding: 1.25rem; border-radius: 12px;">
+              <span style="width: 32px; height: 32px; background: var(--color-primary); color: var(--bg-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">6</span>
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;">Interlocuteur dédié identifié</h4>
+                <p style="font-size: 0.85rem; color: var(--text-gray-light);">Un conseiller technique disponible par téléphone et mail en direct.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pilot Form Panel -->
+          <div class="simulator-card" style="padding: 2.5rem; position: sticky; top: 130px;">
+            <span class="section-subtitle" style="margin-bottom: 0.5rem;">Candidature Pilote</span>
+            <h3 style="font-size: 1.5rem; font-weight: 600; color: #fff; margin-bottom: 1rem;">Devenez Cabinet Pilote</h3>
+            <p style="font-size: 0.85rem; color: var(--text-gray-light); margin-bottom: 1.5rem; line-height: 1.5;">
+              Nous recherchons actuellement <strong>3 à 5 cabinets partenaires</strong> pour bénéficier d'un tarif préférentiel exclusif en échange de leurs retours d'utilisation.
+            </p>
+            
+            <form id="pilotForm" style="display: flex; flex-direction: column; gap: 1rem;">
+              <input type="text" id="pilotName" placeholder="Votre nom complet" required class="form-input cursor-hover" style="width: 100%;">
+              <input type="text" id="pilotCabinet" placeholder="Nom de votre cabinet" required class="form-input cursor-hover" style="width: 100%;">
+              <input type="email" id="pilotEmail" placeholder="Adresse email professionnelle" required class="form-input cursor-hover" style="width: 100%;">
+              <input type="tel" id="pilotPhone" placeholder="Numéro de téléphone" required class="form-input cursor-hover" style="width: 100%;">
+              
+              <button type="submit" class="btn btn-primary cursor-hover btn-full-width" style="margin-top: 0.5rem; padding: 0.85rem 1.5rem;">
+                <span>Déposer notre candidature pilote</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </form>
+            
+            <p class="form-disclaimer" style="margin-top: 1rem;">
+              « Vous n’avez pas à reconstruire toute votre organisation. Nous adaptons Valaura à votre méthode actuelle, puis nous améliorons progressivement ce qui vous fait perdre du temps. »
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section-container">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <div class="logo-container">
+            <img src="/src/assets/Valaura.png" alt="Valaura Logo" class="logo-img footer-logo-img">
+          </div>
+          <p class="footer-desc">Une technologie d'excellence au service de l'organisation et du suivi client pour les cabinets de prévoyance et d'assurance.</p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Solutions</h4>
+          <ul class="footer-links">
+            <li><a href="#problems" class="cursor-hover">Les Problèmes</a></li>
+            <li><a href="#categories" class="cursor-hover">Modules de Gestion</a></li>
+            <li><a href="#triggers-section" class="cursor-hover">Déclencheurs d'opportunités</a></li>
+            <li><a href="#roles" class="cursor-hover">Fonctionnalités Métiers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Démonstrations</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="cursor-hover" id="footerDemoLink">Accéder au Dashboard</a></li>
+            <li><a href="#demo-section" class="cursor-hover">Le Cas Client Fictif</a></li>
+            <li><a href="#onboarding" class="cursor-hover">Devenir Cabinet Pilote</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Légal & Contact</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="cursor-hover">Mentions Légales</a></li>
+            <li><a href="mailto:contact@valaura.io" class="cursor-hover contact-email">contact@valaura.io</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Valaura Technologies SAS. Tous droits réservés.</p>
+        <p class="footer-tagline">Conçu avec rigueur, développé pour l'excellence commerciale.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- FULLSCREEN DEMO DASHBOARD MODAL CONTAINER -->
+  <!-- ========================================== -->
+  <div class="demo-dashboard-modal" id="demoDashboardModal" aria-hidden="true" role="dialog">
+    <div class="demo-modal-overlay" id="demoModalOverlay"></div>
+    <div class="demo-modal-container">
+      
+      <!-- Close Button -->
+      <button class="demo-modal-close cursor-hover" id="demoModalClose" aria-label="Fermer la démo">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Dashboard Wrapper Grid -->
+      <div class="dashboard-wrapper">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+          <div class="db-logo-area">
+            <img src="/src/assets/Valaura.png" alt="Valaura Logo" class="db-logo">
+            <span class="db-demo-tag">Démo Live</span>
+          </div>
+
+          <nav class="db-nav">
+            <a href="#" class="db-nav-item active cursor-hover" onclick="return false;">
+              <span class="db-nav-icon">📊</span>
+              <span>Tableau de Bord</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+              <span class="db-nav-icon">👥</span>
+              <span>Dossiers Clients</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+              <span class="db-nav-icon">⏳</span>
+              <span>Relances Auto.</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+              <span class="db-nav-icon">⚙️</span>
+              <span>Configuration</span>
+            </a>
+          </nav>
+
+          <!-- Interactive Scenario Card Panel (The client lifecycle walkthrough) -->
+          <div class="scenario-panel">
+            <div class="sc-header">
+              <span class="sc-subtitle">Cas Réel : Jean Dupont</span>
+              <h4 class="sc-title">Parcours de Prévoyance</h4>
+            </div>
+
+            <!-- Steps Progress Bar -->
+            <div class="sc-progress-wrapper">
+              <div class="sc-progress-bar">
+                <div class="sc-progress-fill" id="scProgressFill" style="width: 11%;"></div>
+              </div>
+              <div class="sc-steps-count" id="scStepsCount">Étape 1 sur 9</div>
+            </div>
+
+            <!-- Dynamic step card content -->
+            <div class="sc-step-card">
+              <h5 class="sc-step-name" id="scStepName">1. Demande de prévoyance</h5>
+              <p class="sc-step-desc" id="scStepDesc">Jean Dupont demande un tarif pour une prévoyance TNS sur le site internet du cabinet.</p>
+            </div>
+
+            <div class="sc-actions">
+              <button class="btn btn-primary cursor-hover" id="scNextBtn" style="width: 100%; padding: 0.65rem 1rem;">
+                <span>Étape Suivante</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+              <button class="btn btn-secondary cursor-hover" id="scResetBtn" style="width: 100%; padding: 0.5rem; font-size: 0.8rem; margin-top: 0.5rem;">
+                <span>Réinitialiser la Démo</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Dashboard View Panel -->
+        <main class="dashboard-main">
+          
+          <!-- Top bar with Role Toggle & Simulated clock -->
+          <header class="db-topbar">
+            <div class="db-title-area">
+              <h2 class="db-view-title" id="dbViewTitle">Vue Dirigeant — Cabinet Valaura</h2>
+              <p class="db-view-subtitle" id="dbViewSubtitle">Visualisez l'état commercial global et les dossiers bloqués.</p>
+            </div>
+
+            <!-- Role View Buttons (Dirigeant / Conseiller / Assistante) -->
+            <div class="db-role-selector">
+              <button class="db-role-btn active cursor-hover" data-db-role="dirigeant">Vue Dirigeant</button>
+              <button class="db-role-btn cursor-hover" data-db-role="conseiller">Vue Conseiller</button>
+              <button class="db-role-btn cursor-hover" data-db-role="assistante">Vue Assistante</button>
+            </div>
+          </header>
+
+          <!-- Dynamic Views Wrapper -->
+          <div class="db-view-container">
+
+            <!-- ============================== -->
+            <!-- 1. DIRIGEANT VIEW -->
+            <!-- ============================== -->
+            <div class="db-panel-view active" id="dbView-dirigeant">
+              
+              <!-- Metrics grid -->
+              <div class="db-metrics-grid">
+                <div class="db-metric-card">
+                  <span class="db-m-label">Chiffre d'Affaires Prévoyance (Mois)</span>
+                  <span class="db-m-value" id="dirMetricCA">24,500 €</span>
+                  <span class="db-m-sub green">↑ +12.5% vs mois dernier</span>
+                </div>
+                <div class="db-metric-card">
+                  <span class="db-m-label">Taux de Signature Commercial</span>
+                  <span class="db-m-value">82.4%</span>
+                  <span class="db-m-sub green">↑ Objectif atteint</span>
+                </div>
+                <div class="db-metric-card">
+                  <span class="db-m-label">Portefeuille sous gestion</span>
+                  <span class="db-m-value">1,480 K€</span>
+                  <span class="db-m-sub">124 contrats actifs</span>
+                </div>
+              </div>
+
+              <!-- Content split grid -->
+              <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                
+                <!-- Table of blocked dossiers (crucial point 3) -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Dossiers bloqués / Actions requises</h4>
+                    <span class="db-card-badge red">Alerte</span>
+                  </div>
+                  <table class="db-table">
+                    <thead>
+                      <tr>
+                        <th>Client</th>
+                        <th>Conseiller</th>
+                        <th>Statut</th>
+                        <th>Dernière Action</th>
+                        <th>Alerte</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dirBlockedTableBody">
+                      <!-- Populated via JS -->
+                      <tr>
+                        <td>Antoine Martin</td>
+                        <td>Pierre</td>
+                        <td><span class="db-tag bg-yellow">En attente pièces</span></td>
+                        <td>Il y a 6 jours</td>
+                        <td class="red">Facture manquante</td>
+                      </tr>
+                      <tr>
+                        <td>Sophie Bertrand</td>
+                        <td>Marie</td>
+                        <td><span class="db-tag bg-orange">Proposition faite</span></td>
+                        <td>Il y a 8 jours</td>
+                        <td class="red">Sans relance depuis 8j</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Opportunities and team distribution -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Opportunités commerciales par conseiller</h4>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                    <div>
+                      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                        <span>Pierre (Conseiller Prévoyance)</span>
+                        <strong>15 Dossiers (12k€ comm.)</strong>
+                      </div>
+                      <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 75%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                        <span>Marie (Conseillère Professionnels)</span>
+                        <strong>12 Dossiers (9.5k€ comm.)</strong>
+                      </div>
+                      <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 60%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ============================== -->
+            <!-- 2. CONSEILLER VIEW -->
+            <!-- ============================== -->
+            <div class="db-panel-view" id="dbView-conseiller">
+              
+              <!-- Counselor main content grid -->
+              <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem;">
+                
+                <!-- Tasks List (crucial point 3) -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Mes Tâches du Jour</h4>
+                    <span class="db-card-badge" id="counselorTasksCount">3 tâches</span>
+                  </div>
+                  
+                  <div class="todo-list" id="todoListContainer">
+                    <!-- Dynamic check items -->
+                    <label class="todo-item cursor-hover">
+                      <input type="checkbox" checked disabled>
+                      <span class="todo-box"></span>
+                      <span class="todo-text strike">Rappeler Cabinet Leblanc pour renvoi DSN</span>
+                    </label>
+                    <label class="todo-item cursor-hover">
+                      <input type="checkbox" disabled>
+                      <span class="todo-box"></span>
+                      <span class="todo-text">Qualifier la demande de Jean Dupont</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Active Client File Context (crucial point 4) -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Fiche Client Active : Jean Dupont</h4>
+                    <span class="db-tag bg-cyan" id="clientStatusBadge">Prospect</span>
+                  </div>
+
+                  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                      <div>
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Téléphone</span>
+                        <span style="font-size: 0.9rem; color: #fff;">06 12 34 56 78</span>
+                      </div>
+                      <div>
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Solution demandée</span>
+                        <span style="font-size: 0.9rem; color: var(--color-accent);" id="clientSolutionVal">Prévoyance TNS Indépendants</span>
+                      </div>
+                    </div>
+
+                    <!-- Client Activity History -->
+                    <div>
+                      <h5 style="font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.25rem;">
+                        <span>📋</span> Historique & Relances
+                      </h5>
+                      <div class="timeline-trail" id="clientTimeline">
+                        <!-- Populated dynamic steps -->
+                        <div class="timeline-step">
+                          <span class="tl-dot active"></span>
+                          <div class="tl-content">
+                            <strong>Demande reçue :</strong> Prévoyance TNS demandée par formulaire.
+                            <span class="tl-date">Aujourd'hui 09:12</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Email Relance Automatic panel -->
+                    <div id="relanceAutoBox" style="background: rgba(143,174,166,0.03); border: 1px dashed var(--color-primary); border-radius: 8px; padding: 1rem; display: none;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.8rem; color: var(--color-primary); font-weight: 600;">⚡ Relance automatique programmée (J+3)</span>
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light);">Statut : En attente</span>
+                      </div>
+                      <p style="font-size: 0.75rem; color: #CBD5E0; line-height: 1.4; margin: 0;">
+                        Si Jean Dupont n'a pas signé sa proposition d'ici 3 jours, un mail de suivi personnalisé lui sera envoyé automatiquement avec son devis récapitulatif.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ============================== -->
+            <!-- 3. ASSISTANTE VIEW -->
+            <!-- ============================== -->
+            <div class="db-panel-view" id="dbView-assistante">
+              
+              <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                
+                <!-- Centralized Documents Checklist (crucial point 3) -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Centralisation des Documents : Jean Dupont</h4>
+                    <span class="db-card-badge" id="documentProgressBadge">0/3 Reçus</span>
+                  </div>
+                  
+                  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;" id="documentListContainer">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                      <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-size: 1.25rem;">📄</span>
+                        <div style="display: flex; flex-direction: column;">
+                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Copie d'identité (CNI / Passeport)</span>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour la conformité</span>
+                        </div>
+                      </div>
+                      <span class="db-tag bg-red" id="docStatus1">Manquant</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                      <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-size: 1.25rem;">📝</span>
+                        <div style="display: flex; flex-direction: column;">
+                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Questionnaire médical de santé</span>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour l'actuariat</span>
+                        </div>
+                      </div>
+                      <span class="db-tag bg-red" id="docStatus2">Manquant</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                      <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <span style="font-size: 1.25rem;">💼</span>
+                        <div style="display: flex; flex-direction: column;">
+                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Relevé d'identité bancaire (RIB)</span>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour les prélèvements</span>
+                        </div>
+                      </div>
+                      <span class="db-tag bg-red" id="docStatus3">Manquant</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Calendar and appointments (crucial point 3) -->
+                <div class="db-table-card">
+                  <div class="db-card-header">
+                    <h4 class="db-card-title">Agenda & Planification RDV</h4>
+                  </div>
+                  
+                  <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;" id="appointmentsContainer">
+                    <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--color-primary); border-radius: 4px;">
+                      <span style="font-size: 0.75rem; color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.25rem;">Demain 10:00 — Entretien découverte</span>
+                      <strong style="color: #fff; font-size: 0.9rem;">RDV Jean Dupont (Pierre)</strong>
+                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Analyse des besoins de prévoyance</span>
+                    </div>
+                    
+                    <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--text-gray-dark); border-radius: 4px; opacity: 0.5;">
+                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-bottom: 0.25rem;">Vendredi 14:00 — Bilan Annuel</span>
+                      <strong style="color: #fff; font-size: 0.9rem;">RDV Cabinet Marchand (Marie)</strong>
+                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Revue de garanties collectives</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </main>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Confetti Canvas for electronic signature celebration -->
+  <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1100; display: none;"></canvas>
+
+  <!-- Main JavaScript Bundle -->
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
