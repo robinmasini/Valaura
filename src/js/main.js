@@ -24,6 +24,14 @@ function initCustomCursor() {
   
   if (!cursor || !dot) return;
 
+  // Skip custom cursor initialization on touch devices or small screens
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 1024;
+  if (isTouchDevice) {
+    cursor.style.display = 'none';
+    dot.style.display = 'none';
+    return;
+  }
+
   let mouseX = 0;
   let mouseY = 0;
   let cursorX = 0;

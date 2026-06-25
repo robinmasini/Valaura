@@ -124,6 +124,23 @@ p {
   border-color: var(--color-primary);
 }
 
+/* Hide custom cursor on mobile and touchscreens */
+@media (max-width: 1024px), (pointer: coarse), (hover: none) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  body, html, * {
+    cursor: auto !important;
+  }
+  a, button, input, select, textarea, [role="button"], .cursor-hover, .category-card, .moment-card, .moment-toggle-btn {
+    cursor: pointer !important;
+  }
+}
+
+
 /* Ambient Glow Orbs */
 .glow-orb {
   position: absolute;
