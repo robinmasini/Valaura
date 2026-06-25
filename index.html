@@ -25,13 +25,25 @@
 
   <!-- Temporary Client Highlight Styles -->
   <style>
+    .partnership-label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-accent);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      z-index: 1;
+      text-align: center;
+    }
     .client-logo-wrapper {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin: 2rem 0 3rem 0;
-      padding: 2rem 4rem;
+      margin: 0 0 3rem 0;
+      padding: 1.75rem; /* Equidistant padding */
       border-radius: 28px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -59,9 +71,14 @@
 
     /* Mobile adjustments for client logo and padding */
     @media (max-width: 768px) {
+      .partnership-label {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.65rem;
+      }
       .client-logo-wrapper {
-        margin: 1rem 0 1.5rem 0;
-        padding: 0.75rem 1.5rem;
+        margin: 0 0 1.5rem 0;
+        padding: 1rem; /* Equidistant padding on mobile */
         border-radius: 16px;
       }
       .client-logo-glow {
@@ -136,6 +153,7 @@
 
 
         <!-- Custom Client Highlight (si.png) -->
+        <span class="partnership-label reveal-fade-delay">EN PARTENARIAT AVEC</span>
         <div class="client-logo-wrapper reveal-fade-delay">
           <div class="client-logo-glow"></div>
           <img src="/src/assets/si.png" alt="Client Logo" class="client-logo-img">
