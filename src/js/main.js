@@ -84,7 +84,7 @@ function initCustomCursor() {
 
 /* 2. Scroll Reveal Animations (IntersectionObserver) */
 function initScrollReveal() {
-  const revealItems = document.querySelectorAll('.reveal-fade, .reveal-text, .reveal-fade-delay, .reveal-fade-delay-2');
+  const revealItems = document.querySelectorAll('.reveal-fade, .reveal-text, .reveal-fade-delay, .reveal-fade-delay-2, .reveal-split');
   
   const observerOptions = {
     root: null,

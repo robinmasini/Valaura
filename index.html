@@ -32,7 +32,7 @@
       letter-spacing: 0.18em;
       color: var(--color-accent);
       margin-top: 2rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.5rem; /* Increased padding with card */
       font-weight: 600;
       z-index: 1;
       text-align: center;
@@ -43,7 +43,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 0 3rem 0;
-      padding: 1.75rem; /* Equidistant padding */
+      padding: 2.25rem; /* Increased equidistant padding */
       border-radius: 28px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -53,15 +53,15 @@
     }
     .client-logo-glow {
       position: absolute;
-      width: 280px;
-      height: 280px;
+      width: 320px; /* Increased glow width */
+      height: 320px;
       background: radial-gradient(circle, rgba(143, 174, 166, 0.3) 0%, rgba(216, 180, 143, 0.18) 50%, transparent 70%);
       filter: blur(35px);
       z-index: 0;
       pointer-events: none;
     }
     .client-logo-img {
-      height: 130px;
+      height: 160px; /* Increased logo height */
       width: auto;
       object-fit: contain;
       position: relative;
@@ -73,21 +73,21 @@
     @media (max-width: 768px) {
       .partnership-label {
         margin-top: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem; /* Increased padding with card on mobile */
         font-size: 0.65rem;
       }
       .client-logo-wrapper {
         margin: 0 0 1.5rem 0;
-        padding: 1rem; /* Equidistant padding on mobile */
+        padding: 1.25rem; /* Increased equidistant padding on mobile */
         border-radius: 16px;
       }
       .client-logo-glow {
-        width: 140px;
-        height: 140px;
+        width: 180px;
+        height: 180px;
         filter: blur(20px);
       }
       .client-logo-img {
-        height: 60px;
+        height: 80px; /* Increased logo height on mobile */
       }
       .hero-section {
         padding-top: 140px !important; /* Push below mobile header */
