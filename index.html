@@ -56,6 +56,28 @@
       z-index: 1;
       filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.12));
     }
+
+    /* Mobile adjustments for client logo and padding */
+    @media (max-width: 768px) {
+      .client-logo-wrapper {
+        margin: 1rem 0 1.5rem 0;
+        padding: 0.75rem 1.5rem;
+        border-radius: 16px;
+      }
+      .client-logo-glow {
+        width: 140px;
+        height: 140px;
+        filter: blur(20px);
+      }
+      .client-logo-img {
+        height: 60px;
+      }
+      .hero-section {
+        padding-top: 140px !important; /* Push below mobile header */
+        min-height: auto !important; /* Disable vertical centering gaps */
+        padding-bottom: 2rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -113,13 +135,13 @@
         
 
 
-        <h1 class="hero-title reveal-split">Combien de contrats potentiels perdez-vous chaque mois par manque de relance ?</h1>
-        
         <!-- Custom Client Highlight (si.png) -->
         <div class="client-logo-wrapper reveal-fade-delay">
           <div class="client-logo-glow"></div>
           <img src="/src/assets/si.png" alt="Client Logo" class="client-logo-img">
         </div>
+
+        <h1 class="hero-title reveal-split">Combien de contrats potentiels perdez-vous chaque mois par manque de relance ?</h1>
         
         <p class="hero-subtitle reveal-fade-delay">
           Valaura permet à chaque conseiller de savoir exactement quels clients contacter et quelles actions effectuer. L'outil qui organise votre cabinet, sécurise le suivi commercial et libère du temps pour vos clients.
