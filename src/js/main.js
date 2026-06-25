@@ -803,7 +803,8 @@ function initDemoDashboard() {
   // Sidebar Category Links
   const dbCategoryItems = document.querySelectorAll('.db-nav-item[data-db-category]');
   dbCategoryItems.forEach(item => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
       const categoryKey = item.getAttribute('data-db-category');
       switchDashboardCategory(categoryKey);
     });
