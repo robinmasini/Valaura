@@ -872,19 +872,19 @@
           </div>
 
           <nav class="db-nav">
-            <a href="#" class="db-nav-item active cursor-hover" onclick="return false;">
+            <a href="#" class="db-nav-item active cursor-hover" data-db-category="dashboard" onclick="return false;">
               <span class="db-nav-icon">📊</span>
               <span>Tableau de Bord</span>
             </a>
-            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+            <a href="#" class="db-nav-item cursor-hover" data-db-category="clients" onclick="return false;">
               <span class="db-nav-icon">👥</span>
               <span>Dossiers Clients</span>
             </a>
-            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+            <a href="#" class="db-nav-item cursor-hover" data-db-category="reminders" onclick="return false;">
               <span class="db-nav-icon">⏳</span>
               <span>Relances Auto.</span>
             </a>
-            <a href="#" class="db-nav-item cursor-hover" onclick="return false;">
+            <a href="#" class="db-nav-item cursor-hover" data-db-category="config" onclick="return false;">
               <span class="db-nav-icon">⚙️</span>
               <span>Configuration</span>
             </a>
@@ -944,256 +944,780 @@
           <!-- Dynamic Views Wrapper -->
           <div class="db-view-container">
 
-            <!-- ============================== -->
-            <!-- 1. DIRIGEANT VIEW -->
-            <!-- ============================== -->
-            <div class="db-panel-view active" id="dbView-dirigeant">
-              
-              <!-- Metrics grid -->
-              <div class="db-metrics-grid">
-                <div class="db-metric-card">
-                  <span class="db-m-label">Chiffre d'Affaires Prévoyance (Mois)</span>
-                  <span class="db-m-value" id="dirMetricCA">24,500 €</span>
-                  <span class="db-m-sub green">↑ +12.5% vs mois dernier</span>
+            <!-- ======================================================= -->
+            <!-- CATEGORY 1: TABLEAU DE BORD (Original Role Dashboards) -->
+            <!-- ======================================================= -->
+            <div class="db-category-panel active" id="dbCategoryPanel-dashboard">
+
+              <!-- ============================== -->
+              <!-- 1. DIRIGEANT VIEW -->
+              <!-- ============================== -->
+              <div class="db-panel-view active" id="dbView-dirigeant">
+                
+                <!-- Metrics grid -->
+                <div class="db-metrics-grid">
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Chiffre d'Affaires Prévoyance (Mois)</span>
+                    <span class="db-m-value" id="dirMetricCA">24,500 €</span>
+                    <span class="db-m-sub green">↑ +12.5% vs mois dernier</span>
+                  </div>
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Taux de Signature Commercial</span>
+                    <span class="db-m-value">82.4%</span>
+                    <span class="db-m-sub green">↑ Objectif atteint</span>
+                  </div>
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Portefeuille sous gestion</span>
+                    <span class="db-m-value">1,480 K€</span>
+                    <span class="db-m-sub">124 contrats actifs</span>
+                  </div>
                 </div>
-                <div class="db-metric-card">
-                  <span class="db-m-label">Taux de Signature Commercial</span>
-                  <span class="db-m-value">82.4%</span>
-                  <span class="db-m-sub green">↑ Objectif atteint</span>
+
+                <!-- Content split grid -->
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                  
+                  <!-- Table of blocked dossiers (crucial point 3) -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Dossiers bloqués / Actions requises</h4>
+                      <span class="db-card-badge red">Alerte</span>
+                    </div>
+                    <table class="db-table">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Conseiller</th>
+                          <th>Statut</th>
+                          <th>Dernière Action</th>
+                          <th>Alerte</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dirBlockedTableBody">
+                        <!-- Populated via JS -->
+                        <tr>
+                          <td>Antoine Martin</td>
+                          <td>Pierre</td>
+                          <td><span class="db-tag bg-yellow">En attente pièces</span></td>
+                          <td>Il y a 6 jours</td>
+                          <td class="red">Facture manquante</td>
+                        </tr>
+                        <tr>
+                          <td>Sophie Bertrand</td>
+                          <td>Marie</td>
+                          <td><span class="db-tag bg-orange">Proposition faite</span></td>
+                          <td>Il y a 8 jours</td>
+                          <td class="red">Sans relance depuis 8j</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Opportunities and team distribution -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Opportunités commerciales par conseiller</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                          <span>Pierre (Conseiller Prévoyance)</span>
+                          <strong>15 Dossiers (12k€ comm.)</strong>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+                          <div style="width: 75%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                          <span>Marie (Conseillère Professionnels)</span>
+                          <strong>12 Dossiers (9.5k€ comm.)</strong>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
+                          <div style="width: 60%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="db-metric-card">
-                  <span class="db-m-label">Portefeuille sous gestion</span>
-                  <span class="db-m-value">1,480 K€</span>
-                  <span class="db-m-sub">124 contrats actifs</span>
-                </div>
+
               </div>
 
-              <!-- Content split grid -->
-              <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+              <!-- ============================== -->
+              <!-- 2. CONSEILLER VIEW -->
+              <!-- ============================== -->
+              <div class="db-panel-view" id="dbView-conseiller">
                 
-                <!-- Table of blocked dossiers (crucial point 3) -->
+                <!-- Counselor main content grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem;">
+                  
+                  <!-- Tasks List (crucial point 3) -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Mes Tâches du Jour</h4>
+                      <span class="db-card-badge" id="counselorTasksCount">3 tâches</span>
+                    </div>
+                    
+                    <div class="todo-list" id="todoListContainer">
+                      <!-- Dynamic check items -->
+                      <label class="todo-item cursor-hover">
+                        <input type="checkbox" checked disabled>
+                        <span class="todo-box"></span>
+                        <span class="todo-text strike">Rappeler Cabinet Leblanc pour renvoi DSN</span>
+                      </label>
+                      <label class="todo-item cursor-hover">
+                        <input type="checkbox" disabled>
+                        <span class="todo-box"></span>
+                        <span class="todo-text">Qualifier la demande de Jean Dupont</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Active Client File Context (crucial point 4) -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Fiche Client Active : Jean Dupont</h4>
+                      <span class="db-tag bg-cyan" id="clientStatusBadge">Prospect</span>
+                    </div>
+
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                      
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                        <div>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Téléphone</span>
+                          <span style="font-size: 0.9rem; color: #fff;">06 12 34 56 78</span>
+                        </div>
+                        <div>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Solution demandée</span>
+                          <span style="font-size: 0.9rem; color: var(--color-accent);" id="clientSolutionVal">Prévoyance TNS Indépendants</span>
+                        </div>
+                      </div>
+
+                      <!-- Client Activity History -->
+                      <div>
+                        <h5 style="font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.25rem;">
+                          <span>📋</span> Historique & Relances
+                        </h5>
+                        <div class="timeline-trail" id="clientTimeline">
+                          <!-- Populated dynamic steps -->
+                          <div class="timeline-step">
+                            <span class="tl-dot active"></span>
+                            <div class="tl-content">
+                              <strong>Demande reçue :</strong> Prévoyance TNS demandée par formulaire.
+                              <span class="tl-date">Aujourd'hui 09:12</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Email Relance Automatic panel -->
+                      <div id="relanceAutoBox" style="background: rgba(143,174,166,0.03); border: 1px dashed var(--color-primary); border-radius: 8px; padding: 1rem; display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                          <span style="font-size: 0.8rem; color: var(--color-primary); font-weight: 600;">⚡ Relance automatique programmée (J+3)</span>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Statut : En attente</span>
+                        </div>
+                        <p style="font-size: 0.75rem; color: #CBD5E0; line-height: 1.4; margin: 0;">
+                          Si Jean Dupont n'a pas signé sa proposition d'ici 3 jours, un mail de suivi personnalisé lui sera envoyé automatiquement avec son devis récapitulatif.
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- ============================== -->
+              <!-- 3. ASSISTANTE VIEW -->
+              <!-- ============================== -->
+              <div class="db-panel-view" id="dbView-assistante">
+                
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                  
+                  <!-- Centralized Documents Checklist (crucial point 3) -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Centralisation des Documents : Jean Dupont</h4>
+                      <span class="db-card-badge" id="documentProgressBadge">0/3 Reçus</span>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;" id="documentListContainer">
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">📄</span>
+                          <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Copie d'identité (CNI / Passeport)</span>
+                            <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour la conformité</span>
+                          </div>
+                        </div>
+                        <span class="db-tag bg-red" id="docStatus1">Manquant</span>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">📝</span>
+                          <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Questionnaire médical de santé</span>
+                            <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour l'actuariat</span>
+                          </div>
+                        </div>
+                        <span class="db-tag bg-red" id="docStatus2">Manquant</span>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">💼</span>
+                          <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Relevé d'identité bancaire (RIB)</span>
+                            <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour les prélèvements</span>
+                          </div>
+                        </div>
+                        <span class="db-tag bg-red" id="docStatus3">Manquant</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Calendar and appointments (crucial point 3) -->
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Agenda & Planification RDV</h4>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;" id="appointmentsContainer">
+                      <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--color-primary); border-radius: 4px;">
+                        <span style="font-size: 0.75rem; color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.25rem;">Demain 10:00 — Entretien découverte</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">RDV Jean Dupont (Pierre)</strong>
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Analyse des besoins de prévoyance</span>
+                      </div>
+                      
+                      <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--text-gray-dark); border-radius: 4px; opacity: 0.5;">
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-bottom: 0.25rem;">Vendredi 14:00 — Bilan Annuel</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">RDV Cabinet Marchand (Marie)</strong>
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Revue de garanties collectives</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div> <!-- End of dbCategoryPanel-dashboard -->
+
+            <!-- ======================================================= -->
+            <!-- CATEGORY 2: DOSSIERS CLIENTS                             -->
+            <!-- ======================================================= -->
+            <div class="db-category-panel" id="dbCategoryPanel-clients">
+              
+              <!-- 2.1 DIRIGEANT CLIENTS VIEW -->
+              <div class="db-panel-view" id="dbClients-dirigeant">
                 <div class="db-table-card">
                   <div class="db-card-header">
-                    <h4 class="db-card-title">Dossiers bloqués / Actions requises</h4>
-                    <span class="db-card-badge red">Alerte</span>
+                    <h4 class="db-card-title">Portefeuille Global Clients & Prospects</h4>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                      <input type="text" class="form-input search-input cursor-hover" placeholder="Rechercher un client..." id="searchClientDirigeant" style="width: 250px; font-size: 0.8rem; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px;">
+                      <select id="filterStatusDirigeant" class="form-input cursor-hover" style="font-size: 0.8rem; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+                        <option value="all">Tous les statuts</option>
+                        <option value="Prospect">Prospect</option>
+                        <option value="Qualification en cours">En qualification</option>
+                        <option value="Pièces demandées">Pièces demandées</option>
+                        <option value="Dossier incomplet">Incomplet</option>
+                        <option value="Bloqué">Bloqué</option>
+                        <option value="Proposition à préparer">À préparer</option>
+                        <option value="Proposition envoyée">Proposition envoyée</option>
+                        <option value="Signé">Signé</option>
+                        <option value="Actif">Actif</option>
+                      </select>
+                    </div>
                   </div>
                   <table class="db-table">
                     <thead>
                       <tr>
                         <th>Client</th>
+                        <th>Type contrat</th>
                         <th>Conseiller</th>
+                        <th>Portefeuille</th>
                         <th>Statut</th>
-                        <th>Dernière Action</th>
-                        <th>Alerte</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody id="dirBlockedTableBody">
-                      <!-- Populated via JS -->
-                      <tr>
-                        <td>Antoine Martin</td>
-                        <td>Pierre</td>
-                        <td><span class="db-tag bg-yellow">En attente pièces</span></td>
-                        <td>Il y a 6 jours</td>
-                        <td class="red">Facture manquante</td>
-                      </tr>
-                      <tr>
-                        <td>Sophie Bertrand</td>
-                        <td>Marie</td>
-                        <td><span class="db-tag bg-orange">Proposition faite</span></td>
-                        <td>Il y a 8 jours</td>
-                        <td class="red">Sans relance depuis 8j</td>
-                      </tr>
+                    <tbody id="tableClientsDirigeant">
+                      <!-- Dynamically populated -->
                     </tbody>
                   </table>
                 </div>
+              </div>
 
-                <!-- Opportunities and team distribution -->
-                <div class="db-table-card">
-                  <div class="db-card-header">
-                    <h4 class="db-card-title">Opportunités commerciales par conseiller</h4>
-                  </div>
-                  <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-                    <div>
-                      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                        <span>Pierre (Conseiller Prévoyance)</span>
-                        <strong>15 Dossiers (12k€ comm.)</strong>
-                      </div>
-                      <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
-                        <div style="width: 75%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+              <!-- 2.2 CONSEILLER CLIENTS VIEW -->
+              <div class="db-panel-view" id="dbClients-conseiller">
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                  
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Mon Portefeuille Clients</h4>
+                      <div style="display: flex; gap: 0.75rem;">
+                        <input type="text" class="form-input search-input cursor-hover" placeholder="Rechercher..." id="searchClientConseiller" style="width: 150px; font-size: 0.8rem; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px;">
+                        <button class="btn btn-primary cursor-hover" id="btnOpenAddClientModal" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">+ Prospect</button>
                       </div>
                     </div>
-                    <div>
-                      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                        <span>Marie (Conseillère Professionnels)</span>
-                        <strong>12 Dossiers (9.5k€ comm.)</strong>
+                    <table class="db-table">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Solution</th>
+                          <th>Statut</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tableClientsConseiller">
+                        <!-- Dynamically populated -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title" id="notesCardTitle">Notes & Activité : Jean Dupont</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <div id="notesContainer" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; padding-right: 0.5rem;">
+                        <!-- Notes populated dynamically -->
                       </div>
-                      <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;">
-                        <div style="width: 60%; height: 100%; background: var(--color-primary); border-radius: 4px;"></div>
+                      <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; display: flex; gap: 0.5rem;">
+                        <input type="text" id="inputNewNote" class="form-input cursor-hover" placeholder="Rédiger une note de dossier..." style="flex-grow: 1; font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+                        <button class="btn btn-primary cursor-hover" id="btnSaveNote" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Enregistrer</button>
                       </div>
                     </div>
                   </div>
+
                 </div>
+              </div>
 
+              <!-- 2.3 ASSISTANTE CLIENTS VIEW -->
+              <div class="db-panel-view" id="dbClients-assistante">
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
+                  
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Suivi des Pièces Justificatives</h4>
+                    </div>
+                    <table class="db-table">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>CNI</th>
+                          <th>RIB</th>
+                          <th>Q. Médical</th>
+                          <th>Dossier</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tableClientsAssistante">
+                        <!-- Dynamically populated -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title" id="docManageTitle">Gestion des pièces : Jean Dupont</h4>
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                      <p style="font-size: 0.8rem; color: var(--text-gray-light);">Modifiez manuellement le statut de réception ou simulez le téléversement de documents client.</p>
+                      
+                      <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                          <span style="font-size: 0.85rem; color: #fff;">Copie d'identité (CNI)</span>
+                          <button class="db-tag cursor-hover" id="btnToggleDoc1" style="border: none; cursor: none;">Charger</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                          <span style="font-size: 0.85rem; color: #fff;">Questionnaire médical</span>
+                          <button class="db-tag cursor-hover" id="btnToggleDoc2" style="border: none; cursor: none;">Charger</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
+                          <span style="font-size: 0.85rem; color: #fff;">RIB</span>
+                          <button class="db-tag cursor-hover" id="btnToggleDoc3" style="border: none; cursor: none;">Charger</button>
+                        </div>
+                      </div>
+
+                      <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button class="btn btn-primary cursor-hover btn-full-width" id="btnValidateDossier" style="padding: 0.65rem; font-size: 0.85rem;">
+                          <span>Débloquer et Valider le dossier</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
             </div>
 
-            <!-- ============================== -->
-            <!-- 2. CONSEILLER VIEW -->
-            <!-- ============================== -->
-            <div class="db-panel-view" id="dbView-conseiller">
+            <!-- ======================================================= -->
+            <!-- CATEGORY 3: RELANCES AUTO.                              -->
+            <!-- ======================================================= -->
+            <div class="db-category-panel" id="dbCategoryPanel-reminders">
               
-              <!-- Counselor main content grid -->
-              <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem;">
-                
-                <!-- Tasks List (crucial point 3) -->
-                <div class="db-table-card">
-                  <div class="db-card-header">
-                    <h4 class="db-card-title">Mes Tâches du Jour</h4>
-                    <span class="db-card-badge" id="counselorTasksCount">3 tâches</span>
+              <!-- 3.1 DIRIGEANT REMINDERS VIEW -->
+              <div class="db-panel-view" id="dbReminders-dirigeant">
+                <div class="db-metrics-grid" style="margin-bottom: 1.5rem;">
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Emails de Relance Envoyés</span>
+                    <span class="db-m-value">1 284</span>
+                    <span class="db-m-sub">Ce mois-ci</span>
                   </div>
-                  
-                  <div class="todo-list" id="todoListContainer">
-                    <!-- Dynamic check items -->
-                    <label class="todo-item cursor-hover">
-                      <input type="checkbox" checked disabled>
-                      <span class="todo-box"></span>
-                      <span class="todo-text strike">Rappeler Cabinet Leblanc pour renvoi DSN</span>
-                    </label>
-                    <label class="todo-item cursor-hover">
-                      <input type="checkbox" disabled>
-                      <span class="todo-box"></span>
-                      <span class="todo-text">Qualifier la demande de Jean Dupont</span>
-                    </label>
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Taux d'ouverture global</span>
+                    <span class="db-m-value">94.2%</span>
+                    <span class="db-m-sub green">↑ Excellent impact</span>
+                  </div>
+                  <div class="db-metric-card">
+                    <span class="db-m-label">Gain de temps estimé</span>
+                    <span class="db-m-value">85 heures</span>
+                    <span class="db-m-sub">Gagnées par l'équipe</span>
                   </div>
                 </div>
 
-                <!-- Active Client File Context (crucial point 4) -->
-                <div class="db-table-card">
-                  <div class="db-card-header">
-                    <h4 class="db-card-title">Fiche Client Active : Jean Dupont</h4>
-                    <span class="db-tag bg-cyan" id="clientStatusBadge">Prospect</span>
-                  </div>
-
-                  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
-                      <div>
-                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Téléphone</span>
-                        <span style="font-size: 0.9rem; color: #fff;">06 12 34 56 78</span>
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Campagnes de Relances Automatiques</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 12px;">
+                        <div>
+                          <strong style="color: #fff; display: block; font-size: 0.95rem;">Relance automatique Prospect J+3</strong>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Envoyé si la proposition n'est pas signée après 3 jours.</span>
+                        </div>
+                        <label class="switch cursor-hover">
+                          <input type="checkbox" class="toggle-campaign" data-campaign="prospect-j3" checked>
+                          <span class="slider-round"></span>
+                        </label>
                       </div>
-                      <div>
-                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Solution demandée</span>
-                        <span style="font-size: 0.9rem; color: var(--color-accent);" id="clientSolutionVal">Prévoyance TNS Indépendants</span>
+                      
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 12px;">
+                        <div>
+                          <strong style="color: #fff; display: block; font-size: 0.95rem;">Rappel de Pièces Manquantes J+2</strong>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Envoyé si des pièces de conformité restent manquantes.</span>
+                        </div>
+                        <label class="switch cursor-hover">
+                          <input type="checkbox" class="toggle-campaign" data-campaign="docs-j2" checked>
+                          <span class="slider-round"></span>
+                        </label>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 12px;">
+                        <div>
+                          <strong style="color: #fff; display: block; font-size: 0.95rem;">Invitation Bilan Annuel J+365</strong>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Planifie automatiquement un rendez-vous un an après signature.</span>
+                        </div>
+                        <label class="switch cursor-hover">
+                          <input type="checkbox" class="toggle-campaign" data-campaign="bilan-j365" checked>
+                          <span class="slider-round"></span>
+                        </label>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 12px;">
+                        <div>
+                          <strong style="color: #fff; display: block; font-size: 0.95rem;">Rappel SMS de Rendez-vous J-1</strong>
+                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Envoi d'un SMS de confirmation la veille d'un entretien.</span>
+                        </div>
+                        <label class="switch cursor-hover">
+                          <input type="checkbox" class="toggle-campaign" data-campaign="sms-j1">
+                          <span class="slider-round"></span>
+                        </label>
                       </div>
                     </div>
+                  </div>
 
-                    <!-- Client Activity History -->
-                    <div>
-                      <h5 style="font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.25rem;">
-                        <span>📋</span> Historique & Relances
-                      </h5>
-                      <div class="timeline-trail" id="clientTimeline">
-                        <!-- Populated dynamic steps -->
-                        <div class="timeline-step">
-                          <span class="tl-dot active"></span>
-                          <div class="tl-content">
-                            <strong>Demande reçue :</strong> Prévoyance TNS demandée par formulaire.
-                            <span class="tl-date">Aujourd'hui 09:12</span>
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Performance des Relances</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem; justify-content: center; height: calc(100% - 4rem);">
+                      <div style="text-align: center; border: 1px dashed var(--border-light); padding: 2rem; border-radius: 12px;">
+                        <span style="font-size: 2rem; display: block; margin-bottom: 0.5rem;">📈</span>
+                        <strong style="color: #fff; display: block;">Taux de Retour Client : +42%</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-gray-light); margin-top: 0.25rem; line-height: 1.4;">Les relances automatisées raccourcissent le cycle de vente de 9 jours en moyenne par dossier de prévoyance.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3.2 CONSEILLER REMINDERS VIEW -->
+              <div class="db-panel-view" id="dbReminders-conseiller">
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                  
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Éditeur de Modèles d'Emails</h4>
+                      <select id="selectEmailTemplate" class="form-input cursor-hover" style="font-size: 0.8rem; padding: 0.4rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px; color: #fff; width: 180px;">
+                        <option value="devis">Relance Proposition</option>
+                        <option value="docs">Pièces manquantes</option>
+                        <option value="welcome">Accueil nouveau client</option>
+                      </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-gray-light);">Objet du mail :</label>
+                        <input type="text" id="inputEmailSubject" class="form-input cursor-hover" style="font-size: 0.85rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-gray-light);">Corps du message :</label>
+                        <textarea id="inputEmailBody" class="form-input cursor-hover" rows="8" style="font-size: 0.85rem; padding: 0.75rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff; font-family: monospace; resize: none;"></textarea>
+                      </div>
+                      <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                        <button class="btn btn-secondary cursor-hover" id="btnTestEmail" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Envoi Email Test</button>
+                        <button class="btn btn-primary cursor-hover" id="btnSaveTemplate" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Enregistrer</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Aperçu Dynamique (Jean Dupont)</h4>
+                    </div>
+                    <div id="emailPreviewBox" style="background: #080c14; border: 1px solid var(--border-light); border-radius: 12px; padding: 1.25rem; height: calc(100% - 4rem); overflow-y: auto;">
+                      <div style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 0.75rem; font-size: 0.8rem;">
+                        <span style="color: var(--text-gray-light);">De :</span> <strong style="color: #fff;" id="previewFrom">pierre@valaura.fr</strong><br>
+                        <span style="color: var(--text-gray-light);">À :</span> <strong style="color: #fff;" id="previewTo">jean.dupont@gmail.com</strong><br>
+                        <span style="color: var(--text-gray-light);">Objet :</span> <strong style="color: var(--color-primary);" id="previewSubject">Votre devis prévoyance</strong>
+                      </div>
+                      <div id="previewBody" style="font-size: 0.85rem; color: #E2E8F0; line-height: 1.5; white-space: pre-wrap;">
+                        <!-- Live text rendering -->
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- 3.3 ASSISTANTE REMINDERS VIEW -->
+              <div class="db-panel-view" id="dbReminders-assistante">
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
+                  
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Historique des Communications Récentes</h4>
+                    </div>
+                    <table class="db-table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Client</th>
+                          <th>Canal</th>
+                          <th>Type d'envoi</th>
+                          <th>Statut</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tableReminderLogs">
+                        <!-- Dynamically populated -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Envoi de Lien de Dépôt Direct</h4>
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                      <p style="font-size: 0.8rem; color: var(--text-gray-light);">Envoyez instantanément un SMS ou email personnalisé au client contenant un lien direct et sécurisé pour photographier et déposer ses pièces manquantes.</p>
+                      
+                      <form id="formSendDirectLink" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                          <label style="font-size: 0.75rem; color: var(--text-gray-light);">Sélectionner le destinataire :</label>
+                          <select id="selectLinkDest" class="form-input cursor-hover" style="font-size: 0.85rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff; width: 100%;">
+                            <!-- Dynamically populated options -->
+                          </select>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                          <label style="font-size: 0.75rem; color: var(--text-gray-light);">Canal d'envoi :</label>
+                          <div style="display: flex; gap: 1.5rem; margin-top: 0.25rem;">
+                            <label class="cursor-hover" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #fff;">
+                              <input type="radio" name="linkChannel" value="sms" checked style="accent-color: var(--color-primary);"> SMS Mobile
+                            </label>
+                            <label class="cursor-hover" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #fff;">
+                              <input type="radio" name="linkChannel" value="email" style="accent-color: var(--color-primary);"> Email
+                            </label>
                           </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <!-- Email Relance Automatic panel -->
-                    <div id="relanceAutoBox" style="background: rgba(143,174,166,0.03); border: 1px dashed var(--color-primary); border-radius: 8px; padding: 1rem; display: none;">
-                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="font-size: 0.8rem; color: var(--color-primary); font-weight: 600;">⚡ Relance automatique programmée (J+3)</span>
-                        <span style="font-size: 0.75rem; color: var(--text-gray-light);">Statut : En attente</span>
-                      </div>
-                      <p style="font-size: 0.75rem; color: #CBD5E0; line-height: 1.4; margin: 0;">
-                        Si Jean Dupont n'a pas signé sa proposition d'ici 3 jours, un mail de suivi personnalisé lui sera envoyé automatiquement avec son devis récapitulatif.
-                      </p>
+                        <button type="submit" class="btn btn-primary cursor-hover btn-full-width" style="padding: 0.65rem; font-size: 0.85rem; margin-top: 0.5rem;">
+                          <span>Envoyer le lien sécurisé</span>
+                        </button>
+                      </form>
                     </div>
-
                   </div>
-                </div>
 
+                </div>
               </div>
 
             </div>
 
-            <!-- ============================== -->
-            <!-- 3. ASSISTANTE VIEW -->
-            <!-- ============================== -->
-            <div class="db-panel-view" id="dbView-assistante">
+            <!-- ======================================================= -->
+            <!-- CATEGORY 4: CONFIGURATION                              -->
+            <!-- ======================================================= -->
+            <div class="db-category-panel" id="dbCategoryPanel-config">
               
-              <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
-                
-                <!-- Centralized Documents Checklist (crucial point 3) -->
-                <div class="db-table-card">
-                  <div class="db-card-header">
-                    <h4 class="db-card-title">Centralisation des Documents : Jean Dupont</h4>
-                    <span class="db-card-badge" id="documentProgressBadge">0/3 Reçus</span>
-                  </div>
+              <!-- 4.1 DIRIGEANT CONFIG VIEW -->
+              <div class="db-panel-view" id="dbConfig-dirigeant">
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
                   
-                  <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;" id="documentListContainer">
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
-                      <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <span style="font-size: 1.25rem;">📄</span>
-                        <div style="display: flex; flex-direction: column;">
-                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Copie d'identité (CNI / Passeport)</span>
-                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour la conformité</span>
-                        </div>
-                      </div>
-                      <span class="db-tag bg-red" id="docStatus1">Manquant</span>
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Gestion de l'Équipe du Cabinet</h4>
                     </div>
+                    <table class="db-table">
+                      <thead>
+                        <tr>
+                          <th>Collaborateur</th>
+                          <th>Email</th>
+                          <th>Rôle</th>
+                          <th>Statut</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tableCabinetTeam">
+                        <!-- Dynamically populated -->
+                      </tbody>
+                    </table>
+                  </div>
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
-                      <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <span style="font-size: 1.25rem;">📝</span>
-                        <div style="display: flex; flex-direction: column;">
-                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Questionnaire médical de santé</span>
-                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour l'actuariat</span>
-                        </div>
-                      </div>
-                      <span class="db-tag bg-red" id="docStatus2">Manquant</span>
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Ajouter un Collaborateur</h4>
                     </div>
+                    <div style="margin-top: 1rem;">
+                      <form id="formAddTeamMember" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" id="teamName" placeholder="Prénom Nom" required class="form-input cursor-hover" style="width: 100%; font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+                        <input type="email" id="teamEmail" placeholder="Adresse email" required class="form-input cursor-hover" style="width: 100%; font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+                        <select id="teamRole" class="form-input cursor-hover" style="width: 100%; font-size: 0.85rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+                          <option value="dirigeant">Dirigeant</option>
+                          <option value="conseiller">Conseiller</option>
+                          <option value="assistante">Assistante</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary cursor-hover btn-full-width" style="padding: 0.65rem; font-size: 0.85rem; margin-top: 0.5rem;">
+                          <span>Ajouter au Cabinet</span>
+                        </button>
+                      </form>
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 8px;">
-                      <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        <span style="font-size: 1.25rem;">💼</span>
-                        <div style="display: flex; flex-direction: column;">
-                          <span style="font-size: 0.9rem; color: #fff; font-weight: 500;">Relevé d'identité bancaire (RIB)</span>
-                          <span style="font-size: 0.75rem; color: var(--text-gray-light);">Requis pour les prélèvements</span>
-                        </div>
+                      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(143,174,166,0.03); border: 1px solid var(--border-light); border-radius: 8px; text-align: center;">
+                        <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Licence Valaura Premium active :</span>
+                        <strong style="color: var(--color-primary); font-size: 1.1rem; display: block; margin-top: 0.25rem;">3 / 5 Utilisateurs</strong>
                       </div>
-                      <span class="db-tag bg-red" id="docStatus3">Manquant</span>
                     </div>
                   </div>
+
                 </div>
+              </div>
 
-                <!-- Calendar and appointments (crucial point 3) -->
-                <div class="db-table-card">
-                  <div class="db-card-header">
-                    <h4 class="db-card-title">Agenda & Planification RDV</h4>
-                  </div>
+              <!-- 4.2 CONSEILLER CONFIG VIEW -->
+              <div class="db-panel-view" id="dbConfig-conseiller">
+                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem;">
                   
-                  <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;" id="appointmentsContainer">
-                    <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--color-primary); border-radius: 4px;">
-                      <span style="font-size: 0.75rem; color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.25rem;">Demain 10:00 — Entretien découverte</span>
-                      <strong style="color: #fff; font-size: 0.9rem;">RDV Jean Dupont (Pierre)</strong>
-                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Analyse des besoins de prévoyance</span>
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Profil & Signature</h4>
                     </div>
-                    
-                    <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--text-gray-dark); border-radius: 4px; opacity: 0.5;">
-                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-bottom: 0.25rem;">Vendredi 14:00 — Bilan Annuel</span>
-                      <strong style="color: #fff; font-size: 0.9rem;">RDV Cabinet Marchand (Marie)</strong>
-                      <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block; margin-top: 0.25rem;">Sujet : Revue de garanties collectives</span>
+                    <form id="formCounselorProfile" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-gray-light);">Nom complet :</label>
+                        <input type="text" id="profileName" value="Pierre" class="form-input cursor-hover" style="font-size: 0.85rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-gray-light);">Email professionnel :</label>
+                        <input type="email" id="profileEmail" value="pierre@valaura.io" class="form-input cursor-hover" style="font-size: 0.85rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <label style="font-size: 0.75rem; color: var(--text-gray-light);">Signature e-mail :</label>
+                        <textarea id="profileSignature" class="form-input cursor-hover" rows="4" style="font-size: 0.8rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 6px; color: #fff; font-family: monospace; resize: none;">Pierre - Conseiller Prévoyance
+Cabinet Valaura Assurances
+Tél : 06 88 99 00 11</textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary cursor-hover" style="padding: 0.5rem; font-size: 0.85rem; align-self: flex-end;">Sauvegarder</button>
+                    </form>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Intégrations & Outils Externes</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <p style="font-size: 0.8rem; color: var(--text-gray-light);">Synchronisez votre agenda et votre messagerie pour automatiser le suivi des rendez-vous prospects.</p>
+                      
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 10px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">📅</span>
+                          <div>
+                            <strong style="color: #fff; display: block; font-size: 0.85rem;">Google Calendar</strong>
+                            <span style="font-size: 0.7rem; color: var(--text-gray-light);">Synchro bidirectionnelle des RDV</span>
+                          </div>
+                        </div>
+                        <button class="db-tag bg-cyan cursor-hover btn-sync" data-tool="google-calendar" style="border: none; cursor: none;">Connecter</button>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 10px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">📧</span>
+                          <div>
+                            <strong style="color: #fff; display: block; font-size: 0.85rem;">Outlook Calendar & Mail</strong>
+                            <span style="font-size: 0.7rem; color: var(--text-gray-light);">Synchro email et agenda Microsoft</span>
+                          </div>
+                        </div>
+                        <button class="db-tag bg-cyan cursor-hover btn-sync" data-tool="outlook" style="border: none; cursor: none;">Connecter</button>
+                      </div>
+
+                      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 10px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                          <span style="font-size: 1.25rem;">☁️</span>
+                          <div>
+                            <strong style="color: #fff; display: block; font-size: 0.85rem;">Salesforce CRM</strong>
+                            <span style="font-size: 0.7rem; color: var(--text-gray-light);">Exportation automatique des contacts</span>
+                          </div>
+                        </div>
+                        <button class="db-tag bg-cyan cursor-hover btn-sync" data-tool="salesforce" style="border: none; cursor: none;">Connecter</button>
+                      </div>
                     </div>
                   </div>
-                </div>
 
+                </div>
+              </div>
+
+              <!-- 4.3 ASSISTANTE CONFIG VIEW -->
+              <div class="db-panel-view" id="dbConfig-assistante">
+                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                  
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Pièces exigées par type de produit</h4>
+                      <select id="configProductSelect" class="form-input cursor-hover" style="font-size: 0.8rem; padding: 0.4rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px; color: #fff; width: 180px;">
+                        <option value="prevoyance">Prévoyance TNS</option>
+                        <option value="mutuelle">Mutuelle Collective</option>
+                      </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                      <p style="font-size: 0.8rem; color: var(--text-gray-light);">Sélectionnez les pièces administratives obligatoires exigées pour les nouveaux contrats.</p>
+                      
+                      <div style="display: flex; flex-direction: column; gap: 0.75rem;" id="docRequirementsChecklist">
+                        <!-- Populated dynamically via JS -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="db-table-card">
+                    <div class="db-card-header">
+                      <h4 class="db-card-title">Informations de Conformité</h4>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1rem; justify-content: center; height: calc(100% - 4rem);">
+                      <div style="border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.01);">
+                        <strong style="color: #fff; display: block; margin-bottom: 0.5rem; font-size: 0.95rem;">Réglementation DDA & ACPR</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4; margin: 0;">Toutes les pièces de conformité recueillies par Valaura sont stockées de manière chiffrée (chiffrement AES-256) sur des serveurs certifiés HDS (Hébergement Données de Santé) pour garantir la parfaite sécurité des informations médicales.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
             </div>
@@ -1205,6 +1729,55 @@
 
     </div>
   </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD NEW PROSPECT                     -->
+  <!-- ========================================== -->
+  <div class="demo-dashboard-modal" id="addClientModal" aria-hidden="true" role="dialog" style="z-index: 1200;">
+    <div class="demo-modal-overlay" id="addClientOverlay"></div>
+    <div class="demo-modal-container" style="max-width: 500px; height: auto; max-height: 85vh; padding: 2.5rem 2rem;">
+      <button class="demo-modal-close cursor-hover" id="addClientClose" aria-label="Fermer" style="cursor: none;">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h3 style="font-size: 1.5rem; font-weight: 600; color: #fff; margin-bottom: 1.5rem;">Ajouter un Nouveau Prospect</h3>
+      <form id="formAddClient" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <label for="newClientName" style="font-size: 0.8rem; color: var(--text-gray-light);">Nom complet :</label>
+          <input type="text" id="newClientName" required placeholder="Ex : Jean Dupont" class="form-input cursor-hover" style="width: 100%; font-size: 0.9rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <label for="newClientSolution" style="font-size: 0.8rem; color: var(--text-gray-light);">Solution :</label>
+          <select id="newClientSolution" class="form-input cursor-hover" style="width: 100%; font-size: 0.9rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+            <option value="Prévoyance TNS Indépendants">Prévoyance TNS Indépendants</option>
+            <option value="Mutuelle Collective PME">Mutuelle Collective PME</option>
+            <option value="Garantie Homme Clé">Garantie Homme Clé</option>
+          </select>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <label for="newClientPhone" style="font-size: 0.8rem; color: var(--text-gray-light);">Téléphone :</label>
+          <input type="tel" id="newClientPhone" required placeholder="Ex : 06 12 34 56 78" class="form-input cursor-hover" style="width: 100%; font-size: 0.9rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <label for="newClientEmail" style="font-size: 0.8rem; color: var(--text-gray-light);">Email :</label>
+          <input type="email" id="newClientEmail" required placeholder="Ex : jean.dupont@gmail.com" class="form-input cursor-hover" style="width: 100%; font-size: 0.9rem; padding: 0.6rem 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; color: #fff;">
+        </div>
+
+        <button type="submit" class="btn btn-primary cursor-hover btn-full-width" style="padding: 0.85rem; font-size: 0.95rem; margin-top: 0.5rem;">
+          <span>Créer la fiche prospect</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1500; display: flex; flex-direction: column; gap: 0.75rem; pointer-events: none;"></div>
 
   <!-- Confetti Canvas for electronic signature celebration -->
   <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1100; display: none;"></canvas>

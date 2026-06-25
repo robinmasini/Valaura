@@ -487,7 +487,76 @@ function initProblemCards() {
   });
 }
 
-/* 9. Live Demo Dashboard System (Modal & Simulation Steps) */
+
+
+/* 9. Live Demo Dashboard System (Modal & Simulation Steps & Unified State) */
+
+const dashboardState = {
+  activeCategory: 'dashboard',
+  activeRole: 'dirigeant',
+  selectedClientId: 1, // Jean Dupont
+  selectedConfigProduct: 'prevoyance',
+  clients: [
+    { id: 1, name: "Jean Dupont", solution: "Prévoyance TNS Indépendants", advisor: "Pierre", ca: 1200, status: "Prospect", docs: { id: "Manquant", health: "Manquant", rib: "Manquant" }, notes: ["Demande de prévoyance TNS reçue (Formulaire Web)"], phone: "06 12 34 56 78", email: "jean.dupont@gmail.com", appointments: [{ time: "Demain 10:00", name: "Appel découverte Jean Dupont (Pierre)" }] },
+    { id: 2, name: "Antoine Martin", solution: "Garantie Homme Clé", advisor: "Pierre", ca: 800, status: "Bloqué", docs: { id: "Reçu", health: "Manquant", rib: "Reçu" }, notes: ["Entretien découverte réalisé", "Alerte : Facture manquante"], phone: "06 98 76 54 32", email: "antoine.martin@outlook.com", appointments: [] },
+    { id: 3, name: "Sophie Bertrand", solution: "Mutuelle Collective PME", advisor: "Marie", ca: 1500, status: "Proposition faite", docs: { id: "Reçu", health: "Reçu", rib: "Reçu" }, notes: ["Proposition commerciale envoyée", "Sans relance depuis 8 jours"], phone: "07 11 22 33 44", email: "s.bertrand@entreprise.fr", appointments: [] },
+    { id: 4, name: "Cabinet Leblanc", solution: "Prévoyance TNS Indépendants", advisor: "Marie", ca: 4500, status: "Signé", docs: { id: "Reçu", health: "Reçu", rib: "Reçu" }, notes: ["Contrat signé électroniquement"], phone: "01 44 55 66 77", email: "contact@leblanc-associes.fr", appointments: [] },
+    { id: 5, name: "Sarah Moreau", solution: "Garantie Homme Clé", advisor: "Pierre", ca: 2200, status: "Prospect", docs: { id: "Manquant", health: "Manquant", rib: "Manquant" }, notes: ["Création de la fiche prospect"], phone: "06 55 66 77 88", email: "sarah.moreau@gmail.com", appointments: [] },
+    { id: 6, name: "Thomas Dubois", solution: "Mutuelle Collective PME", advisor: "Marie", ca: 3100, status: "Actif", docs: { id: "Reçu", health: "Reçu", rib: "Reçu" }, notes: ["Bilan de prévoyance annuel planifié"], phone: "06 12 99 88 77", email: "t.dubois@dubois-btp.fr", appointments: [{ time: "24 Juin 2027", name: "Bilan de prévoyance annuel (Pierre)" }] }
+  ],
+  campaigns: {
+    "prospect-j3": true,
+    "docs-j2": true,
+    "bilan-j365": true,
+    "sms-j1": false
+  },
+  emailTemplates: {
+    devis: {
+      subject: "Votre proposition de prévoyance Valaura",
+      body: "Bonjour {{client.name}},\n\nJ'espère que vous allez bien.\n\nJe reviens vers vous concernant notre entretien et la proposition de prévoyance TNS.\n\nVous trouverez ci-joint le récapitulatif détaillé de vos garanties.\n\nN'hésitez pas si vous avez des questions.\n\nCordialement,\n{{conseiller.name}}\nCabinet Valaura"
+    },
+    docs: {
+      subject: "Pièces justificatives manquantes pour votre dossier",
+      body: "Bonjour {{client.name}},\n\nPour finaliser la mise en place de votre couverture, il nous manque encore certaines pièces (notamment le questionnaire médical).\n\nVous pouvez les déposer directement sur votre espace sécurisé en un clic.\n\nMerci par avance,\n{{conseiller.name}}"
+    },
+    welcome: {
+      subject: "Bienvenue chez Valaura !",
+      body: "Bonjour {{client.name}},\n\nNous sommes ravis de vous compter parmi nos clients.\n\nVotre contrat de prévoyance est désormais actif et validé.\n\nNotre équipe reste à votre entière disposition.\n\nBien cordialement,\nL'équipe Valaura"
+    }
+  },
+  reminderLogs: [
+    { date: "Aujourd'hui 17:20", client: "Jean Dupont", channel: "Email", type: "Bilan Planifié", status: "Planifié" },
+    { date: "Aujourd'hui 16:40", client: "Jean Dupont", channel: "Email", type: "Proposition", status: "Envoyé" },
+    { date: "Aujourd'hui 14:05", client: "Jean Dupont", channel: "SMS", type: "Dépôt CNI/RIB", status: "Délivré" },
+    { date: "Aujourd'hui 09:15", client: "Jean Dupont", channel: "Email", type: "Confirmation RDV", status: "Envoyé" },
+    { date: "Hier 11:30", client: "Sophie Bertrand", channel: "Email", type: "Relance Devis", status: "Envoyé" }
+  ],
+  team: [
+    { name: "Pierre", email: "pierre@valaura.io", role: "conseiller", status: "Actif" },
+    { name: "Marie", email: "marie@valaura.io", role: "conseiller", status: "Actif" },
+    { name: "Julie", email: "julie@valaura.io", role: "assistante", status: "Actif" },
+    { name: "Robin Masini", email: "robin@valaura.io", role: "dirigeant", status: "Propriétaire" }
+  ],
+  integrations: {
+    "google-calendar": false,
+    "outlook": false,
+    "salesforce": false
+  },
+  mandatoryDocs: {
+    prevoyance: [
+      { name: "Copie d'identité (CNI / Passeport)", required: true },
+      { name: "Questionnaire médical de santé", required: true },
+      { name: "Relevé d'identité bancaire (RIB)", required: true },
+      { name: "Justificatif de statut TNS", required: false }
+    ],
+    mutuelle: [
+      { name: "Copie d'identité du représentant", required: true },
+      { name: "Kbis de l'entreprise", required: true },
+      { name: "Fiche DSN d'effectifs", required: true },
+      { name: "RIB de l'entreprise", required: true }
+    ]
+  }
+};
 
 const scenarioSteps = [
   {
@@ -496,20 +565,14 @@ const scenarioSteps = [
     desc: "Jean Dupont soumet un formulaire en ligne pour obtenir un devis de prévoyance TNS. Sa fiche prospect est générée dans Valaura.",
     role: "conseiller",
     action: (state) => {
-      state.status = "Prospect";
-      state.todo = [
-        { text: "Rappeler Jean Dupont pour entretien de découverte", checked: false },
-        { text: "Lui envoyer le questionnaire médical initial", checked: false }
-      ];
-      state.history = [
-        { text: "Demande de prévoyance TNS reçue (Formulaire Web)", date: "Aujourd'hui 09:12" }
-      ];
-      state.docs = { id: "Manquant", health: "Manquant", rib: "Manquant" };
-      state.appointments = [
-        { time: "Demain 10:00", name: "Appel découverte Jean Dupont (Pierre)" }
-      ];
-      state.ca = 24500;
-      state.blocked = [];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Prospect";
+        client.docs = { id: "Manquant", health: "Manquant", rib: "Manquant" };
+        client.notes = ["Demande de prévoyance TNS reçue (Formulaire Web)"];
+        client.appointments = [{ time: "Demain 10:00", name: "Appel découverte Jean Dupont (Pierre)" }];
+      }
+      state.confetti = false;
     }
   },
   {
@@ -518,22 +581,14 @@ const scenarioSteps = [
     desc: "Pierre, le conseiller prévoyance, reçoit une tâche automatique de rappel prioritaire sous 2 heures. L'appel de découverte est effectué.",
     role: "conseiller",
     action: (state) => {
-      state.status = "Qualification en cours";
-      state.todo = [
-        { text: "Rappeler Jean Dupont pour entretien de découverte", checked: true },
-        { text: "Lui envoyer le questionnaire médical initial", checked: true },
-        { text: "Planifier l'entretien d'analyse de risques", checked: false }
-      ];
-      state.history = [
-        { text: "Appel de découverte réalisé : besoins qualifiés", date: "Aujourd'hui 10:30" },
-        { text: "Demande de prévoyance TNS reçue (Formulaire Web)", date: "Aujourd'hui 09:12" }
-      ];
-      state.docs = { id: "Manquant", health: "Manquant", rib: "Manquant" };
-      state.appointments = [
-        { time: "Demain 10:00", name: "Appel découverte Jean Dupont (Pierre)" }
-      ];
-      state.ca = 24500;
-      state.blocked = [];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Qualification en cours";
+        if (!client.notes.includes("Appel de découverte réalisé : besoins qualifiés")) {
+          client.notes.unshift("Appel de découverte réalisé : besoins qualifiés");
+        }
+      }
+      state.confetti = false;
     }
   },
   {
@@ -542,21 +597,16 @@ const scenarioSteps = [
     desc: "Le premier entretien d'analyse de risques est enregistré. Les pièces justificatives sont demandées. L'assistante prend le relais.",
     role: "assistante",
     action: (state) => {
-      state.status = "Pièces demandées";
-      state.todo = [
-        { text: "Planifier l'entretien d'analyse de risques", checked: true }
-      ];
-      state.history = [
-        { text: "Rendez-vous d'analyse réalisé. Liste de pièces demandée", date: "Aujourd'hui 11:30" },
-        { text: "Appel de découverte réalisé : besoins qualifiés", date: "Aujourd'hui 10:30" },
-        { text: "Demande de prévoyance TNS reçue (Formulaire Web)", date: "Aujourd'hui 09:12" }
-      ];
-      state.docs = { id: "En attente", health: "En attente", rib: "En attente" };
-      state.appointments = [
-        { time: "Aujourd'hui 11:00", name: "Analyse prévoyance Jean Dupont (Pierre)" }
-      ];
-      state.ca = 24500;
-      state.blocked = [];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Pièces demandées";
+        client.docs = { id: "En attente", health: "En attente", rib: "En attente" };
+        if (!client.notes.includes("Rendez-vous d'analyse réalisé. Liste de pièces demandée")) {
+          client.notes.unshift("Rendez-vous d'analyse réalisé. Liste de pièces demandée");
+        }
+        client.appointments = [{ time: "Aujourd'hui 11:00", name: "Analyse prévoyance Jean Dupont (Pierre)" }];
+      }
+      state.confetti = false;
     }
   },
   {
@@ -565,19 +615,16 @@ const scenarioSteps = [
     desc: "Jean Dupont dépose sa Carte d'identité et son RIB sur son espace sécurisé Valaura. Le questionnaire de santé est toujours manquant.",
     role: "assistante",
     action: (state) => {
-      state.status = "Dossier incomplet";
-      state.todo = [
-        { text: "Vérifier la validité de la CNI et du RIB", checked: true },
-        { text: "Relancer le client pour le questionnaire de santé", checked: false }
-      ];
-      state.history = [
-        { text: "Pièces validées : CNI & RIB reçus", date: "Aujourd'hui 14:05" },
-        { text: "Rendez-vous d'analyse réalisé. Liste de pièces demandée", date: "Aujourd'hui 11:30" }
-      ];
-      state.docs = { id: "Reçu", health: "Manquant", rib: "Reçu" };
-      state.appointments = [];
-      state.ca = 24500;
-      state.blocked = [];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Dossier incomplet";
+        client.docs = { id: "Reçu", health: "Manquant", rib: "Reçu" };
+        if (!client.notes.includes("Pièces validées : CNI & RIB reçus")) {
+          client.notes.unshift("Pièces validées : CNI & RIB reçus");
+        }
+        client.appointments = [];
+      }
+      state.confetti = false;
     }
   },
   {
@@ -586,20 +633,15 @@ const scenarioSteps = [
     desc: "Le dossier est bloqué car le questionnaire médical manque depuis 24h. Le dirigeant reçoit une alerte immédiate sur son dashboard.",
     role: "dirigeant",
     action: (state) => {
-      state.status = "Bloqué";
-      state.todo = [
-        { text: "Relancer le client pour le questionnaire de santé", checked: false }
-      ];
-      state.history = [
-        { text: "Alerte : Dossier bloqué (Questionnaire de santé)", date: "Aujourd'hui 15:00" },
-        { text: "Pièces validées : CNI & RIB reçus", date: "Aujourd'hui 14:05" }
-      ];
-      state.docs = { id: "Reçu", health: "Manquant", rib: "Reçu" };
-      state.appointments = [];
-      state.ca = 24500;
-      state.blocked = [
-        { name: "Jean Dupont", advisor: "Pierre", status: "Bloqué", lastAction: "Il y a 24h", alert: "Questionnaire de santé manquant" }
-      ];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Bloqué";
+        client.docs = { id: "Reçu", health: "Manquant", rib: "Reçu" };
+        if (!client.notes.includes("Alerte : Dossier bloqué (Questionnaire de santé)")) {
+          client.notes.unshift("Alerte : Dossier bloqué (Questionnaire de santé)");
+        }
+      }
+      state.confetti = false;
     }
   },
   {
@@ -608,43 +650,32 @@ const scenarioSteps = [
     desc: "Le questionnaire médical est finalement téléversé. Le dossier passe au vert, l'alerte dirigeant est levée. Pierre peut préparer la proposition.",
     role: "conseiller",
     action: (state) => {
-      state.status = "Proposition à préparer";
-      state.todo = [
-        { text: "Établir la proposition de tarification prévoyance", checked: false },
-        { text: "Faire valider les conditions tarifaires", checked: false }
-      ];
-      state.history = [
-        { text: "Questionnaire médical reçu. Dossier débloqué", date: "Aujourd'hui 16:10" },
-        { text: "Pièces validées : CNI & RIB reçus", date: "Aujourd'hui 14:05" }
-      ];
-      state.docs = { id: "Reçu", health: "Reçu", rib: "Reçu" };
-      state.appointments = [];
-      state.ca = 24500;
-      state.blocked = [];
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Proposition à préparer";
+        client.docs = { id: "Reçu", health: "Reçu", rib: "Reçu" };
+        if (!client.notes.includes("Questionnaire médical reçu. Dossier débloqué")) {
+          client.notes.unshift("Questionnaire médical reçu. Dossier débloqué");
+        }
+      }
+      state.confetti = false;
     }
   },
   {
     step: 7,
     name: "7. Proposition & Relance Automatique",
-    desc: "La proposition est envoyée par e-mail. Valaura planifie automatiquement une relance personnalisée à J+3 sans action requise de Pierre.",
+    desc: "La proposition is envoyée par e-mail. Valaura planifie automatiquement une relance personnalisée à J+3 sans action requise de Pierre.",
     role: "conseiller",
     action: (state) => {
-      state.status = "Proposition envoyée";
-      state.todo = [
-        { text: "Établir la proposition de tarification prévoyance", checked: true },
-        { text: "Faire valider les conditions tarifaires", checked: true },
-        { text: "Suivre la signature électronique", checked: false }
-      ];
-      state.history = [
-        { text: "Proposition commerciale envoyée par e-mail", date: "Aujourd'hui 16:40" },
-        { text: "Relance automatique programmée à J+3", date: "Aujourd'hui 16:40" },
-        { text: "Questionnaire médical reçu. Dossier débloqué", date: "Aujourd'hui 16:10" }
-      ];
-      state.docs = { id: "Reçu", health: "Reçu", rib: "Reçu" };
-      state.appointments = [];
-      state.ca = 24500;
-      state.blocked = [];
-      state.showRelance = true;
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Proposition envoyée";
+        if (!client.notes.includes("Proposition commerciale envoyée par e-mail")) {
+          client.notes.unshift("Proposition commerciale envoyée par e-mail");
+          client.notes.unshift("Relance automatique programmée à J+3");
+        }
+      }
+      state.confetti = false;
     }
   },
   {
@@ -653,20 +684,14 @@ const scenarioSteps = [
     desc: "Jean Dupont signe électroniquement son contrat de prévoyance. La commission de 1 200 € est acquise pour le cabinet. Confettis !",
     role: "dirigeant",
     action: (state) => {
-      state.status = "Signé";
-      state.todo = [
-        { text: "Suivre la signature électronique", checked: true }
-      ];
-      state.history = [
-        { text: "Contrat signé électroniquement (Signature certifiée)", date: "Aujourd'hui 17:15" },
-        { text: "Commission souscription prévoyance acquise : +1 200€", date: "Aujourd'hui 17:15" },
-        { text: "Proposition commerciale envoyée par e-mail", date: "Aujourd'hui 16:40" }
-      ];
-      state.docs = { id: "Reçu", health: "Reçu", rib: "Reçu" };
-      state.appointments = [];
-      state.ca = 25700;
-      state.blocked = [];
-      state.showRelance = false;
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Signé";
+        if (!client.notes.includes("Contrat signé électroniquement (Signature certifiée)")) {
+          client.notes.unshift("Contrat signé électroniquement (Signature certifiée)");
+          client.notes.unshift("Commission souscription prévoyance acquise : +1 200€");
+        }
+      }
       state.confetti = true;
     }
   },
@@ -676,24 +701,50 @@ const scenarioSteps = [
     desc: "Le contrat est actif. Valaura génère une alerte automatique dans 365 jours pour le bilan de prévoyance annuel obligatoire.",
     role: "assistante",
     action: (state) => {
-      state.status = "Actif";
-      state.todo = [
-        { text: "Bilan annuel d'assurance planifié", checked: true }
-      ];
-      state.history = [
-        { text: "Alerte Bilan Annuel planifiée à 1 an (24 Juin 2027)", date: "Aujourd'hui 17:20" },
-        { text: "Contrat signé électroniquement (Signature certifiée)", date: "Aujourd'hui 17:15" }
-      ];
-      state.docs = { id: "Reçu", health: "Reçu", rib: "Reçu" };
-      state.appointments = [
-        { time: "24 Juin 2027", name: "Bilan de prévoyance annuel Jean Dupont (Pierre)" }
-      ];
-      state.ca = 25700;
-      state.blocked = [];
-      state.showRelance = false;
+      const client = dashboardState.clients.find(c => c.id === 1);
+      if (client) {
+        client.status = "Actif";
+        if (!client.notes.includes("Alerte Bilan Annuel planifiée à 1 an (24 Juin 2027)")) {
+          client.notes.unshift("Alerte Bilan Annuel planifiée à 1 an (24 Juin 2027)");
+        }
+        client.appointments = [{ time: "24 Juin 2027", name: "Bilan de prévoyance annuel Jean Dupont (Pierre)" }];
+      }
+      state.confetti = false;
     }
   }
 ];
+
+// Show Toast Notification Helper
+function showToast(message, isError = false) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast-msg cursor-hover ${isError ? 'toast-error' : ''}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${isError ? '✕' : '✓'}</span>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  // Auto remove after animation completes
+  setTimeout(() => {
+    toast.remove();
+  }, 4000);
+}
+
+// Helper to replace email templates variables
+function replaceTemplateVariables(text, client) {
+  if (!text) return "";
+  let result = text;
+  result = result.replace(/\{\{client\.name\}\}/g, client.name);
+  result = result.replace(/\{\{client\.email\}\}/g, client.email || `${client.name.toLowerCase().replace(' ', '.')}@gmail.com`);
+  result = result.replace(/\{\{client\.phone\}\}/g, client.phone || "06 00 00 00 00");
+  result = result.replace(/\{\{client\.solution\}\}/g, client.solution);
+  result = result.replace(/\{\{conseiller\.name\}\}/g, client.advisor || "Pierre");
+  return result;
+}
 
 function initDemoDashboard() {
   const modal = document.getElementById('demoDashboardModal');
@@ -715,6 +766,12 @@ function initDemoDashboard() {
         e.preventDefault();
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
+        
+        // Reset state on open
+        dashboardState.activeCategory = 'dashboard';
+        dashboardState.activeRole = 'dirigeant';
+        switchDashboardCategory('dashboard');
+        switchDashboardRole('dirigeant');
         renderScenarioStep(0); // Load step 1
       });
     }
@@ -734,11 +791,21 @@ function initDemoDashboard() {
     }
   });
 
+  // Role toggler buttons
   const dbRoleBtns = document.querySelectorAll('.db-role-btn');
   dbRoleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetRole = btn.getAttribute('data-db-role');
       switchDashboardRole(targetRole);
+    });
+  });
+
+  // Sidebar Category Links
+  const dbCategoryItems = document.querySelectorAll('.db-nav-item[data-db-category]');
+  dbCategoryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const categoryKey = item.getAttribute('data-db-category');
+      switchDashboardCategory(categoryKey);
     });
   });
 
@@ -768,9 +835,42 @@ function initDemoDashboard() {
       renderScenarioStep(0);
     });
   }
+
+  // Setup sub-view action event listeners
+  setupSubViewListeners();
+}
+
+function switchDashboardCategory(categoryKey) {
+  dashboardState.activeCategory = categoryKey;
+  
+  // Toggle sidebar items active state
+  const navItems = document.querySelectorAll('.db-nav-item[data-db-category]');
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('data-db-category') === categoryKey) {
+      item.classList.add('active');
+    }
+  });
+
+  // Toggle category panels visibility
+  const panels = document.querySelectorAll('.db-category-panel');
+  panels.forEach(panel => {
+    panel.classList.remove('active');
+  });
+
+  const targetPanel = document.getElementById(`dbCategoryPanel-${categoryKey}`);
+  if (targetPanel) {
+    targetPanel.classList.add('active');
+  }
+
+  // Update views for active role within new category
+  renderActiveViews();
 }
 
 function switchDashboardRole(roleKey) {
+  dashboardState.activeRole = roleKey;
+
+  // Toggle role button active states
   const btns = document.querySelectorAll('.db-role-btn');
   btns.forEach(btn => {
     btn.classList.remove('active');
@@ -779,29 +879,99 @@ function switchDashboardRole(roleKey) {
     }
   });
 
-  const views = document.querySelectorAll('.db-panel-view');
-  views.forEach(view => {
-    view.classList.remove('active');
-  });
+  // Render the current category view for this role
+  renderActiveViews();
+}
 
-  const targetView = document.getElementById(`dbView-${roleKey}`);
-  if (targetView) {
-    targetView.classList.add('active');
-  }
+function renderActiveViews() {
+  const role = dashboardState.activeRole;
+  const category = dashboardState.activeCategory;
 
+  // 1. Update Title and Subtitle at topbar based on category and role
   const titleEl = document.getElementById('dbViewTitle');
   const subtitleEl = document.getElementById('dbViewSubtitle');
-
-  if (roleKey === 'dirigeant') {
-    titleEl.textContent = "Vue Dirigeant — Cabinet Valaura";
-    subtitleEl.textContent = "Visualisez l'état commercial global et les dossiers bloqués.";
-  } else if (roleKey === 'conseiller') {
-    titleEl.textContent = "Vue Conseiller — Portefeuille Pierre";
-    subtitleEl.textContent = "Consultez vos tâches du jour et le suivi de vos assurés.";
-  } else if (roleKey === 'assistante') {
-    titleEl.textContent = "Vue Assistante — Back-Office";
-    subtitleEl.textContent = "Gérez la conformité réglementaire et l'agenda.";
+  
+  if (category === 'dashboard') {
+    if (role === 'dirigeant') {
+      titleEl.textContent = "Vue Dirigeant — Cabinet Valaura";
+      subtitleEl.textContent = "Visualisez l'état commercial global et les dossiers bloqués.";
+    } else if (role === 'conseiller') {
+      titleEl.textContent = "Vue Conseiller — Portefeuille Pierre";
+      subtitleEl.textContent = "Consultez vos tâches du jour et le suivi de vos assurés.";
+    } else if (role === 'assistante') {
+      titleEl.textContent = "Vue Assistante — Back-Office";
+      subtitleEl.textContent = "Gérez la conformité réglementaire et l'agenda.";
+    }
+  } else if (category === 'clients') {
+    if (role === 'dirigeant') {
+      titleEl.textContent = "Portefeuille Global — Dirigeant";
+      subtitleEl.textContent = "Supervisez tous les assurés et prospects de votre cabinet.";
+    } else if (role === 'conseiller') {
+      titleEl.textContent = "Mes Clients & Prospects — Pierre";
+      subtitleEl.textContent = "Gérez vos opportunités commerciales et vos notes de dossiers.";
+    } else if (role === 'assistante') {
+      titleEl.textContent = "Conformité & Pièces — Assistante";
+      subtitleEl.textContent = "Validez les justificatifs et débloquez les contrats d'assurance.";
+    }
+  } else if (category === 'reminders') {
+    if (role === 'dirigeant') {
+      titleEl.textContent = "Relances Automatiques — Dirigeant";
+      subtitleEl.textContent = "Suivez les performances des relances automatiques et gérez les campagnes.";
+    } else if (role === 'conseiller') {
+      titleEl.textContent = "Modèles d'Emails & Aperçus — Conseiller";
+      subtitleEl.textContent = "Rédigez vos templates d'emails de relance personnalisés.";
+    } else if (role === 'assistante') {
+      titleEl.textContent = "Historique & Dépôts Directs — Assistante";
+      subtitleEl.textContent = "Envoyez des liens de dépôt sécurisés et suivez les logs.";
+    }
+  } else if (category === 'config') {
+    if (role === 'dirigeant') {
+      titleEl.textContent = "Configuration Cabinet — Dirigeant";
+      subtitleEl.textContent = "Gérez l'équipe de collaborateurs et les options d'abonnement.";
+    } else if (role === 'conseiller') {
+      titleEl.textContent = "Mon Profil & Intégrations — Conseiller";
+      subtitleEl.textContent = "Éditez votre signature et synchronisez vos outils.";
+    } else if (role === 'assistante') {
+      titleEl.textContent = "Paramètres de Conformité — Assistante";
+      subtitleEl.textContent = "Configurez les exigences de pièces justificatives par produit.";
+    }
   }
+
+  // 2. Toggle active views for category dashboard
+  const subviewsMap = {
+    dashboard: ['dbView-dirigeant', 'dbView-conseiller', 'dbView-assistante'],
+    clients: ['dbClients-dirigeant', 'dbClients-conseiller', 'dbClients-assistante'],
+    reminders: ['dbReminders-dirigeant', 'dbReminders-conseiller', 'dbReminders-assistante'],
+    config: ['dbConfig-dirigeant', 'dbConfig-conseiller', 'dbConfig-assistante']
+  };
+
+  Object.keys(subviewsMap).forEach(cat => {
+    const list = subviewsMap[cat];
+    list.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('active');
+    });
+  });
+
+  // Show only the one matching the current category and role
+  let targetId = '';
+  if (category === 'dashboard') {
+    targetId = `dbView-${role}`;
+  } else if (category === 'clients') {
+    targetId = `dbClients-${role}`;
+  } else if (category === 'reminders') {
+    targetId = `dbReminders-${role}`;
+  } else if (category === 'config') {
+    targetId = `dbConfig-${role}`;
+  }
+
+  const targetEl = document.getElementById(targetId);
+  if (targetEl) {
+    targetEl.classList.add('active');
+  }
+
+  // 3. Render specific UI data depending on the category and role
+  renderCategorySpecificData();
 }
 
 function renderScenarioStep(stepIndex) {
@@ -813,39 +983,83 @@ function renderScenarioStep(stepIndex) {
   const stepName = document.getElementById('scStepName');
   const stepDesc = document.getElementById('scStepDesc');
 
-  progressFill.style.width = `${((stepIndex + 1) / scenarioSteps.length) * 100}%`;
-  stepsCount.textContent = `Étape ${stepIndex + 1} sur ${scenarioSteps.length}`;
-  stepName.textContent = stepData.name;
-  stepDesc.textContent = stepData.desc;
+  if (progressFill) progressFill.style.width = `${((stepIndex + 1) / scenarioSteps.length) * 100}%`;
+  if (stepsCount) stepsCount.textContent = `Étape ${stepIndex + 1} sur ${scenarioSteps.length}`;
+  if (stepName) stepName.textContent = stepData.name;
+  if (stepDesc) stepDesc.textContent = stepData.desc;
 
   const state = {
-    status: "Prospect",
-    todo: [],
-    history: [],
-    docs: { id: "Manquant", health: "Manquant", rib: "Manquant" },
-    appointments: [],
-    ca: 24500,
-    blocked: [],
-    showRelance: false,
+    role: stepData.role,
     confetti: false
   };
 
   stepData.action(state);
+  
+  // Render step on correct role and category dashboard
   switchDashboardRole(state.role || stepData.role);
+  switchDashboardCategory('dashboard');
 
   if (state.confetti) {
     fireConfetti();
   }
+}
 
+// -------------------------------------------------------------
+// Category specific rendering logic
+// -------------------------------------------------------------
+
+function renderCategorySpecificData() {
+  const role = dashboardState.activeRole;
+  const category = dashboardState.activeCategory;
+
+  // Sync Global Dashboard components with state
+  syncDashboardViews();
+
+  if (category === 'clients') {
+    if (role === 'dirigeant') {
+      renderClientsDirigeant();
+    } else if (role === 'conseiller') {
+      renderClientsConseiller();
+    } else if (role === 'assistante') {
+      renderClientsAssistante();
+    }
+  } else if (category === 'reminders') {
+    if (role === 'dirigeant') {
+      renderRemindersDirigeant();
+    } else if (role === 'conseiller') {
+      renderRemindersConseiller();
+    } else if (role === 'assistante') {
+      renderRemindersAssistante();
+    }
+  } else if (category === 'config') {
+    if (role === 'dirigeant') {
+      renderConfigDirigeant();
+    } else if (role === 'conseiller') {
+      renderConfigConseiller();
+    } else if (role === 'assistante') {
+      renderConfigAssistante();
+    }
+  }
+}
+
+// Helper to synchronise the original dashboard views with new state changes
+function syncDashboardViews() {
+  // CA Metric
   const dirCAVal = document.getElementById('dirMetricCA');
   if (dirCAVal) {
-    dirCAVal.textContent = `${state.ca.toLocaleString('fr-FR')} €`;
+    // Sum CA of all signed / active clients
+    const totalCA = dashboardState.clients
+      .filter(c => c.status === 'Signé' || c.status === 'Actif')
+      .reduce((sum, c) => sum + c.ca, 20000); // 20k base CA + dynamic clients CA
+    dirCAVal.textContent = `${totalCA.toLocaleString('fr-FR')} €`;
   }
 
+  // Blocked table (Dirigeant Dashboard)
   const blockedTableBody = document.getElementById('dirBlockedTableBody');
   if (blockedTableBody) {
     blockedTableBody.innerHTML = '';
-    if (state.blocked.length === 0) {
+    const blockedClients = dashboardState.clients.filter(c => c.status === 'Bloqué' || c.status === 'Dossier incomplet');
+    if (blockedClients.length === 0) {
       blockedTableBody.innerHTML = `
         <tr>
           <td colspan="5" style="text-align: center; color: var(--text-gray-dark); font-style: italic; padding: 2rem 0;">
@@ -854,135 +1068,754 @@ function renderScenarioStep(stepIndex) {
         </tr>
       `;
     } else {
-      state.blocked.forEach(item => {
+      blockedClients.forEach(c => {
+        let alertMsg = "Pièces manquantes";
+        if (c.docs.health === 'Manquant') alertMsg = "Questionnaire de santé manquant";
+        else if (c.docs.id === 'Manquant') alertMsg = "Identité manquante";
+        else if (c.docs.rib === 'Manquant') alertMsg = "RIB manquant";
+
         blockedTableBody.innerHTML += `
           <tr>
-            <td><strong>${item.name}</strong></td>
-            <td>${item.advisor}</td>
-            <td><span class="db-tag bg-yellow">${item.status}</span></td>
-            <td>${item.lastAction}</td>
-            <td class="red" style="font-weight: 500;">${item.alert}</td>
+            <td><strong>${c.name}</strong></td>
+            <td>${c.advisor}</td>
+            <td><span class="db-tag bg-orange">${c.status}</span></td>
+            <td>Aujourd'hui</td>
+            <td class="red" style="font-weight: 500;">${alertMsg}</td>
           </tr>
         `;
       });
     }
   }
 
-  const tasksContainer = document.getElementById('todoListContainer');
-  const tasksCountLabel = document.getElementById('counselorTasksCount');
-  
-  if (tasksContainer) {
-    tasksContainer.innerHTML = '';
-    state.todo.forEach(todoItem => {
-      tasksContainer.innerHTML += `
-        <label class="todo-item cursor-hover">
-          <input type="checkbox" ${todoItem.checked ? 'checked' : ''} disabled>
-          <span class="todo-box"></span>
-          <span class="todo-text ${todoItem.checked ? 'strike' : ''}">${todoItem.text}</span>
-        </label>
-      `;
-    });
-    
-    const uncheckedCount = state.todo.filter(t => !t.checked).length;
-    tasksCountLabel.textContent = `${uncheckedCount} tâche${uncheckedCount > 1 ? 's' : ''}`;
+  // Selected client context (Conseiller Dashboard)
+  const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId) || dashboardState.clients[0];
+  const clientSolutionVal = document.getElementById('clientSolutionVal');
+  if (clientSolutionVal && activeClient) {
+    clientSolutionVal.textContent = activeClient.solution;
   }
-
-  const statusBadge = document.getElementById('clientStatusBadge');
-  if (statusBadge) {
-    statusBadge.textContent = state.status;
-    statusBadge.className = 'db-tag';
-    if (state.status === 'Prospect') {
-      statusBadge.classList.add('bg-cyan');
-    } else if (state.status === 'Qualification en cours') {
-      statusBadge.classList.add('bg-cyan');
-    } else if (state.status === 'Pièces demandées' || state.status === 'Dossier incomplet') {
-      statusBadge.classList.add('bg-yellow');
-    } else if (state.status === 'Bloqué') {
-      statusBadge.classList.add('bg-orange');
-    } else if (state.status === 'Proposition à préparer' || state.status === 'Proposition envoyée') {
-      statusBadge.classList.add('bg-cyan');
-    } else if (state.status === 'Signé' || state.status === 'Actif') {
-      statusBadge.classList.add('bg-green');
+  
+  const clientStatusBadge = document.getElementById('clientStatusBadge');
+  if (clientStatusBadge && activeClient) {
+    clientStatusBadge.textContent = activeClient.status;
+    clientStatusBadge.className = 'db-tag';
+    if (activeClient.status === 'Prospect' || activeClient.status === 'Qualification en cours') {
+      clientStatusBadge.classList.add('bg-cyan');
+    } else if (activeClient.status === 'Pièces demandées' || activeClient.status === 'Dossier incomplet') {
+      clientStatusBadge.classList.add('bg-yellow');
+    } else if (activeClient.status === 'Bloqué') {
+      clientStatusBadge.classList.add('bg-orange');
+    } else if (activeClient.status === 'Proposition à préparer' || activeClient.status === 'Proposition envoyée') {
+      clientStatusBadge.classList.add('bg-cyan');
+    } else {
+      clientStatusBadge.classList.add('bg-green');
     }
   }
 
-  const timelineContainer = document.getElementById('clientTimeline');
-  if (timelineContainer) {
-    timelineContainer.innerHTML = '';
-    state.history.forEach((hItem, idx) => {
-      timelineContainer.innerHTML += `
+  // Timeline (Conseiller Dashboard)
+  const clientTimeline = document.getElementById('clientTimeline');
+  if (clientTimeline && activeClient) {
+    clientTimeline.innerHTML = '';
+    activeClient.notes.forEach((note, idx) => {
+      clientTimeline.innerHTML += `
         <div class="timeline-step">
           <span class="tl-dot ${idx === 0 ? 'active' : 'completed'}"></span>
           <div class="tl-content">
-            <strong>${hItem.text}</strong>
-            <span class="tl-date">${hItem.date}</span>
+            <strong>${note}</strong>
+            <span class="tl-date">Aujourd'hui</span>
           </div>
         </div>
       `;
     });
   }
 
-  const relanceAutoBox = document.getElementById('relanceAutoBox');
-  if (relanceAutoBox) {
-    relanceAutoBox.style.display = state.showRelance ? 'block' : 'none';
-  }
-
-  const docProgressBadge = document.getElementById('documentProgressBadge');
-  
-  const setDocBadge = (elId, status) => {
-    const el = document.getElementById(elId);
-    if (!el) return;
-    el.textContent = status;
-    el.className = 'db-tag';
-    if (status === 'Reçu') {
-      el.classList.add('bg-green');
-    } else if (status === 'Manquant') {
-      el.classList.add('bg-red');
+  // Todo tasks (Conseiller Dashboard)
+  const todoListContainer = document.getElementById('todoListContainer');
+  const counselorTasksCount = document.getElementById('counselorTasksCount');
+  if (todoListContainer && activeClient) {
+    todoListContainer.innerHTML = '';
+    
+    // Generate tasks list dynamically from status
+    const tasks = [];
+    if (activeClient.status === 'Prospect') {
+      tasks.push({ text: "Rappeler " + activeClient.name + " pour entretien découverte", checked: false });
+      tasks.push({ text: "Lancer la qualification commerciale", checked: false });
+    } else if (activeClient.status === 'Qualification en cours') {
+      tasks.push({ text: "Rappeler " + activeClient.name + " pour entretien découverte", checked: true });
+      tasks.push({ text: "Planifier l'entretien d'analyse de risques", checked: false });
+    } else if (activeClient.status === 'Pièces demandées') {
+      tasks.push({ text: "Entretien d'analyse terminé", checked: true });
+      tasks.push({ text: "Relancer le client pour les pièces (Identity, RIB, Santé)", checked: false });
+    } else if (activeClient.status === 'Dossier incomplet' || activeClient.status === 'Bloqué') {
+      tasks.push({ text: "Relancer le client pour dossier de pièces", checked: false });
+      if (activeClient.docs.id === 'Manquant') tasks.push({ text: "Vérifier pièce d'identité", checked: false });
+      if (activeClient.docs.health === 'Manquant') tasks.push({ text: "Vérifier questionnaire médical", checked: false });
+    } else if (activeClient.status === 'Proposition à préparer') {
+      tasks.push({ text: "Calculer les tarifs prévoyance", checked: false });
+      tasks.push({ text: "Rédiger et envoyer la proposition commerciale", checked: false });
+    } else if (activeClient.status === 'Proposition envoyée') {
+      tasks.push({ text: "Proposition commerciale envoyée", checked: true });
+      tasks.push({ text: "Suivre la signature électronique du contrat", checked: false });
+    } else if (activeClient.status === 'Signé') {
+      tasks.push({ text: "Contrat signé par le client", checked: true });
+      tasks.push({ text: "Activer la couverture et paramétrer les prélèvements", checked: false });
     } else {
-      el.classList.add('bg-yellow');
+      tasks.push({ text: "Contrat actif et validé", checked: true });
+      tasks.push({ text: "Bilan annuel d'assurance planifié", checked: true });
     }
-  };
 
-  setDocBadge('docStatus1', state.docs.id);
-  setDocBadge('docStatus2', state.docs.health);
-  setDocBadge('docStatus3', state.docs.rib);
-
-  if (docProgressBadge) {
-    let receivedCount = 0;
-    if (state.docs.id === 'Reçu') receivedCount++;
-    if (state.docs.health === 'Reçu') receivedCount++;
-    if (state.docs.rib === 'Reçu') receivedCount++;
-    docProgressBadge.textContent = `${receivedCount}/3 Reçus`;
-    docProgressBadge.className = 'db-card-badge';
-    if (receivedCount === 3) {
-      docProgressBadge.classList.add('bg-green');
-      docProgressBadge.style.color = '#38A169';
-    } else {
-      docProgressBadge.classList.add('red');
-    }
-  }
-
-  const apptContainer = document.getElementById('appointmentsContainer');
-  if (apptContainer) {
-    apptContainer.innerHTML = '';
-    if (state.appointments.length === 0) {
-      apptContainer.innerHTML = `
-        <div style="text-align: center; color: var(--text-gray-dark); padding: 2rem 0; font-style: italic; font-size: 0.85rem;">
-          Aucun rendez-vous planifié.
-        </div>
+    tasks.forEach(t => {
+      todoListContainer.innerHTML += `
+        <label class="todo-item cursor-hover">
+          <input type="checkbox" ${t.checked ? 'checked' : ''} disabled>
+          <span class="todo-box"></span>
+          <span class="todo-text ${t.checked ? 'strike' : ''}">${t.text}</span>
+        </label>
       `;
-    } else {
-      state.appointments.forEach(app => {
-        apptContainer.innerHTML += `
-          <div style="padding: 1rem; background: rgba(255, 255, 255, 0.02); border-left: 3px solid var(--color-primary); border-radius: 4px; margin-bottom: 0.75rem;">
-            <span style="font-size: 0.75rem; color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.25rem;">${app.time}</span>
-            <strong style="color: #fff; font-size: 0.9rem;">${app.name}</strong>
-          </div>
-        `;
-      });
+    });
+
+    const unchecked = tasks.filter(t => !t.checked).length;
+    if (counselorTasksCount) {
+      counselorTasksCount.textContent = `${unchecked} tâche${unchecked > 1 ? 's' : ''}`;
+    }
+  }
+
+  // Documents check list (Assistante Dashboard)
+  const documentProgressBadge = document.getElementById('documentProgressBadge');
+  const docStatus1 = document.getElementById('docStatus1');
+  const docStatus2 = document.getElementById('docStatus2');
+  const docStatus3 = document.getElementById('docStatus3');
+
+  if (activeClient) {
+    const setStatusClass = (el, val) => {
+      if (!el) return;
+      el.textContent = val;
+      el.className = 'db-tag';
+      if (val === 'Reçu') el.classList.add('bg-green');
+      else if (val === 'Manquant') el.classList.add('bg-red');
+      else el.classList.add('bg-yellow');
+    };
+
+    setStatusClass(docStatus1, activeClient.docs.id);
+    setStatusClass(docStatus2, activeClient.docs.health);
+    setStatusClass(docStatus3, activeClient.docs.rib);
+
+    let count = 0;
+    if (activeClient.docs.id === 'Reçu') count++;
+    if (activeClient.docs.health === 'Reçu') count++;
+    if (activeClient.docs.rib === 'Reçu') count++;
+
+    if (documentProgressBadge) {
+      documentProgressBadge.textContent = `${count}/3 Reçus`;
+      documentProgressBadge.className = 'db-card-badge';
+      if (count === 3) {
+        documentProgressBadge.classList.add('bg-green');
+        documentProgressBadge.style.color = '#38A169';
+      } else {
+        documentProgressBadge.classList.add('red');
+      }
     }
   }
 }
+
+// 2.1 Render Clients Dirigeant Tab
+function renderClientsDirigeant() {
+  const table = document.getElementById('tableClientsDirigeant');
+  if (!table) return;
+
+  const searchQuery = document.getElementById('searchClientDirigeant').value.toLowerCase();
+  const statusFilter = document.getElementById('filterStatusDirigeant').value;
+
+  table.innerHTML = '';
+  
+  const filtered = dashboardState.clients.filter(c => {
+    const matchesSearch = c.name.toLowerCase().includes(searchQuery) || c.advisor.toLowerCase().includes(searchQuery);
+    const matchesStatus = statusFilter === 'all' || c.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  if (filtered.length === 0) {
+    table.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; color: var(--text-gray-dark); padding: 2rem;">
+          Aucun client trouvé.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  filtered.forEach(c => {
+    let statusClass = 'bg-cyan';
+    if (c.status === 'Bloqué') statusClass = 'bg-red';
+    else if (c.status === 'Dossier incomplet' || c.status === 'Pièces demandées') statusClass = 'bg-yellow';
+    else if (c.status === 'Signé' || c.status === 'Actif') statusClass = 'bg-green';
+
+    table.innerHTML += `
+      <tr class="cursor-hover">
+        <td><strong>${c.name}</strong></td>
+        <td>${c.solution}</td>
+        <td>${c.advisor}</td>
+        <td><strong>${c.ca.toLocaleString('fr-FR')} €</strong></td>
+        <td><span class="db-tag ${statusClass}">${c.status}</span></td>
+        <td>
+          <button class="db-tag bg-cyan cursor-hover btn-dir-details" data-client-id="${c.id}" style="border: none; cursor: none;">Ouvrir</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  // Action listeners for "Ouvrir" details
+  const detailBtns = table.querySelectorAll('.btn-dir-details');
+  detailBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clientId = parseInt(btn.getAttribute('data-client-id'));
+      dashboardState.selectedClientId = clientId;
+      switchDashboardRole('conseiller');
+      switchDashboardCategory('dashboard');
+      showToast(`Fiche de ${dashboardState.clients.find(c => c.id === clientId).name} ouverte.`);
+    });
+  });
+}
+
+// 2.2 Render Clients Conseiller Tab
+function renderClientsConseiller() {
+  const table = document.getElementById('tableClientsConseiller');
+  if (!table) return;
+
+  const searchQuery = document.getElementById('searchClientConseiller').value.toLowerCase();
+  
+  table.innerHTML = '';
+  
+  // Show all clients but user can select
+  const filtered = dashboardState.clients.filter(c => {
+    return c.name.toLowerCase().includes(searchQuery);
+  });
+
+  filtered.forEach(c => {
+    const isSelected = c.id === dashboardState.selectedClientId;
+    let statusClass = 'bg-cyan';
+    if (c.status === 'Bloqué') statusClass = 'bg-red';
+    else if (c.status === 'Dossier incomplet') statusClass = 'bg-yellow';
+    else if (c.status === 'Signé' || c.status === 'Actif') statusClass = 'bg-green';
+
+    table.innerHTML += `
+      <tr style="${isSelected ? 'background: rgba(143,174,166,0.06); border-left: 2px solid var(--color-primary);' : ''}">
+        <td><strong>${c.name}</strong></td>
+        <td style="font-size: 0.75rem; color: var(--text-gray-light);">${c.solution}</td>
+        <td><span class="db-tag ${statusClass}">${c.status}</span></td>
+        <td>
+          <button class="db-tag ${isSelected ? 'bg-green' : 'bg-cyan'} cursor-hover btn-select-client" data-client-id="${c.id}" style="border: none; cursor: none;">
+            ${isSelected ? 'Actif' : 'Sélectionner'}
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+
+  // Active client details
+  const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId) || dashboardState.clients[0];
+  const notesCardTitle = document.getElementById('notesCardTitle');
+  if (notesCardTitle) notesCardTitle.textContent = `Notes & Activité : ${activeClient.name}`;
+
+  const notesContainer = document.getElementById('notesContainer');
+  if (notesContainer) {
+    notesContainer.innerHTML = '';
+    activeClient.notes.forEach(note => {
+      notesContainer.innerHTML += `
+        <div style="padding: 0.75rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px;">
+          <p style="font-size: 0.8rem; color: #fff; margin: 0; line-height: 1.4;">${note}</p>
+          <span style="font-size: 0.65rem; color: var(--text-gray-dark); margin-top: 0.25rem; display: block;">Rédigé aujourd'hui par Pierre</span>
+        </div>
+      `;
+    });
+  }
+
+  // Bind Select buttons
+  const selectBtns = table.querySelectorAll('.btn-select-client');
+  selectBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clientId = parseInt(btn.getAttribute('data-client-id'));
+      dashboardState.selectedClientId = clientId;
+      renderClientsConseiller();
+    });
+  });
+}
+
+// 2.3 Render Clients Assistante Tab
+function renderClientsAssistante() {
+  const table = document.getElementById('tableClientsAssistante');
+  if (!table) return;
+
+  table.innerHTML = '';
+  
+  dashboardState.clients.forEach(c => {
+    const isSelected = c.id === dashboardState.selectedClientId;
+    
+    const getBadgeHTML = (val) => {
+      let cl = 'bg-red';
+      if (val === 'Reçu') cl = 'bg-green';
+      else if (val === 'En attente') cl = 'bg-yellow';
+      return `<span class="db-tag ${cl}">${val}</span>`;
+    };
+
+    table.innerHTML += `
+      <tr style="${isSelected ? 'background: rgba(143,174,166,0.06); border-left: 2px solid var(--color-primary);' : ''}">
+        <td><strong>${c.name}</strong></td>
+        <td>${getBadgeHTML(c.docs.id)}</td>
+        <td>${getBadgeHTML(c.docs.rib)}</td>
+        <td>${getBadgeHTML(c.docs.health)}</td>
+        <td>
+          <button class="db-tag bg-cyan cursor-hover btn-select-assist-client" data-client-id="${c.id}" style="border: none; cursor: none;">
+            Gérer
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+
+  // Active client doc configuration panel
+  const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId) || dashboardState.clients[0];
+  const docManageTitle = document.getElementById('docManageTitle');
+  if (docManageTitle) docManageTitle.textContent = `Gestion des pièces : ${activeClient.name}`;
+
+  const setBtnState = (btnId, status) => {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    btn.textContent = status === 'Reçu' ? 'Reçu ✓' : 'Charger';
+    btn.className = 'db-tag cursor-hover';
+    if (status === 'Reçu') {
+      btn.classList.add('bg-green');
+    } else {
+      btn.classList.add('bg-yellow');
+    }
+  };
+
+  setBtnState('btnToggleDoc1', activeClient.docs.id);
+  setBtnState('btnToggleDoc2', activeClient.docs.health);
+  setBtnState('btnToggleDoc3', activeClient.docs.rib);
+
+  // Bind manage selection
+  const selectBtns = table.querySelectorAll('.btn-select-assist-client');
+  selectBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clientId = parseInt(btn.getAttribute('data-client-id'));
+      dashboardState.selectedClientId = clientId;
+      renderClientsAssistante();
+    });
+  });
+}
+
+// 3.1 Render Reminders Dirigeant Tab
+function renderRemindersDirigeant() {
+  // Setup campaigns checkboxes correctly matching state
+  Object.keys(dashboardState.campaigns).forEach(campaignKey => {
+    const checkbox = document.querySelector(`.toggle-campaign[data-campaign="${campaignKey}"]`);
+    if (checkbox) {
+      checkbox.checked = dashboardState.campaigns[campaignKey];
+    }
+  });
+}
+
+// 3.2 Render Reminders Conseiller Tab
+function renderRemindersConseiller() {
+  const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId) || dashboardState.clients[0];
+  const selectTemplate = document.getElementById('selectEmailTemplate');
+  
+  if (!selectTemplate) return;
+
+  const currentTemplateKey = selectTemplate.value;
+  const template = dashboardState.emailTemplates[currentTemplateKey];
+
+  const subjectInput = document.getElementById('inputEmailSubject');
+  const bodyTextarea = document.getElementById('inputEmailBody');
+
+  if (subjectInput && bodyTextarea) {
+    subjectInput.value = template.subject;
+    bodyTextarea.value = template.body;
+  }
+
+  // Render Aperçu Dynamique
+  renderEmailPreview(activeClient);
+}
+
+function renderEmailPreview(client) {
+  const subjectInput = document.getElementById('inputEmailSubject');
+  const bodyTextarea = document.getElementById('inputEmailBody');
+  const previewSubject = document.getElementById('previewSubject');
+  const previewBody = document.getElementById('previewBody');
+  const previewTo = document.getElementById('previewTo');
+
+  if (!subjectInput || !previewSubject) return;
+
+  previewTo.textContent = client.email;
+  previewSubject.textContent = replaceTemplateVariables(subjectInput.value, client);
+  previewBody.textContent = replaceTemplateVariables(bodyTextarea.value, client);
+}
+
+// 3.3 Render Reminders Assistante Tab
+function renderRemindersAssistante() {
+  const table = document.getElementById('tableReminderLogs');
+  if (!table) return;
+
+  table.innerHTML = '';
+  dashboardState.reminderLogs.forEach(log => {
+    table.innerHTML += `
+      <tr>
+        <td style="font-size: 0.75rem; color: var(--text-gray-light);">${log.date}</td>
+        <td><strong>${log.client}</strong></td>
+        <td>${log.channel}</td>
+        <td>${log.type}</td>
+        <td><span class="db-tag bg-green">${log.status}</span></td>
+      </tr>
+    `;
+  });
+
+  // Populate link destination select dropdown
+  const select = document.getElementById('selectLinkDest');
+  if (select) {
+    select.innerHTML = '';
+    dashboardState.clients.forEach(c => {
+      select.innerHTML += `<option value="${c.id}">${c.name} (${c.status})</option>`;
+    });
+  }
+}
+
+// 4.1 Render Config Dirigeant Tab
+function renderConfigDirigeant() {
+  const table = document.getElementById('tableCabinetTeam');
+  if (!table) return;
+
+  table.innerHTML = '';
+  dashboardState.team.forEach(t => {
+    let roleName = "Dirigeant";
+    if (t.role === 'conseiller') roleName = "Conseiller";
+    else if (t.role === 'assistante') roleName = "Assistante Admin";
+
+    table.innerHTML += `
+      <tr>
+        <td><strong>${t.name}</strong></td>
+        <td>${t.email}</td>
+        <td>${roleName}</td>
+        <td><span class="db-tag bg-cyan">${t.status}</span></td>
+      </tr>
+    `;
+  });
+}
+
+// 4.2 Render Config Conseiller Tab
+function renderConfigConseiller() {
+  // Integrations buttons styling
+  Object.keys(dashboardState.integrations).forEach(tool => {
+    const isConnected = dashboardState.integrations[tool];
+    const btn = document.querySelector(`.btn-sync[data-tool="${tool}"]`);
+    if (btn) {
+      if (isConnected) {
+        btn.textContent = 'Connecté ✓';
+        btn.className = 'db-tag bg-green connected';
+      } else {
+        btn.textContent = 'Connecter';
+        btn.className = 'db-tag bg-cyan cursor-hover btn-sync';
+      }
+    }
+  });
+}
+
+// 4.3 Render Config Assistante Tab
+function renderConfigConfig() {
+  // Not used but defined to avoid exceptions
+}
+
+function renderConfigAssistante() {
+  const container = document.getElementById('docRequirementsChecklist');
+  if (!container) return;
+
+  const product = document.getElementById('configProductSelect').value;
+  const docs = dashboardState.mandatoryDocs[product];
+
+  container.innerHTML = '';
+  docs.forEach((doc, idx) => {
+    container.innerHTML += `
+      <label class="config-req-item cursor-hover">
+        <input type="checkbox" class="chk-doc-req" data-product="${product}" data-index="${idx}" ${doc.required ? 'checked' : ''}>
+        <span>${doc.name} (Obligatoire)</span>
+      </label>
+    `;
+  });
+
+  // Bind checkbox changes
+  const checkboxes = container.querySelectorAll('.chk-doc-req');
+  checkboxes.forEach(chk => {
+    chk.addEventListener('change', () => {
+      const prod = chk.getAttribute('data-product');
+      const index = parseInt(chk.getAttribute('data-index'));
+      dashboardState.mandatoryDocs[prod][index].required = chk.checked;
+      showToast(`Exigence mise à jour pour le produit.`);
+    });
+  });
+}
+
+// -------------------------------------------------------------
+// Bind Action Event Listeners across sub-views
+// -------------------------------------------------------------
+function setupSubViewListeners() {
+  // 1. Live clients search inputs
+  const searchDir = document.getElementById('searchClientDirigeant');
+  if (searchDir) {
+    searchDir.addEventListener('input', () => renderClientsDirigeant());
+  }
+
+  const filterStatusDir = document.getElementById('filterStatusDirigeant');
+  if (filterStatusDir) {
+    filterStatusDir.addEventListener('change', () => renderClientsDirigeant());
+  }
+
+  const searchCons = document.getElementById('searchClientConseiller');
+  if (searchCons) {
+    searchCons.addEventListener('input', () => renderClientsConseiller());
+  }
+
+  // 2. Form add client modal triggers
+  const openAddBtn = document.getElementById('btnOpenAddClientModal');
+  const addModal = document.getElementById('addClientModal');
+  const addClose = document.getElementById('addClientClose');
+  const addOverlay = document.getElementById('addClientOverlay');
+
+  if (openAddBtn && addModal) {
+    openAddBtn.addEventListener('click', () => {
+      addModal.classList.add('open');
+    });
+
+    const closeAddModal = () => addModal.classList.remove('open');
+    if (addClose) addClose.addEventListener('click', closeAddModal);
+    if (addOverlay) addOverlay.addEventListener('click', closeAddModal);
+  }
+
+  // Submit client form
+  const formAddClient = document.getElementById('formAddClient');
+  if (formAddClient) {
+    formAddClient.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('newClientName').value;
+      const solution = document.getElementById('newClientSolution').value;
+      const phone = document.getElementById('newClientPhone').value;
+      const email = document.getElementById('newClientEmail').value;
+
+      const newId = dashboardState.clients.length + 1;
+      const newClientObj = {
+        id: newId,
+        name: name,
+        solution: solution,
+        advisor: "Pierre",
+        ca: 1500,
+        status: "Prospect",
+        docs: { id: "Manquant", health: "Manquant", rib: "Manquant" },
+        notes: ["Prospect créé manuellement par formulaire de saisie."],
+        phone: phone,
+        email: email,
+        appointments: []
+      };
+
+      dashboardState.clients.push(newClientObj);
+      dashboardState.selectedClientId = newId;
+
+      if (addModal) addModal.classList.remove('open');
+      formAddClient.reset();
+
+      renderClientsConseiller();
+      showToast(`Prospect ${name} ajouté avec succès !`);
+    });
+  }
+
+  // 3. Notes adding trigger
+  const btnSaveNote = document.getElementById('btnSaveNote');
+  if (btnSaveNote) {
+    btnSaveNote.addEventListener('click', () => {
+      const input = document.getElementById('inputNewNote');
+      if (!input || !input.value.trim()) return;
+
+      const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId);
+      if (activeClient) {
+        activeClient.notes.unshift(input.value.trim());
+        input.value = '';
+        renderClientsConseiller();
+        showToast("Note ajoutée au dossier.");
+      }
+    });
+  }
+
+  // 4. Document uploader toggles
+  const docBtns = ['btnToggleDoc1', 'btnToggleDoc2', 'btnToggleDoc3'];
+  docBtns.forEach((btnId, idx) => {
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId);
+        if (!activeClient) return;
+
+        const docKey = idx === 0 ? 'id' : idx === 1 ? 'health' : 'rib';
+        const currentStatus = activeClient.docs[docKey];
+        const nextStatus = currentStatus === 'Reçu' ? 'Manquant' : 'Reçu';
+        
+        activeClient.docs[docKey] = nextStatus;
+        
+        // Auto alert/status resolution
+        if (activeClient.docs.id === 'Reçu' && activeClient.docs.health === 'Reçu' && activeClient.docs.rib === 'Reçu') {
+          activeClient.status = "Proposition à préparer";
+          activeClient.notes.unshift("Toutes les pièces de conformité ont été validées.");
+        } else if (activeClient.status === 'Proposition à préparer') {
+          activeClient.status = "Dossier incomplet";
+        }
+
+        renderClientsAssistante();
+        showToast(`Statut du document mis à jour : ${nextStatus}`);
+      });
+    }
+  });
+
+  // 5. Validate client file directly
+  const btnValDossier = document.getElementById('btnValidateDossier');
+  if (btnValDossier) {
+    btnValDossier.addEventListener('click', () => {
+      const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId);
+      if (activeClient) {
+        activeClient.docs.id = 'Reçu';
+        activeClient.docs.health = 'Reçu';
+        activeClient.docs.rib = 'Reçu';
+        activeClient.status = "Proposition à préparer";
+        activeClient.notes.unshift("Dossier de conformité validé manuellement par Julie.");
+        
+        renderClientsAssistante();
+        showToast(`Le dossier de ${activeClient.name} a été validé commercialement !`);
+      }
+    });
+  }
+
+  // 6. Campaign switch checkboxes listeners
+  const chkCampaigns = document.querySelectorAll('.toggle-campaign');
+  chkCampaigns.forEach(chk => {
+    chk.addEventListener('change', () => {
+      const campaignKey = chk.getAttribute('data-campaign');
+      dashboardState.campaigns[campaignKey] = chk.checked;
+      showToast(`Campagne ${campaignKey} ${chk.checked ? 'activée' : 'désactivée'}.`);
+    });
+  });
+
+  // 7. Email templates selections & inputs
+  const selectTemplate = document.getElementById('selectEmailTemplate');
+  if (selectTemplate) {
+    selectTemplate.addEventListener('change', () => {
+      renderRemindersConseiller();
+    });
+  }
+
+  const emailSubject = document.getElementById('inputEmailSubject');
+  if (emailSubject) {
+    emailSubject.addEventListener('input', () => {
+      const select = document.getElementById('selectEmailTemplate');
+      dashboardState.emailTemplates[select.value].subject = emailSubject.value;
+      const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId);
+      renderEmailPreview(activeClient);
+    });
+  }
+
+  const emailBody = document.getElementById('inputEmailBody');
+  if (emailBody) {
+    emailBody.addEventListener('input', () => {
+      const select = document.getElementById('selectEmailTemplate');
+      dashboardState.emailTemplates[select.value].body = emailBody.value;
+      const activeClient = dashboardState.clients.find(c => c.id === dashboardState.selectedClientId);
+      renderEmailPreview(activeClient);
+    });
+  }
+
+  const btnTestEmail = document.getElementById('btnTestEmail');
+  if (btnTestEmail) {
+    btnTestEmail.addEventListener('click', () => {
+      showToast("Email de test envoyé à l'adresse conseiller !");
+    });
+  }
+
+  const btnSaveTemplate = document.getElementById('btnSaveTemplate');
+  if (btnSaveTemplate) {
+    btnSaveTemplate.addEventListener('click', () => {
+      showToast("Modèle d'email sauvegardé avec succès.");
+    });
+  }
+
+  // 8. Direct deposits links sending Form
+  const formSendLink = document.getElementById('formSendDirectLink');
+  if (formSendLink) {
+    formSendLink.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const clientId = parseInt(document.getElementById('selectLinkDest').value);
+      const channel = formSendLink.elements['linkChannel'].value;
+      const client = dashboardState.clients.find(c => c.id === clientId);
+
+      if (client) {
+        // Add log entry
+        dashboardState.reminderLogs.unshift({
+          date: "À l'instant",
+          client: client.name,
+          channel: channel === 'sms' ? 'SMS' : 'Email',
+          type: "Lien Dépôt Pièces",
+          status: "Envoyé"
+        });
+
+        renderRemindersAssistante();
+        showToast(`Lien de dépôt envoyé à ${client.name} par ${channel.toUpperCase()} !`);
+      }
+    });
+  }
+
+  // 9. Add collaborator form submission
+  const formAddTeam = document.getElementById('formAddTeamMember');
+  if (formAddTeam) {
+    formAddTeam.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('teamName').value;
+      const email = document.getElementById('teamEmail').value;
+      const role = document.getElementById('teamRole').value;
+
+      dashboardState.team.push({
+        name: name,
+        email: email,
+        role: role,
+        status: "Actif"
+      });
+
+      formAddTeam.reset();
+      renderConfigDirigeant();
+      showToast(`Collaborateur ${name} invité !`);
+    });
+  }
+
+  // 10. Sync connections buttons
+  const btnSyncs = document.querySelectorAll('.btn-sync');
+  btnSyncs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tool = btn.getAttribute('data-tool');
+      if (dashboardState.integrations[tool]) return; // Already connected
+
+      btn.innerHTML = `<span style="display:inline-block; animation: rotateRing 1s linear infinite; margin-right: 5px;">⏳</span> Connexion...`;
+      
+      setTimeout(() => {
+        dashboardState.integrations[tool] = true;
+        renderConfigConseiller();
+        showToast(`Intégration ${tool.replace('-', ' ')} connectée !`);
+      }, 1000);
+    });
+  });
+
+  // 11. Configuration product change for assistante checklist requirements
+  const productSelect = document.getElementById('configProductSelect');
+  if (productSelect) {
+    productSelect.addEventListener('change', () => {
+      renderConfigAssistante();
+    });
+  }
+}
+
 
 /* 10. Confetti Celebration System (Native HTML5 Canvas Particle System) */
 function fireConfetti() {
