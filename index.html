@@ -135,7 +135,7 @@
 
       <div class="header-actions">
         <button class="btn btn-primary cursor-hover" id="openDemoBtnHeader">
-          <span>Démo Privée</span>
+          <span>Dashboard</span>
           <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -868,7 +868,6 @@
         <aside class="dashboard-sidebar">
           <div class="db-logo-area">
             <img src="/src/assets/Valaura.png" alt="Valaura Logo" class="db-logo">
-            <span class="db-demo-tag">Démo Live</span>
           </div>
 
           <nav class="db-nav">
@@ -1787,7 +1786,7 @@ Tél : 06 88 99 00 11</textarea>
   
   <!-- PWA Service Worker Registration -->
   <script>
-    if ('serviceWorker' in navigator && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.startsWith('192.168.')) {
+    if ('serviceWorker' in navigator && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.endsWith('.vercel.app') && !window.location.hostname.startsWith('192.168.')) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then(reg => console.log('Service Worker registered!'))
