@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valaura | Logiciel de Suivi Commercial & Client pour Cabinet de Prévoyance</title>
   <meta name="description" content="Valaura centralise, organise et automatise le suivi commercial des cabinets de prévoyance. Augmentez vos contrats signés et libérez du temps administratif pour vos équipes.">
-  <link rel="icon" type="image/png" href="/src/assets/umbrella.png">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0A0E17">
+
+  <!-- Apple Mobile Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Valaura">
   
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1220,5 +1228,16 @@
 
   <!-- Main JavaScript Bundle -->
   <script type="module" src="/src/js/main.js"></script>
+  
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker registered!'))
+          .catch(err => console.log('Service Worker registration failed: ', err));
+      });
+    }
+  </script>
 </body>
 </html>
