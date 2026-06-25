@@ -22,6 +22,41 @@
   
   <!-- Custom stylesheet -->
   <link rel="stylesheet" href="/src/css/main.css">
+
+  <!-- Temporary Client Highlight Styles -->
+  <style>
+    .client-logo-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem 0 2rem 0;
+      padding: 1.25rem 2.5rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .client-logo-glow {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(143, 174, 166, 0.25) 0%, rgba(216, 180, 143, 0.15) 50%, transparent 70%);
+      filter: blur(20px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .client-logo-img {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+    }
+  </style>
 </head>
 <body>
 
@@ -79,6 +114,12 @@
 
 
         <h1 class="hero-title reveal-split">Combien de contrats potentiels perdez-vous chaque mois par manque de relance ?</h1>
+        
+        <!-- Custom Client Highlight (si.png) -->
+        <div class="client-logo-wrapper reveal-fade-delay">
+          <div class="client-logo-glow"></div>
+          <img src="/src/assets/si.png" alt="Client Logo" class="client-logo-img">
+        </div>
         
         <p class="hero-subtitle reveal-fade-delay">
           Valaura permet à chaque conseiller de savoir exactement quels clients contacter et quelles actions effectuer. L'outil qui organise votre cabinet, sécurise le suivi commercial et libère du temps pour vos clients.
