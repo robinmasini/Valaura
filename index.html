@@ -973,7 +973,7 @@
                 </div>
 
                 <!-- Content split grid -->
-                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                <div class="db-split-grid cols-13-10" style="margin-top: 1.5rem;">
                   
                   <!-- Table of blocked dossiers (crucial point 3) -->
                   <div class="db-table-card">
@@ -981,34 +981,36 @@
                       <h4 class="db-card-title">Dossiers bloqués / Actions requises</h4>
                       <span class="db-card-badge red">Alerte</span>
                     </div>
-                    <table class="db-table">
-                      <thead>
-                        <tr>
-                          <th>Client</th>
-                          <th>Conseiller</th>
-                          <th>Statut</th>
-                          <th>Dernière Action</th>
-                          <th>Alerte</th>
-                        </tr>
-                      </thead>
-                      <tbody id="dirBlockedTableBody">
-                        <!-- Populated via JS -->
-                        <tr>
-                          <td>Antoine Martin</td>
-                          <td>Pierre</td>
-                          <td><span class="db-tag bg-yellow">En attente pièces</span></td>
-                          <td>Il y a 6 jours</td>
-                          <td class="red">Facture manquante</td>
-                        </tr>
-                        <tr>
-                          <td>Sophie Bertrand</td>
-                          <td>Marie</td>
-                          <td><span class="db-tag bg-orange">Proposition faite</span></td>
-                          <td>Il y a 8 jours</td>
-                          <td class="red">Sans relance depuis 8j</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Client</th>
+                            <th>Conseiller</th>
+                            <th>Statut</th>
+                            <th>Dernière Action</th>
+                            <th>Alerte</th>
+                          </tr>
+                        </thead>
+                        <tbody id="dirBlockedTableBody">
+                          <!-- Populated via JS -->
+                          <tr>
+                            <td>Antoine Martin</td>
+                            <td>Pierre</td>
+                            <td><span class="db-tag bg-yellow">En attente pièces</span></td>
+                            <td>Il y a 6 jours</td>
+                            <td class="red">Facture manquante</td>
+                          </tr>
+                          <tr>
+                            <td>Sophie Bertrand</td>
+                            <td>Marie</td>
+                            <td><span class="db-tag bg-orange">Proposition faite</span></td>
+                            <td>Il y a 8 jours</td>
+                            <td class="red">Sans relance depuis 8j</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <!-- Opportunities and team distribution -->
@@ -1048,7 +1050,7 @@
               <div class="db-panel-view" id="dbView-conseiller">
                 
                 <!-- Counselor main content grid -->
-                <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-10-13">
                   
                   <!-- Tasks List (crucial point 3) -->
                   <div class="db-table-card">
@@ -1081,7 +1083,7 @@
 
                     <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
                       
-                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                      <div class="db-split-grid cols-equal" style="gap: 1rem; background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
                         <div>
                           <span style="font-size: 0.75rem; color: var(--text-gray-light); display: block;">Téléphone</span>
                           <span style="font-size: 0.9rem; color: #fff;">06 12 34 56 78</span>
@@ -1132,7 +1134,7 @@
               <!-- ============================== -->
               <div class="db-panel-view" id="dbView-assistante">
                 
-                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-12-10">
                   
                   <!-- Centralized Documents Checklist (crucial point 3) -->
                   <div class="db-table-card">
@@ -1230,27 +1232,29 @@
                       </select>
                     </div>
                   </div>
-                  <table class="db-table">
-                    <thead>
-                      <tr>
-                        <th>Client</th>
-                        <th>Type contrat</th>
-                        <th>Conseiller</th>
-                        <th>Portefeuille</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tableClientsDirigeant">
-                      <!-- Dynamically populated -->
-                    </tbody>
-                  </table>
+                  <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Client</th>
+                            <th>Type contrat</th>
+                            <th>Conseiller</th>
+                            <th>Portefeuille</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableClientsDirigeant">
+                          <!-- Dynamically populated -->
+                        </tbody>
+                      </table>
+                    </div>
                 </div>
               </div>
 
               <!-- 2.2 CONSEILLER CLIENTS VIEW -->
               <div class="db-panel-view" id="dbClients-conseiller">
-                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-12-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
@@ -1260,19 +1264,21 @@
                         <button class="btn btn-primary cursor-hover" id="btnOpenAddClientModal" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">+ Prospect</button>
                       </div>
                     </div>
-                    <table class="db-table">
-                      <thead>
-                        <tr>
-                          <th>Client</th>
-                          <th>Solution</th>
-                          <th>Statut</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tableClientsConseiller">
-                        <!-- Dynamically populated -->
-                      </tbody>
-                    </table>
+                    <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Client</th>
+                            <th>Solution</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableClientsConseiller">
+                          <!-- Dynamically populated -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <div class="db-table-card">
@@ -1295,26 +1301,28 @@
 
               <!-- 2.3 ASSISTANTE CLIENTS VIEW -->
               <div class="db-panel-view" id="dbClients-assistante">
-                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-13-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
                       <h4 class="db-card-title">Suivi des Pièces Justificatives</h4>
                     </div>
-                    <table class="db-table">
-                      <thead>
-                        <tr>
-                          <th>Client</th>
-                          <th>CNI</th>
-                          <th>RIB</th>
-                          <th>Q. Médical</th>
-                          <th>Dossier</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tableClientsAssistante">
-                        <!-- Dynamically populated -->
-                      </tbody>
-                    </table>
+                    <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Client</th>
+                            <th>CNI</th>
+                            <th>RIB</th>
+                            <th>Q. Médical</th>
+                            <th>Dossier</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableClientsAssistante">
+                          <!-- Dynamically populated -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <div class="db-table-card">
@@ -1377,7 +1385,7 @@
                   </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-12-10">
                   <div class="db-table-card">
                     <div class="db-card-header">
                       <h4 class="db-card-title">Campagnes de Relances Automatiques</h4>
@@ -1446,7 +1454,7 @@
 
               <!-- 3.2 CONSEILLER REMINDERS VIEW -->
               <div class="db-panel-view" id="dbReminders-conseiller">
-                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-12-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
@@ -1494,26 +1502,28 @@
 
               <!-- 3.3 ASSISTANTE REMINDERS VIEW -->
               <div class="db-panel-view" id="dbReminders-assistante">
-                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-13-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
                       <h4 class="db-card-title">Historique des Communications Récentes</h4>
                     </div>
-                    <table class="db-table">
-                      <thead>
-                        <tr>
-                          <th>Date</th>
-                          <th>Client</th>
-                          <th>Canal</th>
-                          <th>Type d'envoi</th>
-                          <th>Statut</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tableReminderLogs">
-                        <!-- Dynamically populated -->
-                      </tbody>
-                    </table>
+                    <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Canal</th>
+                            <th>Type d'envoi</th>
+                            <th>Statut</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableReminderLogs">
+                          <!-- Dynamically populated -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <div class="db-table-card">
@@ -1562,25 +1572,27 @@
               
               <!-- 4.1 DIRIGEANT CONFIG VIEW -->
               <div class="db-panel-view" id="dbConfig-dirigeant">
-                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-13-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
                       <h4 class="db-card-title">Gestion de l'Équipe du Cabinet</h4>
                     </div>
-                    <table class="db-table">
-                      <thead>
-                        <tr>
-                          <th>Collaborateur</th>
-                          <th>Email</th>
-                          <th>Rôle</th>
-                          <th>Statut</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tableCabinetTeam">
-                        <!-- Dynamically populated -->
-                      </tbody>
-                    </table>
+                    <div class="db-table-wrapper">
+                      <table class="db-table">
+                        <thead>
+                          <tr>
+                            <th>Collaborateur</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Statut</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableCabinetTeam">
+                          <!-- Dynamically populated -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
                   <div class="db-table-card">
@@ -1613,7 +1625,7 @@
 
               <!-- 4.2 CONSEILLER CONFIG VIEW -->
               <div class="db-panel-view" id="dbConfig-conseiller">
-                <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem;">
+                 <div class="db-split-grid cols-10-12">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">
@@ -1685,7 +1697,7 @@ Tél : 06 88 99 00 11</textarea>
 
               <!-- 4.3 ASSISTANTE CONFIG VIEW -->
               <div class="db-panel-view" id="dbConfig-assistante">
-                <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+                <div class="db-split-grid cols-12-10">
                   
                   <div class="db-table-card">
                     <div class="db-card-header">

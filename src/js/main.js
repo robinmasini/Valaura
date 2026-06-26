@@ -770,6 +770,7 @@ function initDemoDashboard() {
         // Reset state on open
         dashboardState.activeCategory = 'dashboard';
         dashboardState.activeRole = 'dirigeant';
+        adjustScenarioPanelForMobile();
         switchDashboardCategory('dashboard');
         switchDashboardRole('dirigeant');
         renderScenarioStep(0); // Load step 1
@@ -837,8 +838,46 @@ function initDemoDashboard() {
     });
   }
 
+  // Adjust scenario panel layout on load and resize
+  adjustScenarioPanelForMobile();
+  window.addEventListener('resize', adjustScenarioPanelForMobile);
+
   // Setup sub-view action event listeners
   setupSubViewListeners();
+}
+
+function adjustScenarioPanelForMobile() {
+  const scenarioPanel = document.querySelector('.scenario-panel');
+  if (!scenarioPanel) return;
+
+  const isMobile = window.innerWidth <= 768;
+  const currentParent = scenarioPanel.parentElement;
+
+  if (isMobile) {
+    // If it's in the sidebar, move it to the main content area (top of dashboard-main)
+    if (currentParent && currentParent.classList.contains('dashboard-sidebar')) {
+      const mainDashboard = document.querySelector('.dashboard-main');
+      if (mainDashboard) {
+        // Insert it right after the topbar header
+        const topbar = document.querySelector('.db-topbar');
+        if (topbar && topbar.nextSibling) {
+          mainDashboard.insertBefore(scenarioPanel, topbar.nextSibling);
+        } else {
+          mainDashboard.appendChild(scenarioPanel);
+        }
+        scenarioPanel.classList.add('mobile-layout');
+      }
+    }
+  } else {
+    // If it's in the main content area, move it back to the sidebar
+    if (currentParent && currentParent.classList.contains('dashboard-main')) {
+      const sidebar = document.querySelector('.dashboard-sidebar');
+      if (sidebar) {
+        sidebar.appendChild(scenarioPanel);
+        scenarioPanel.classList.remove('mobile-layout');
+      }
+    }
+  }
 }
 
 function switchDashboardCategory(categoryKey) {

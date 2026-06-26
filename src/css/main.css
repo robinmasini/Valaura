@@ -2661,4 +2661,173 @@ input:checked + .slider-round:before {
   color: #fff;
 }
 
+/* -------------------------------------------------------------
+ * Valaura Mobile Responsive Dashboard Styles v2 (Mini-Sidebar)
+ * ------------------------------------------------------------- */
+
+/* Grid split layout */
+.db-split-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.db-split-grid.cols-13-10 { grid-template-columns: 1.3fr 1fr; }
+.db-split-grid.cols-10-13 { grid-template-columns: 1fr 1.3fr; }
+.db-split-grid.cols-12-10 { grid-template-columns: 1.2fr 1fr; }
+.db-split-grid.cols-10-12 { grid-template-columns: 1fr 1.2fr; }
+.db-split-grid.cols-equal { grid-template-columns: 1fr 1fr; }
+
+/* Table wrapper for horizontal scroll */
+.db-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  /* Full screen modal container */
+  .demo-modal-container {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  
+  /* Side-by-side permanent layout with narrow sidebar */
+  .dashboard-wrapper {
+    display: grid !important;
+    grid-template-columns: 70px 1fr !important;
+  }
+  
+  /* Sidebar permanent narrow display */
+  .dashboard-sidebar {
+    width: 70px !important;
+    padding: 1.5rem 0.5rem !important;
+    align-items: center !important;
+    overflow-y: auto !important;
+  }
+
+  /* Center logo and scale it down */
+  .db-logo-area {
+    justify-content: center !important;
+    margin-bottom: 2rem !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .db-logo {
+    height: 28px !important;
+    width: auto !important;
+  }
+
+  /* Center category items and hide text */
+  .db-nav {
+    width: 100% !important;
+    align-items: center !important;
+  }
+  .db-nav-item {
+    justify-content: center !important;
+    padding: 0.75rem 0 !important;
+    width: 100% !important;
+    border-left: none !important;
+    border-bottom: 2px solid transparent;
+    border-radius: 8px !important;
+  }
+  .db-nav-item.active {
+    border-bottom: 2px solid var(--color-primary);
+    border-left: none !important;
+    background: rgba(143, 174, 166, 0.08) !important;
+  }
+  .db-nav-item span:not(.db-nav-icon) {
+    display: none !important;
+  }
+  .db-nav-icon {
+    font-size: 1.35rem !important;
+    margin: 0 !important;
+  }
+
+  /* Scenario panel inside sidebar is hidden (moved to main content area by JS) */
+  .dashboard-sidebar .scenario-panel {
+    display: none !important;
+  }
+
+  /* Scenario panel styling inside dashboard content */
+  .dashboard-main .scenario-panel {
+    display: block !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+    padding: 1.25rem !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+  }
+  
+  .dashboard-main .scenario-panel .sc-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+  }
+  .dashboard-main .scenario-panel .sc-actions button {
+    flex: 1 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Main content spacing */
+  .dashboard-main {
+    padding: 1.25rem 1rem !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+  }
+
+  /* Spacing for mobile topbar header and modal close button */
+  .db-topbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+    padding-right: 3.5rem !important; /* Space for the floating close button */
+    padding-bottom: 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Split grid stacked layout */
+  .db-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Single column metrics */
+  .db-metrics-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  
+  .db-metric-card {
+    padding: 1rem !important;
+  }
+
+  .db-m-value {
+    font-size: 1.5rem !important;
+  }
+
+  /* Wrap role selector */
+  .db-role-selector {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    border-radius: 12px !important;
+    gap: 0.25rem !important;
+  }
+  
+  .db-role-btn {
+    flex: 1 1 auto !important;
+    padding: 0.5rem 0.25rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Tables fonts and spacing */
+  .db-table th, .db-table td {
+    padding: 0.6rem 0.4rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
 
