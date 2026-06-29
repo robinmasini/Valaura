@@ -826,6 +826,346 @@ function renderAuditCycles() {
   });
 }
 
+window.switchWorkingPaperTab = function(tabId) {
+  const contentDiv = document.getElementById('workingPaperTabContent');
+  if (!contentDiv) return;
+
+  // Toggle active class on tab buttons
+  const tabs = ['fn200', 'fn210', 'fn300', 'fn400', 'fn500'];
+  tabs.forEach(t => {
+    const btn = document.getElementById(`tab-${t}`);
+    if (btn) {
+      if (t === tabId) {
+        btn.classList.remove('tag-neutral');
+        btn.classList.add('tag-info', 'active');
+      } else {
+        btn.classList.remove('tag-info', 'active');
+        btn.classList.add('tag-neutral');
+      }
+    }
+  });
+
+  // Render HTML based on tabId
+  if (tabId === 'fn200') {
+    contentDiv.innerHTML = `
+      <div style="font-family: monospace; font-size:0.75rem; background:rgba(15,23,42,0.3); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05); overflow-x:auto;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; margin-bottom:1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom:0.5rem; color:#CBD5E1;">
+          <div>
+            <strong>Dossier :</strong> Société ABC<br>
+            <strong>Travaux :</strong> Cadrage Relevé Bancaire - ERB - Comptabilité
+          </div>
+          <div style="text-align:right;">
+            <strong>Clôture :</strong> 31/12/2025<br>
+            <strong>Fait par :</strong> Antoine Roche (Le 21/04/2026)
+          </div>
+        </div>
+        <table class="audit-table mini-table">
+          <thead>
+            <tr>
+              <th>N° compte</th>
+              <th>Libellé</th>
+              <th>Solde BG 31/12/2025</th>
+              <th>Solde Banque 31/12/2025</th>
+              <th>Écart BG/BQ</th>
+              <th>ERB</th>
+              <th>RAZ</th>
+              <th>Écart résiduel</th>
+              <th>Commentaire de l'auditeur</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:rgba(239,68,68,0.02);">
+              <td><strong>51201000</strong></td>
+              <td>CIC</td>
+              <td>-31,03 €</td>
+              <td>479 701,95 €</td>
+              <td style="color:#F87171;">-479 732,98 €</td>
+              <td>31,03 €</td>
+              <td>479 701,95 €</td>
+              <td style="color:#34D399;">0,00 €</td>
+              <td style="max-width:300px; white-space:normal; font-size:0.7rem; color:#94A3B8;">Écart lié à une RAZ enregistrée le 31/12/2025, non reprise dans le RB de clôture, mais apparaissant sur celui de janvier 2026 pour 479 K€. Un écart résiduel de 31,03 € subsiste.</td>
+            </tr>
+            <tr>
+              <td>51201900</td>
+              <td>CIC GROUPE</td>
+              <td>6 248 593,76 €</td>
+              <td>6 248 593,76 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr style="background:rgba(239,68,68,0.02);">
+              <td><strong>51202000</strong></td>
+              <td>BNP (Simulation)</td>
+              <td>5 257,80 €</td>
+              <td>12 757,80 €</td>
+              <td style="color:#F87171;">-7 500,00 €</td>
+              <td>2 700,00 €</td>
+              <td>-</td>
+              <td style="color:#EF4444; font-weight:700;">-4 800,00 €</td>
+              <td style="max-width:300px; white-space:normal; font-size:0.7rem; color:#FCA5A5; font-weight:600;">Écart de 7 500 € dont 2 700 € justifiés (virement en transit) et 4 800 € non justifiés (facture avocat manquante).</td>
+            </tr>
+            <tr>
+              <td>51203000</td>
+              <td>CAISSE D EPARGNE</td>
+              <td>-437 978,79 €</td>
+              <td>-437 978,79 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51203010</td>
+              <td>CE EX GRPE DISTRI</td>
+              <td>-44 422,47 €</td>
+              <td>-44 422,47 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51204000</td>
+              <td>ARKEA BANQUE</td>
+              <td>569,87 €</td>
+              <td>569,87 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51208000</td>
+              <td>SG SMC</td>
+              <td>2 774,16 €</td>
+              <td>2 774,16 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51209004</td>
+              <td>CREDIT AGRICOLE AP</td>
+              <td>628,23 €</td>
+              <td>628,23 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51212000</td>
+              <td>BANQUE POPULAIRE</td>
+              <td>10 805,36 €</td>
+              <td>10 805,36 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+            <tr>
+              <td>51212300</td>
+              <td>BP EX GRPE DISTRI</td>
+              <td>68 977,38 €</td>
+              <td>68 977,38 €</td>
+              <td>0,00 €</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">OK RAS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if (tabId === 'fn210') {
+    contentDiv.innerHTML = `
+      <div style="font-family: monospace; font-size:0.75rem; background:rgba(15,23,42,0.3); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; margin-bottom:1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom:0.5rem; color:#CBD5E1;">
+          <div>
+            <strong>Dossier :</strong> Société ABC<br>
+            <strong>Travaux :</strong> Cadrage Comptes à Terme (CAT)
+          </div>
+          <div style="text-align:right;">
+            <strong>Clôture :</strong> 31/12/2025<br>
+            <strong>Fait par :</strong> Antoine Roche (Le 21/04/2026)
+          </div>
+        </div>
+        <table class="audit-table mini-table">
+          <thead>
+            <tr>
+              <th>N° compte</th>
+              <th>Libellé</th>
+              <th>Solde BG 31/12/2025</th>
+              <th>Commentaire de l'auditeur</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>50810005</td>
+              <td>CIC CAT</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">Comptes apurés durant l'exercice. Confirmation de circularisation reçue.</td>
+            </tr>
+            <tr>
+              <td>50810007</td>
+              <td>CAISSE D'EPARGNE CAT</td>
+              <td>0,00 €</td>
+              <td style="color:#64748B;">Comptes apurés durant l'exercice. Confirmation de circularisation reçue.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if (tabId === 'fn300') {
+    contentDiv.innerHTML = `
+      <div style="font-family: monospace; font-size:0.75rem; background:rgba(15,23,42,0.3); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; margin-bottom:1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom:0.5rem; color:#CBD5E1;">
+          <div>
+            <strong>Dossier :</strong> Société ABC<br>
+            <strong>Travaux :</strong> Exploitation des réponses aux circularisations bancaires
+          </div>
+          <div style="text-align:right;">
+            <strong>Clôture :</strong> 31/12/2025<br>
+            <strong>Fait par :</strong> Antoine Roche
+          </div>
+        </div>
+        <table class="audit-table mini-table">
+          <thead>
+            <tr>
+              <th>Établissement circularisé</th>
+              <th>Solde réponse banque</th>
+              <th>Solde Relevé Bancaire (RB)</th>
+              <th>Écart constaté</th>
+              <th>Signataires & Habilitations</th>
+              <th>Conclusion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CIC</strong></td>
+              <td>6 248 593,76 €</td>
+              <td>6 248 593,76 €</td>
+              <td>0,00 €</td>
+              <td>Vérifié et Conforme (Signataires autorisés XXX)</td>
+              <td><span class="audit-tag tag-success">Conforme</span></td>
+            </tr>
+            <tr>
+              <td><strong>BNP Paribas</strong></td>
+              <td>5 257,80 €</td>
+              <td>5 257,80 €</td>
+              <td>0,00 €</td>
+              <td>Vérifié et Conforme (Signataires autorisés XXXX)</td>
+              <td><span class="audit-tag tag-success">Conforme</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  } else if (tabId === 'fn400') {
+    contentDiv.innerHTML = `
+      <div style="font-family: monospace; font-size:0.75rem; background:rgba(15,23,42,0.3); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; margin-bottom:1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom:0.5rem; color:#CBD5E1;">
+          <div>
+            <strong>Dossier :</strong> Société ABC<br>
+            <strong>Travaux :</strong> Revue analytique du résultat financier et charges d'intérêt
+          </div>
+          <div style="text-align:right;">
+            <strong>Clôture :</strong> 31/12/2025<br>
+            <strong>Fait par :</strong> Paul Martin (Le 21/04/2026)
+          </div>
+        </div>
+        <p style="font-size:0.8rem; color:#94A3B8; margin-bottom:1rem;">Recoupement des sous-sections de la classe 6 et 7 :</p>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem;">
+          <div style="border:1px solid rgba(255,255,255,0.05); padding:0.75rem; border-radius:6px; background:rgba(255,255,255,0.01);">
+            <strong style="color:#fff; display:block;">FN-401 (#661)</strong>
+            <span style="font-size:0.7rem; color:#94A3B8;">Intérêts et charges assimilées</span>
+            <span style="display:block; font-size:0.95rem; font-weight:600; color:var(--color-audit-primary); margin-top:0.25rem;">1 236 122,82 €</span>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.05); padding:0.75rem; border-radius:6px; background:rgba(255,255,255,0.01);">
+            <strong style="color:#fff; display:block;">FN-403 (#6681)</strong>
+            <span style="font-size:0.7rem; color:#94A3B8;">Charges d'affacturage</span>
+            <span style="display:block; font-size:0.95rem; font-weight:600; color:var(--color-audit-primary); margin-top:0.25rem;">243 146,61 €</span>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.05); padding:0.75rem; border-radius:6px; background:rgba(255,255,255,0.01);">
+            <strong style="color:#fff; display:block;">FN-405 (#761)</strong>
+            <span style="font-size:0.7rem; color:#94A3B8;">Intérêts comptes courants</span>
+            <span style="display:block; font-size:0.95rem; font-weight:600; color:var(--color-audit-primary); margin-top:0.25rem;">-423 379,60 €</span>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (tabId === 'fn500') {
+    contentDiv.innerHTML = `
+      <div style="font-family: monospace; font-size:0.75rem; background:rgba(15,23,42,0.3); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; margin-bottom:1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom:0.5rem; color:#CBD5E1;">
+          <div>
+            <strong>Dossier :</strong> Société ABC<br>
+            <strong>Travaux :</strong> Contrôle et épreuve de Caisse
+          </div>
+          <div style="text-align:right;">
+            <strong>Clôture :</strong> 31/12/2025<br>
+            <strong>Fait par :</strong> Antoine Roche (Le 21/04/2026)
+          </div>
+        </div>
+        <table class="audit-table mini-table" style="margin-bottom:1rem;">
+          <thead>
+            <tr>
+              <th>Compte</th>
+              <th>Libellé</th>
+              <th>Année N (2025)</th>
+              <th>Année N-1 (2024)</th>
+              <th>PV de Caisse</th>
+              <th>Commentaire</th>
+              <th>Conclusion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>53110000</strong></td>
+              <td>CAISSE</td>
+              <td>161,16 €</td>
+              <td>161,16 €</td>
+              <td>Conforme</td>
+              <td>OK RAS</td>
+              <td><span class="audit-tag tag-success">Satisfaisant</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.8rem; color:#94A3B8; margin-bottom:0.5rem;">Vérifications annexes (Intérêts bancaires) :</p>
+        <table class="audit-table mini-table">
+          <thead>
+            <tr>
+              <th>Nature des frais</th>
+              <th>Comptabilité N</th>
+              <th>Justifié relevé</th>
+              <th>Écart</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Intérêts sur opérations de financement</td>
+              <td>3 268,22 €</td>
+              <td>3 049,61 €</td>
+              <td style="color:#F59E0B;">218,61 € (Revue Analytique OK)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+};
+
 function renderAuditCycleDetail() {
   const container = document.getElementById('auditCycleDetailContainer');
   if (!container) return;
@@ -1126,6 +1466,34 @@ function renderAuditCycleDetail() {
     `;
   });
 
+  let excelSheetsHTML = '';
+  if (cycle.key === 'tresorerie' || cycle.key === 'financier') {
+    excelSheetsHTML = `
+      <div class="db-table-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:1rem; margin-bottom:1rem;">
+          <h4 class="audit-card-title" style="margin:0;">📄 Feuilles de travail Excel synchronisées (Dossier Permanent)</h4>
+          <div style="display:flex; gap:0.5rem;" class="working-papers-tabs">
+            <button class="audit-tag tag-info cursor-hover active" onclick="switchWorkingPaperTab('fn200')" id="tab-fn200">FN-200 Banques</button>
+            <button class="audit-tag tag-neutral cursor-hover" onclick="switchWorkingPaperTab('fn210')" id="tab-fn210">FN-210 CAT</button>
+            <button class="audit-tag tag-neutral cursor-hover" onclick="switchWorkingPaperTab('fn300')" id="tab-fn300">FN-300 Circul.</button>
+            <button class="audit-tag tag-neutral cursor-hover" onclick="switchWorkingPaperTab('fn400')" id="tab-fn400">FN-400 Résultat</button>
+            <button class="audit-tag tag-neutral cursor-hover" onclick="switchWorkingPaperTab('fn500')" id="tab-fn500">FN-500 Caisses</button>
+          </div>
+        </div>
+
+        <div id="workingPaperTabContent">
+          <!-- Chargé dynamiquement -->
+        </div>
+      </div>
+    `;
+    
+    setTimeout(() => {
+      if (window.switchWorkingPaperTab) {
+        window.switchWorkingPaperTab('fn200');
+      }
+    }, 50);
+  }
+
   container.innerHTML = `
     <div style="display:flex; flex-direction:column; gap:1.5rem;">
       ${accountsHTML}
@@ -1150,6 +1518,8 @@ function renderAuditCycleDetail() {
           </table>
         </div>
       </div>
+
+      ${excelSheetsHTML}
     </div>
   `;
 }
