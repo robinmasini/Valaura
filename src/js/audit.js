@@ -654,36 +654,11 @@ function renderAuditDashboard() {
     al.innerHTML = `<strong>${anomaliesCumulated.toLocaleString('fr-FR')} €</strong> détectés (${percentConsumed}% du seuil de signif.)`;
   }
 
-  // Render 5 mini cards progress metrics
-  // Compute global values from cycle datasets
+  // Render progress metrics
   const activeCycle = auditState.audit_mission_cycles.find(cy => cy.key === 'tresorerie');
-  
-  const m1 = document.getElementById('metricAvancementVal');
-  const m2 = document.getElementById('metricPreuvesVal');
-  const m3 = document.getElementById('metricAutoVal');
-  const m4 = document.getElementById('metricRevueVal');
-  const m5 = document.getElementById('metricPointsVal');
-
-  if (m1 && activeCycle) {
-    m1.textContent = `${activeCycle.progress}%`;
-    document.getElementById('metricAvancementBar').style.width = `${activeCycle.progress}%`;
-    
-    m2.textContent = `${activeCycle.evidence}%`;
-    document.getElementById('metricPreuvesBar').style.width = `${activeCycle.evidence}%`;
-    
-    m3.textContent = `${activeCycle.autoChecks}%`;
-    document.getElementById('metricAutoBar').style.width = `${activeCycle.autoChecks}%`;
-    
-    m4.textContent = `${activeCycle.review}%`;
-    document.getElementById('metricRevueBar').style.width = `${activeCycle.review}%`;
-    
-    // Resolution points
-    const openedPoints = auditState.audit_mission_controls.reduce((sum, c) => sum + c.reviewNotes.filter(n => !n.closed).length, 0);
-    const totalPoints = auditState.audit_mission_controls.reduce((sum, c) => sum + c.reviewNotes.length, 0);
-    const resolvedPercent = totalPoints > 0 ? Math.round(((totalPoints - openedPoints) / totalPoints) * 100) : 100;
-    
-    m5.textContent = `${resolvedPercent}%`;
-    document.getElementById('metricPointsBar').style.width = `${resolvedPercent}%`;
+  const globalProgress = document.getElementById('metricGlobalProgressVal');
+  if (globalProgress && activeCycle) {
+    globalProgress.textContent = `${activeCycle.progress}%`;
   }
 
   // Render attention banner

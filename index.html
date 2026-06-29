@@ -1843,37 +1843,21 @@ Tél : 06 88 99 00 11</textarea>
           </div>
 
           <nav class="db-nav" id="auditSidebarNav">
-            <a href="#" class="db-nav-item active cursor-hover" data-audit-view="portfolio">
-              <span class="db-nav-icon">💼</span>
-              <span>Portefeuille</span>
-            </a>
-            <a href="#" class="db-nav-item cursor-hover" data-audit-view="dashboard">
+            <a href="#" class="db-nav-item active cursor-hover" data-audit-view="dashboard">
               <span class="db-nav-icon">📊</span>
-              <span>Dashboard Mission</span>
+              <span>Vue d'ensemble</span>
             </a>
             <a href="#" class="db-nav-item cursor-hover" data-audit-view="cycles">
               <span class="db-nav-icon">🔄</span>
-              <span>Cycles Comptables</span>
+              <span>Cycles d'Audit</span>
             </a>
             <a href="#" class="db-nav-item cursor-hover" data-audit-view="review">
               <span class="db-nav-icon">🔎</span>
               <span>Revue Manager</span>
             </a>
-            <a href="#" class="db-nav-item cursor-hover" data-audit-view="findings">
-              <span class="db-nav-icon">⚠️</span>
-              <span>Registre Anomalies</span>
-            </a>
-            <a href="#" class="db-nav-item cursor-hover" data-audit-view="documents">
-              <span class="db-nav-icon">📂</span>
-              <span>Docs & Sources</span>
-            </a>
-            <a href="#" class="db-nav-item cursor-hover" data-audit-view="methodology">
-              <span class="db-nav-icon">📚</span>
-              <span>Méthodologie</span>
-            </a>
-            <a href="#" class="db-nav-item cursor-hover" data-audit-view="config">
-              <span class="db-nav-icon">⚙️</span>
-              <span>Configuration</span>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="portfolio">
+              <span class="db-nav-icon">💼</span>
+              <span>Portefeuille Clients</span>
             </a>
           </nav>
 
@@ -1997,122 +1981,172 @@ Tél : 06 88 99 00 11</textarea>
 
             <!-- View 4: Dashboard Mission -->
             <div class="audit-view-panel" id="auditView-dashboard" style="display:none;">
-              <!-- Three Thresholds Block -->
-              <div class="audit-thresholds-grid">
+              
+              <!-- Sub-tabs Dashboard Header -->
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:1rem; margin-bottom:1.5rem;">
+                <div style="display:flex; gap:2rem; align-items:center;">
+                  <a href="#/audit/dashboard" style="font-size:0.95rem; color:#fff; font-weight:600; text-decoration:none; position:relative; padding-bottom:0.75rem; border-bottom:2px solid var(--color-audit-primary);">Vue d'ensemble</a>
+                  <a href="#/audit/findings" style="font-size:0.95rem; color:#64748B; font-weight:500; text-decoration:none; padding-bottom:0.75rem;">Registre Anomalies</a>
+                  <a href="#/audit/documents" style="font-size:0.95rem; color:#64748B; font-weight:500; text-decoration:none; padding-bottom:0.75rem;">Dossier Permanent</a>
+                </div>
+                <div style="display:flex; gap:1.25rem; align-items:center;">
+                  <span style="font-size:1.1rem; color:#64748B; cursor:pointer;" onclick="alert('Recherche de pièces, comptes ou écritures d\'audit...');" class="cursor-hover">🔍</span>
+                  <button class="btn btn-primary cursor-hover" style="font-size:0.75rem; padding:0.5rem 1rem; border-radius:20px; background-color:#3B82F6; border-color:#3B82F6; color:#fff; font-weight:600; border:none;" onclick="window.location.hash='#/audit/cycles';">
+                    <span>+ Lancer Rapprochement</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4 Metrics Row -->
+              <div class="audit-thresholds-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:1.5rem;">
                 <div class="audit-threshold-card">
-                  <span class="audit-th-badge badge-approved">Approuvé</span>
-                  <span class="audit-th-label">Seuil de Signification (CA 1.5%)</span>
-                  <span class="audit-th-value" id="thSignVal">50 000 €</span>
+                  <span class="audit-th-badge badge-approved">CA 1.5%</span>
+                  <span class="audit-th-label">Seuil de Signification</span>
+                  <span class="audit-th-value" id="thSignVal">231 000 €</span>
                   <span class="audit-th-base">Seuil d'opinion global</span>
                 </div>
                 <div class="audit-threshold-card">
-                  <span class="audit-th-badge badge-approved">Approuvé</span>
-                  <span class="audit-th-label">Seuil de Planification (75%)</span>
-                  <span class="audit-th-value" id="thPlanVal">37 500 €</span>
+                  <span class="audit-th-badge badge-approved">75%</span>
+                  <span class="audit-th-label">Seuil de Planification</span>
+                  <span class="audit-th-value" id="thPlanVal">173 250 €</span>
                   <span class="audit-th-base">Seuil d'échantillonnage travaux</span>
                 </div>
                 <div class="audit-threshold-card">
-                  <span class="audit-th-badge badge-approved">Approuvé</span>
-                  <span class="audit-th-label">Seuil de Remontée (5%)</span>
-                  <span class="audit-th-value" id="thRemVal">2 500 €</span>
-                  <span class="audit-th-base">Seuil de trivialité comptable</span>
+                  <span class="audit-th-badge badge-approved">5%</span>
+                  <span class="audit-th-label">Seuil de Remontée</span>
+                  <span class="audit-th-value" id="thRemVal">11 550 €</span>
+                  <span class="audit-th-base">Seuil de trivialité anomalie</span>
+                </div>
+                <div class="audit-threshold-card" style="border-color: rgba(239, 68, 68, 0.2);">
+                  <span class="audit-th-badge badge-pending" style="background:rgba(239, 68, 68, 0.1); color:#F87171; border-color:rgba(239,68,68,0.2);">Anomalie</span>
+                  <span class="audit-th-label">Impact Net Détecté</span>
+                  <span class="audit-th-value" style="color:#F87171;">4 800 €</span>
+                  <span class="audit-th-base">Non corrigée (10% du seuil)</span>
                 </div>
               </div>
 
-              <!-- 5 Mini Metrics Cards Grid -->
-              <div class="audit-metrics-5grid">
-                <div class="audit-metric-mini">
-                  <span class="audit-mini-val" id="metricAvancementVal">92%</span>
-                  <span class="audit-mini-label">Travaux Renseignés (Saisie)</span>
-                  <div class="audit-mini-bar"><div class="audit-mini-fill" id="metricAvancementBar" style="width: 92%;"></div></div>
-                </div>
-                <div class="audit-metric-mini">
-                  <span class="audit-mini-val" id="metricPreuvesVal">68%</span>
-                  <span class="audit-mini-label">Couverture des Preuves (Dossier)</span>
-                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-warning" id="metricPreuvesBar" style="width: 68%;"></div></div>
-                </div>
-                <div class="audit-metric-mini">
-                  <span class="audit-mini-val" id="metricAutoVal">61%</span>
-                  <span class="audit-mini-label">Contrôles Auto. Réussis</span>
-                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-warning" id="metricAutoBar" style="width: 61%;"></div></div>
-                </div>
-                <div class="audit-metric-mini">
-                  <span class="audit-mini-val" id="metricRevueVal">35%</span>
-                  <span class="audit-mini-label">Revue Manager effectuée</span>
-                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-info" id="metricRevueBar" style="width: 35%;"></div></div>
-                </div>
-                <div class="audit-metric-mini">
-                  <span class="audit-mini-val" id="metricPointsVal">44%</span>
-                  <span class="audit-mini-label">Points de Revue Résolus</span>
-                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-info" id="metricPointsBar" style="width: 44%;"></div></div>
-                </div>
-              </div>
-
-              <!-- Anomalies Bar Indicator -->
-              <div class="audit-threshold-card" style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.5rem;">
-                <div style="flex-grow:1;">
-                  <span class="audit-th-label">Registre des anomalies cumulées</span>
-                  <div style="width:100%; height:8px; background:rgba(255,255,255,0.05); border-radius:4px; margin-top:0.5rem; overflow:hidden;">
-                    <div style="width:10%; height:100%; background:var(--color-audit-warning);" id="dashboardAnomalyBar" class="audit-mini-fill"></div>
+              <!-- Middle Row Grid (Welcome, Gauge, Balance) -->
+              <div style="display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                <!-- Welcome/Status Card (Corporate Tech Grid Background, NO Jellyfish) -->
+                <div class="db-table-card" style="margin-top:0; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%); background-image: radial-gradient(rgba(141, 164, 196, 0.06) 1px, transparent 1px); background-size: 16px 16px; border: 1px solid rgba(255,255,255,0.06); border-radius:16px; padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+                  <div>
+                    <h3 style="font-size:1.15rem; font-weight:600; color:#fff; margin-bottom:0.25rem;">Société ABC</h3>
+                    <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-audit-primary);">Audit Légal de Clôture 2025</span>
                   </div>
-                </div>
-                <span style="font-size:0.85rem; color:#E2E8F0; margin-left:2rem; text-align:right;" id="dashboardAnomalyLabel"><strong>4 800 €</strong> détectés (10% du seuil)</span>
-              </div>
-
-              <!-- 2-Column Grid: Treasury Summary & DataSnipper OCR Snips -->
-              <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
-                <div class="db-table-card" style="margin-top:0;">
-                  <h4 class="audit-card-title" style="margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
-                    <span>💰 Cadrage Trésorerie Globale (Balance vs Relevés)</span>
-                  </h4>
-                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.75rem;">
-                    <div style="border: 1px solid rgba(255,255,255,0.04); padding:1rem; border-radius:10px; background:rgba(255,255,255,0.01);">
-                      <span style="font-size:0.7rem; color:#94A3B8; display:block; text-transform:uppercase;">Total Grand Livre (BG N)</span>
-                      <strong style="font-size:1.3rem; color:#fff; display:block; margin-top:0.25rem;">5 855 174,27 €</strong>
-                      <span style="font-size:0.65rem; color:#64748B;">Somme des balances comptables classe 5</span>
-                    </div>
-                    <div style="border: 1px solid rgba(255,255,255,0.04); padding:1rem; border-radius:10px; background:rgba(255,255,255,0.01);">
-                      <span style="font-size:0.7rem; color:#94A3B8; display:block; text-transform:uppercase;">Total Banques (Relevés N)</span>
-                      <strong style="font-size:1.3rem; color:#8DA4C4; display:block; margin-top:0.25rem;">6 334 907,25 €</strong>
-                      <span style="font-size:0.65rem; color:#64748B;">Somme des soldes extraits bancaires</span>
-                    </div>
+                  <div style="margin-top:1.5rem; margin-bottom:1.5rem;">
+                    <p style="font-size:0.85rem; color:#CBD5E1; line-height:1.5; font-weight:300; margin:0;">
+                      Cycle de trésorerie en cours d'analyse. Rapprochements de comptes CIC &amp; BNP initialisés.
+                    </p>
                   </div>
-                  <div style="margin-top:1rem; border-top:1px dashed rgba(255,255,255,0.06); padding-top:1rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                      <span style="font-size:0.75rem; color:#E2E8F0; display:block; font-weight:600;">Écart de cadrage comptable brut :</span>
-                      <span style="font-size:0.7rem; color:#94A3B8;">Différence brute avant ERB/RAZ</span>
-                    </div>
-                    <div style="text-align:right;">
-                      <strong style="font-size:1.25rem; color:#EF4444; display:block;">-479 732,98 €</strong>
-                    </div>
-                  </div>
-                  <div style="margin-top:0.75rem; background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1); border-radius:8px; padding:0.75rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                      <span style="font-size:0.75rem; color:#34D399; font-weight:600; display:block;">Cadrage ERB &amp; RAZ de clôture :</span>
-                      <span style="font-size:0.65rem; color:#94A3B8;">Ajustements expliqués sur relevé janvier 2026</span>
-                    </div>
-                    <strong style="font-size:1.1rem; color:#34D399;">+479 732,98 €</strong>
-                  </div>
-                  <div style="margin-top:0.75rem; background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.1); border-radius:8px; padding:0.75rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                      <span style="font-size:0.75rem; color:#F87171; font-weight:600; display:block;">Écart résiduel non justifié (BNP Simulation) :</span>
-                      <span style="font-size:0.65rem; color:#94A3B8;">Avocats honoraires manquants (TRE-014)</span>
-                    </div>
-                    <strong style="font-size:1.1rem; color:#F87171;">-4 800,00 €</strong>
+                  <div style="font-size:0.7rem; color:#64748B; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.75rem;">
+                    Dernier import Grand Livre : <strong>Hier, 17:42</strong>
                   </div>
                 </div>
 
-                <div class="db-table-card" style="margin-top:0;">
-                  <h4 class="audit-card-title" style="margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
-                    <span>🤖 DataSnipper — Snipping IA</span>
-                  </h4>
-                  <p style="font-size:0.75rem; color:#94A3B8; margin-bottom:0.75rem; line-height:1.3;">Snippets IA extraits automatiquement des relevés PDF et intégrés aux feuilles de travail :</p>
+                <!-- Validation Rate Gauge Card -->
+                <div class="db-table-card" style="margin-top:0; border: 1px solid rgba(255,255,255,0.06); border-radius:16px; padding:1.5rem; text-align:center;">
+                  <h4 class="audit-card-title" style="margin-bottom:1.25rem; font-size:0.85rem; text-transform:uppercase; color:#94A3B8; letter-spacing:0.05em;">Taux d'Avancement Global</h4>
                   
-                  <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                  <div style="position:relative; margin-bottom:0.5rem;">
+                    <svg viewBox="0 0 100 50" style="width:100%; max-width:140px; margin:0 auto; display:block;">
+                      <path d="M 10,45 A 35,35 0 0,1 90,45" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8" stroke-linecap="round"></path>
+                      <path d="M 10,45 A 35,35 0 0,1 77.5,14" fill="none" stroke="#3B82F6" stroke-width="8" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="0" style="filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));"></path>
+                    </svg>
+                    <div style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); text-align:center;">
+                      <span style="font-size:1.5rem; font-weight:700; color:#fff;" id="metricGlobalProgressVal">75%</span>
+                      <span style="font-size:0.65rem; color:#64748B; display:block;">Objectif Validé</span>
+                    </div>
+                  </div>
+                  <p style="font-size:0.7rem; color:#64748B; margin:0; line-height:1.4;">Tous cycles confondus (4/5 cycles validés)</p>
+                </div>
+
+                <!-- Total Balance / Solde disponible Card -->
+                <div class="db-table-card" style="margin-top:0; border: 1px solid rgba(255,255,255,0.06); border-radius:16px; padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+                  <div>
+                    <h4 class="audit-card-title" style="margin-bottom:0.25rem; font-size:0.85rem; text-transform:uppercase; color:#94A3B8; letter-spacing:0.05em;">Trésorerie Actuelle (Livre)</h4>
+                    <span style="font-size:0.65rem; color:#64748B;">Somme des soldes débiteurs classe 5</span>
+                  </div>
+                  <div style="margin-top:1rem; margin-bottom:1rem;">
+                    <strong style="font-size:1.6rem; color:#34D399; font-weight:700; letter-spacing:-0.02em;">+ 5 855 174,27 €</strong>
+                  </div>
+                  <div style="font-size:0.72rem; color:#94A3B8; background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.1); padding:0.5rem 0.75rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>Écart résiduel non justifié :</span>
+                    <strong style="color:#F87171;">-4 800,00 €</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Row (Spline Line Chart & DataSnipper Checkmarks) -->
+              <div style="display:grid; grid-template-columns: 1.8fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                <!-- Spline Line Chart (2/3 width) -->
+                <div class="db-table-card" style="margin-top:0; padding:1.5rem; border:1px solid rgba(255,255,255,0.06); border-radius:16px;">
+                  <h4 class="audit-card-title" style="margin-bottom:0.25rem;">Revue Analytique Globale des Soldes de Trésorerie</h4>
+                  <p style="font-size:0.75rem; color:#94A3B8; margin-bottom:1.25rem;">Rapprochement des soldes comptables (Grand Livre) vs Relevés bancaires sur l'exercice 2025.</p>
+                  
+                  <div style="width:100%; overflow-x:auto;">
+                    <!-- Custom SVG Line Chart representing financial balance curves -->
+                    <svg viewBox="0 0 600 220" style="width:100%; height:auto; overflow:visible; display:block;">
+                      <defs>
+                        <linearGradient id="chartGradLivre" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15"></stop>
+                          <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.0"></stop>
+                        </linearGradient>
+                      </defs>
+                      <!-- Horizontal Grid lines -->
+                      <line x1="45" y1="20" x2="580" y2="20" stroke="rgba(255,255,255,0.02)" stroke-width="1"></line>
+                      <line x1="45" y1="70" x2="580" y2="70" stroke="rgba(255,255,255,0.02)" stroke-width="1"></line>
+                      <line x1="45" y1="120" x2="580" y2="120" stroke="rgba(255,255,255,0.02)" stroke-width="1"></line>
+                      <line x1="45" y1="170" x2="580" y2="170" stroke="rgba(255,255,255,0.02)" stroke-width="1"></line>
+                      
+                      <!-- Grand Livre Spline Curve (Light Blue) -->
+                      <path d="M 45,160 Q 89,150 138,140 T 236,130 T 334,110 T 432,90 T 530,70 T 580,85" fill="none" stroke="#60A5FA" stroke-width="2.5" style="filter: drop-shadow(0 0 3px rgba(96, 165, 250, 0.3));"></path>
+                      <!-- Area fill under Grand Livre -->
+                      <path d="M 45,160 Q 89,150 138,140 T 236,130 T 334,110 T 432,90 T 530,70 T 580,85 L 580,170 L 45,170 Z" fill="url(#chartGradLivre)"></path>
+
+                      <!-- Extraits Relevés Spline Curve (Vibrant Blue, diverges on 31/12 due to RAZ) -->
+                      <path d="M 45,160 Q 89,150 138,140 T 236,130 T 334,110 T 432,90 T 530,70 T 580,50" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="3 3" style="filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.3));"></path>
+
+                      <!-- X Axis Labels -->
+                      <text x="45" y="195" fill="#64748B" font-size="9" text-anchor="middle">Jan</text>
+                      <text x="138" y="195" fill="#64748B" font-size="9" text-anchor="middle">Mar</text>
+                      <text x="236" y="195" fill="#64748B" font-size="9" text-anchor="middle">Mai</text>
+                      <text x="334" y="195" fill="#64748B" font-size="9" text-anchor="middle">Juil</text>
+                      <text x="432" y="195" fill="#64748B" font-size="9" text-anchor="middle">Sep</text>
+                      <text x="530" y="195" fill="#64748B" font-size="9" text-anchor="middle">Nov</text>
+                      <text x="580" y="195" fill="#3B82F6" font-size="9" text-anchor="middle" font-weight="bold">31/12 (RAZ)</text>
+                      
+                      <!-- Y Axis Labels -->
+                      <text x="35" y="23" fill="#64748B" font-size="8" text-anchor="end">6M€</text>
+                      <text x="35" y="73" fill="#64748B" font-size="8" text-anchor="end">5.5M€</text>
+                      <text x="35" y="123" fill="#64748B" font-size="8" text-anchor="end">5M€</text>
+                      <text x="35" y="173" fill="#64748B" font-size="8" text-anchor="end">4.5M€</text>
+                    </svg>
+                  </div>
+                  
+                  <div style="display:flex; justify-content:center; gap:2rem; margin-top:0.75rem; font-size:0.75rem;">
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                      <div style="width:12px; height:3px; background:#60A5FA; border-radius:1px;"></div>
+                      <span style="color:#CBD5E1;">Grand Livre de Trésorerie</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                      <div style="width:12px; height:3px; border-top:3px dashed #3B82F6;"></div>
+                      <span style="color:#CBD5E1;">Extraits Relevés Bancaires</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- DataSnipper Mappages IA Card (1/3 width) -->
+                <div class="db-table-card" style="margin-top:0; padding:1.5rem; border:1px solid rgba(255,255,255,0.06); border-radius:16px; display:flex; flex-direction:column; justify-content:space-between;">
+                  <div>
+                    <h4 class="audit-card-title" style="margin-bottom:0.25rem;">DataSnipper Mappages IA</h4>
+                    <span style="font-size:0.7rem; color:#64748B; display:block; margin-bottom:1rem;">Extraits de pièces associées aux cellules Excel</span>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; gap:0.75rem; flex-grow:1;">
                     <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
                       <div>
-                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_CIC_RAZ_Clôture</span>
-                        <span style="font-size:0.65rem; color:#64748B;">Relevé CIC Decembre 2025 (p.1)</span>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">CIC_RAZ_31/12</span>
+                        <span style="font-size:0.65rem; color:#64748B;">Relevé CIC Decembre (p.1)</span>
                       </div>
                       <div style="text-align:right;">
                         <span class="audit-tag tag-success" style="font-size:0.65rem; margin-bottom:0.25rem;">97% Match</span>
@@ -2122,8 +2156,8 @@ Tél : 06 88 99 00 11</textarea>
 
                     <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
                       <div>
-                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_BNP_Solde_Livre</span>
-                        <span style="font-size:0.65rem; color:#64748B;">Relevé BNP Decembre 2025 (p.1)</span>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">BNP_Solde_Livre</span>
+                        <span style="font-size:0.65rem; color:#64748B;">Relevé BNP Decembre (p.1)</span>
                       </div>
                       <div style="text-align:right;">
                         <span class="audit-tag tag-success" style="font-size:0.65rem; margin-bottom:0.25rem;">98% Match</span>
@@ -2133,7 +2167,7 @@ Tél : 06 88 99 00 11</textarea>
 
                     <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
                       <div>
-                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_Circularisation_CIC</span>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Circul_CIC_Réponse</span>
                         <span style="font-size:0.65rem; color:#64748B;">Confirmation de Solde CIC (p.2)</span>
                       </div>
                       <div style="text-align:right;">
