@@ -1,0 +1,837 @@
+/* -------------------------------------------------------------
+ * Valaura Audits Financiers - Custom Stylesheet
+ * ------------------------------------------------------------- */
+
+/* Dedicated Audit Variables (Dark, Professional & Ice Blue/Steel Accent) */
+.audit-theme, .universe-selector-container {
+  --color-audit-bg: #070B12;
+  --color-audit-card: rgba(15, 23, 42, 0.6);
+  --color-audit-primary: #8DA4C4;       /* Steel Blue */
+  --color-audit-primary-light: #C3D1E6;
+  --color-audit-primary-dark: #5C7494;
+  --color-audit-accent: #E2E8F0;        /* Platinum Silver */
+  --color-audit-border: rgba(255, 255, 255, 0.08);
+  
+  --color-audit-success: #10B981;       /* Validated (Emerald) */
+  --color-audit-warning: #F59E0B;       /* Review (Amber) */
+  --color-audit-danger: #EF4444;        /* Blocked / Anomaly (Rose) */
+  --color-audit-info: #3B82F6;          /* In progress (Blue) */
+  --color-audit-neutral: #64748B;       /* Not started (Slate) */
+  
+  --glow-audit-primary: rgba(141, 164, 196, 0.15);
+  --glow-audit-accent: rgba(226, 232, 240, 0.1);
+}
+
+/* ----------------------------------
+ * 1. Universe Selection Screen Styles
+ * ---------------------------------- */
+.universe-selector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 85vh;
+  padding: 3rem;
+  background: radial-gradient(circle at center, #0F172A 0%, #070B12 100%);
+  color: #F8FAFC;
+  z-index: 10;
+}
+
+.uni-logo-wrapper {
+  margin-bottom: 3.5rem;
+  text-align: center;
+  animation: fadeInDown 0.8s var(--ease-premium);
+}
+
+.uni-logo-img {
+  height: 110px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
+
+.uni-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.uni-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1100px;
+  width: 100%;
+  perspective: 1000px;
+}
+
+.uni-card {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 3.5rem 3rem;
+  text-align: center;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.uni-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-premium);
+}
+
+.uni-card-logo {
+  height: 70px;
+  width: auto;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
+  transition: transform 0.6s var(--ease-premium);
+}
+
+.uni-card-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+  color: #F1F5F9;
+  transition: color 0.4s;
+}
+
+.uni-card-subtitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.uni-card-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  transition: width 0.4s var(--ease-premium);
+}
+
+/* Active glowing underline for Prévoyance */
+.uni-card-prevoyance .uni-card-subtitle {
+  color: var(--color-primary);
+}
+.uni-card-prevoyance .uni-card-subtitle::after {
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+/* Active glowing underline for Audit */
+.uni-card-audit .uni-card-subtitle {
+  color: var(--color-audit-primary);
+}
+.uni-card-audit .uni-card-subtitle::after {
+  background: linear-gradient(90deg, transparent, var(--color-audit-primary), transparent);
+}
+
+.uni-card-desc {
+  font-size: 0.95rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  max-width: 320px;
+  flex-grow: 1;
+}
+
+.uni-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  color: #E2E8F0;
+  transition: all 0.4s var(--ease-premium);
+}
+
+/* Hover effects */
+.uni-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.uni-card:hover::before {
+  opacity: 1;
+}
+
+.uni-card-prevoyance:hover {
+  border-color: rgba(143, 174, 166, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(143, 174, 166, 0.15);
+}
+.uni-card-prevoyance:hover .uni-card-subtitle::after {
+  width: 100px;
+}
+.uni-card-prevoyance:hover .uni-card-cta {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--bg-dark);
+  box-shadow: 0 10px 20px rgba(143, 174, 166, 0.2);
+}
+
+.uni-card-audit:hover {
+  border-color: rgba(141, 164, 196, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(141, 164, 196, 0.15);
+}
+.uni-card-audit:hover .uni-card-subtitle::after {
+  width: 100px;
+}
+.uni-card-audit:hover .uni-card-cta {
+  background-color: var(--color-audit-primary);
+  border-color: var(--color-audit-primary);
+  color: var(--color-audit-bg);
+  box-shadow: 0 10px 20px rgba(141, 164, 196, 0.2);
+}
+
+.uni-card:hover .uni-card-logo {
+  transform: scale(1.08);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .uni-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .uni-card {
+    padding: 2.5rem 2rem;
+  }
+}
+
+/* ----------------------------------
+ * 2. Audit Dashboard Styles & Layout
+ * ---------------------------------- */
+.audit-theme .dashboard-sidebar {
+  background-color: #0B0F19;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Context Selector in Audit Sidebar */
+.audit-context-panel {
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.3);
+}
+
+.audit-context-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--color-audit-primary);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.audit-context-selector {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #E2E8F0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  outline: none;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.audit-context-selector:hover {
+  border-color: var(--color-audit-primary);
+}
+
+.audit-context-selector option {
+  background-color: #0F172A;
+  color: #E2E8F0;
+}
+
+.audit-theme .db-nav-item {
+  color: #94A3B8;
+  font-size: 0.9rem;
+}
+
+.audit-theme .db-nav-item:hover, .audit-theme .db-nav-item.active {
+  color: #F8FAFC;
+  background-color: rgba(141, 164, 196, 0.06);
+  border-left: 3px solid var(--color-audit-primary);
+}
+
+.audit-theme .db-topbar {
+  background-color: #070B12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.audit-theme .db-role-btn {
+  border-radius: 20px;
+  font-size: 0.8rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #94A3B8;
+}
+
+.audit-theme .db-role-btn.active {
+  background-color: var(--color-audit-primary);
+  border-color: var(--color-audit-primary);
+  color: var(--color-audit-bg);
+  box-shadow: 0 4px 12px rgba(141, 164, 196, 0.2);
+}
+
+/* Audit Topbar back-to-selection link */
+.btn-back-universe {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748B;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: calc(100% - 2.5rem);
+  margin: 1rem 1.25rem;
+  border: 1px dashed rgba(255,255,255,0.05);
+}
+
+.btn-back-universe:hover {
+  color: #F1F5F9;
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----------------------------------
+ * 3. Thresholds & Indicators Panels
+ * ---------------------------------- */
+.audit-thresholds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.audit-threshold-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-premium);
+}
+
+.audit-threshold-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(141, 164, 196, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.audit-th-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.audit-th-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.audit-th-base {
+  font-size: 0.75rem;
+  color: #64748B;
+  display: block;
+}
+
+.audit-th-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.badge-approved {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* 5 Metrics Grid */
+.audit-metrics-5grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.audit-metric-mini {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.audit-metric-mini:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.audit-mini-val {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.audit-mini-label {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  display: block;
+  line-height: 1.3;
+}
+
+/* Progress bar inside mini card */
+.audit-mini-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  margin-top: 0.75rem;
+  overflow: hidden;
+}
+
+.audit-mini-fill {
+  height: 100%;
+  background: var(--color-audit-primary);
+  border-radius: 2px;
+  transition: width 0.8s var(--ease-premium);
+}
+
+.fill-success { background-color: var(--color-audit-success); }
+.fill-warning { background-color: var(--color-audit-warning); }
+.fill-info { background-color: var(--color-audit-info); }
+
+/* ----------------------------------
+ * 4. Attention / Warnings Block
+ * ---------------------------------- */
+.audit-attention-banner {
+  background: rgba(239, 68, 68, 0.04);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.audit-att-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #F87171;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.audit-att-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.audit-att-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #CBD5E1;
+  padding: 0.5rem 0.75rem;
+  background: rgba(239, 68, 68, 0.02);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-audit-danger);
+}
+
+.audit-att-action {
+  font-size: 0.75rem;
+  color: var(--color-audit-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* ----------------------------------
+ * 5. Cycles & Controls Table
+ * ---------------------------------- */
+.audit-table-card {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.audit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.audit-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #F8FAFC;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.audit-table th {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  color: #94A3B8;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.audit-table td {
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: #CBD5E1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.audit-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Status badges for controls */
+.audit-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tag-success { background: rgba(16, 185, 129, 0.1); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.2); }
+.tag-warning { background: rgba(245, 158, 11, 0.1); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.2); }
+.tag-danger { background: rgba(239, 68, 68, 0.1); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+.tag-info { background: rgba(59, 130, 246, 0.1); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.2); }
+.tag-neutral { background: rgba(100, 116, 139, 0.1); color: #94A3B8; border: 1px solid rgba(100, 116, 139, 0.2); }
+
+/* ----------------------------------
+ * 6. Audit Fiche Contrôle (Écran 7)
+ * ---------------------------------- */
+.control-fiche-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.control-fiche-left, .control-fiche-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.control-detail-block {
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.control-block-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--color-audit-primary);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-block-content {
+  font-size: 0.85rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* Evidence links formatting */
+.evidence-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.evidence-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.evidence-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #F1F5F9;
+}
+
+.evidence-source {
+  font-size: 0.65rem;
+  color: #64748B;
+}
+
+.evidence-btn-view {
+  font-size: 0.7rem;
+  color: var(--color-audit-primary);
+  background: none;
+  border: 1px solid rgba(141, 164, 196, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.evidence-btn-view:hover {
+  background: var(--color-audit-primary);
+  color: var(--color-audit-bg);
+}
+
+/* AI verification block */
+.ai-checker-block {
+  border-left: 3px solid var(--color-audit-warning);
+  background: rgba(245, 158, 11, 0.02);
+}
+
+.ai-checker-block.fail {
+  border-left-color: var(--color-audit-danger);
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.ai-checker-block.success {
+  border-left-color: var(--color-audit-success);
+  background: rgba(16, 185, 129, 0.02);
+}
+
+/* ----------------------------------
+ * 7. Excel Mapping & SharePoint views
+ * ---------------------------------- */
+.excel-mapping-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.excel-preview-table-container {
+  max-height: 350px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.excel-preview-table {
+  width: 100%;
+  font-size: 0.75rem;
+  border-collapse: collapse;
+}
+
+.excel-preview-table th {
+  background: #0F172A;
+  color: #94A3B8;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.excel-preview-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.mapping-select {
+  background: #0B0F19;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  padding: 0.2rem;
+  outline: none;
+}
+
+/* ----------------------------------
+ * 8. Technical Audit Log
+ * ---------------------------------- */
+.audit-logs-container {
+  max-height: 400px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.audit-log-line {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #A7F3D0;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.04);
+  display: grid;
+  grid-template-columns: 140px 100px 100px 1fr;
+  gap: 1rem;
+}
+
+.audit-log-line .log-date { color: #64748B; }
+.audit-log-line .log-user { color: #93C5FD; }
+.audit-log-line .log-action { color: #FCD34D; }
+
+/* ----------------------------------
+ * 9. Interactive Elements & Details
+ * ---------------------------------- */
+.audit-theme .form-input {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.65rem 1rem;
+  outline: none;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+}
+
+.audit-theme .form-input:focus {
+  border-color: var(--color-audit-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.audit-theme .btn-primary {
+  background-color: var(--color-audit-primary);
+  color: var(--color-audit-bg);
+  border: 1px solid var(--color-audit-primary);
+}
+
+.audit-theme .btn-primary:hover {
+  background-color: var(--color-audit-primary-light);
+  border-color: var(--color-audit-primary-light);
+  box-shadow: 0 10px 25px rgba(141, 164, 196, 0.25);
+}
+
+/* ----------------------------------
+ * 10. PDF Viewer Simulation
+ * ---------------------------------- */
+.pdf-viewer-sim {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  background: #111827;
+  padding: 1.5rem;
+  position: relative;
+  min-height: 400px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.pdf-header-sim {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pdf-hl-box {
+  border: 2px dashed #60A5FA;
+  background: rgba(96, 165, 250, 0.1);
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 4px;
+}
+
+.pdf-hl-box:hover {
+  background: rgba(96, 165, 250, 0.25);
+  border-color: #3B82F6;
+}
+
+.pdf-tooltip {
+  position: absolute;
+  background: #1F2937;
+  color: #fff;
+  border: 1px solid #3B82F6;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}

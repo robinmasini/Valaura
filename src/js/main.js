@@ -1,3 +1,5 @@
+import { initAuditRouting, initAuditScenario, renderAuditUI } from './audit.js';
+
 /* -------------------------------------------------------------
  * Valaura B2B SaaS Premium Interactions, ROI Calculator & Live Demo
  * ------------------------------------------------------------- */
@@ -15,7 +17,49 @@ document.addEventListener('DOMContentLoaded', () => {
   initProblemCards();
   initCategoryExplorer();
   initMomentsToggle();
+
+  // Initialize Audit bindings
+  initAuditScenario();
+  initAuditRouting(handleMainRoute);
+
+  // Bind universe selector buttons
+  const btnPrevoyance = document.getElementById('btnSelectPrevoyance');
+  const btnAudit = document.getElementById('btnSelectAudit');
+  const btnBack = document.getElementById('btnBackToSelection');
+  const btnBackPrev = document.getElementById('btnBackToSelectionPrevoyance');
+
+  if (btnPrevoyance) btnPrevoyance.addEventListener('click', () => { window.location.hash = '#/prevoyance'; });
+  if (btnAudit) btnAudit.addEventListener('click', () => { window.location.hash = '#/audit/portfolio'; });
+
+  const goBack = () => { window.location.hash = '#/selection'; };
+  if (btnBack) btnBack.addEventListener('click', goBack);
+  if (btnBackPrev) btnBackPrev.addEventListener('click', goBack);
 });
+
+// Routing Resolver
+function handleMainRoute(universe) {
+  const selectPanel = document.getElementById('universeSelectorPanel');
+  const prevoyanceWrapper = document.getElementById('prevoyanceDashboardWrapper');
+  const auditWrapper = document.getElementById('auditDashboardWrapper');
+
+  if (selectPanel && prevoyanceWrapper && auditWrapper) {
+    if (universe === 'prevoyance') {
+      selectPanel.style.display = 'none';
+      auditWrapper.style.display = 'none';
+      prevoyanceWrapper.style.display = 'flex';
+    } else if (universe === 'audit') {
+      selectPanel.style.display = 'none';
+      prevoyanceWrapper.style.display = 'none';
+      auditWrapper.style.display = 'flex';
+      renderAuditUI();
+    } else {
+      // selection
+      prevoyanceWrapper.style.display = 'none';
+      auditWrapper.style.display = 'none';
+      selectPanel.style.display = 'flex';
+    }
+  }
+}
 
 /* 1. Custom Interactive Cursor */
 function initCustomCursor() {
@@ -316,6 +360,7 @@ function initCategoryExplorer() {
         if (demoModal) {
           demoModal.classList.add('open');
           document.body.style.overflow = 'hidden';
+          window.location.hash = '#/prevoyance';
           renderScenarioStep(0); // Load step 1
         }
       }, 350); // Small fluid delay for overlapping modals transition
@@ -768,6 +813,7 @@ function initDemoDashboard() {
         document.body.style.overflow = 'hidden';
         
         // Reset state on open
+        window.location.hash = '#/selection';
         dashboardState.activeCategory = 'dashboard';
         dashboardState.activeRole = 'dirigeant';
         adjustScenarioPanelForMobile();
@@ -781,6 +827,7 @@ function initDemoDashboard() {
   const closeModal = () => {
     modal.classList.remove('open');
     document.body.style.overflow = '';
+    window.location.hash = '#/';
   };
 
   closeBtn.addEventListener('click', closeModal);

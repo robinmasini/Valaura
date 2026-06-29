@@ -22,6 +22,7 @@
   
   <!-- Custom stylesheet -->
   <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="stylesheet" href="/src/css/audit.css">
 
   <!-- Temporary Client Highlight Styles -->
   <style>
@@ -861,8 +862,34 @@
         </svg>
       </button>
 
+      <!-- Universe Selection Panel -->
+      <div class="universe-selector-container" id="universeSelectorPanel">
+        <div class="uni-logo-wrapper">
+          <img src="/src/assets/Valaura.png" alt="Valaura" class="uni-logo-img">
+          <h3 class="uni-title">Sélection de l'univers produit</h3>
+        </div>
+        <div class="uni-grid">
+          <!-- Card 1: Prévoyance -->
+          <div class="uni-card uni-card-prevoyance cursor-hover" id="btnSelectPrevoyance">
+            <img src="/src/assets/Valaura.png" alt="Valaura Prévoyance" class="uni-card-logo">
+            <h4 class="uni-card-title">Valaura</h4>
+            <span class="uni-card-subtitle">PRÉVOYANCE</span>
+            <p class="uni-card-desc">Gestion des dossiers, clients, contrats, documents et activités de prévoyance.</p>
+            <button class="uni-card-cta">Entrer dans l'univers</button>
+          </div>
+          <!-- Card 2: Audits Financiers -->
+          <div class="uni-card uni-card-audit cursor-hover" id="btnSelectAudit">
+            <img src="/src/assets/Valaura.png" alt="Valaura Audits Financiers" class="uni-card-logo">
+            <h4 class="uni-card-title">Valaura</h4>
+            <span class="uni-card-subtitle">AUDITS FINANCIERS</span>
+            <p class="uni-card-desc">Pilotage des missions, des cycles, des travaux, des preuves et des revues d’audit.</p>
+            <button class="uni-card-cta">Entrer dans l'univers</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Dashboard Wrapper Grid -->
-      <div class="dashboard-wrapper">
+      <div class="dashboard-wrapper" id="prevoyanceDashboardWrapper" style="display: none;">
         
         <!-- Sidebar Navigation -->
         <aside class="dashboard-sidebar">
@@ -920,6 +947,10 @@
               </button>
             </div>
           </div>
+          <!-- Back to Selection Selector -->
+          <button class="btn-back-universe cursor-hover" id="btnBackToSelectionPrevoyance">
+            <span>⇄ Changer d'univers</span>
+          </button>
         </aside>
 
         <!-- Main Dashboard View Panel -->
@@ -1738,6 +1769,488 @@ Tél : 06 88 99 00 11</textarea>
         </main>
       </div>
 
+      <!-- ========================================== -->
+      <!-- AUDIT DASHBOARD WRAPPER GRID -->
+      <!-- ========================================== -->
+      <div class="dashboard-wrapper audit-theme" id="auditDashboardWrapper" style="display: none;">
+        <!-- Sidebar Navigation Audit -->
+        <aside class="dashboard-sidebar">
+          <div class="db-logo-area">
+            <img src="/src/assets/Valaura.png" alt="Valaura Logo" class="db-logo">
+          </div>
+          
+          <!-- Context Dropdowns -->
+          <div class="audit-context-panel">
+            <div class="audit-context-title">Contexte Actif</div>
+            <select class="audit-context-selector" id="auditClientSelector">
+              <option value="abc">Société ABC</option>
+              <option value="xyz">Groupe XYZ</option>
+            </select>
+            <select class="audit-context-selector" id="auditMissionSelector">
+              <option value="legal2026">Audit légal 2026</option>
+              <option value="interim2026">Audit intérimaire 2026</option>
+            </select>
+            <select class="audit-context-selector" id="auditPeriodSelector">
+              <option value="cloture2026">Clôture au 31/12/2026</option>
+            </select>
+          </div>
+
+          <nav class="db-nav" id="auditSidebarNav">
+            <a href="#" class="db-nav-item active cursor-hover" data-audit-view="portfolio">
+              <span class="db-nav-icon">💼</span>
+              <span>Portefeuille</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="dashboard">
+              <span class="db-nav-icon">📊</span>
+              <span>Dashboard Mission</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="cycles">
+              <span class="db-nav-icon">🔄</span>
+              <span>Cycles Comptables</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="review">
+              <span class="db-nav-icon">🔎</span>
+              <span>Revue Manager</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="findings">
+              <span class="db-nav-icon">⚠️</span>
+              <span>Registre Anomalies</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="documents">
+              <span class="db-nav-icon">📂</span>
+              <span>Docs & Sources</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="methodology">
+              <span class="db-nav-icon">📚</span>
+              <span>Méthodologie</span>
+            </a>
+            <a href="#" class="db-nav-item cursor-hover" data-audit-view="config">
+              <span class="db-nav-icon">⚙️</span>
+              <span>Configuration</span>
+            </a>
+          </nav>
+
+          <!-- Interactive Scenario Card Panel (Audit Walkthrough) -->
+          <div class="scenario-panel">
+            <div class="sc-header">
+              <span class="sc-subtitle">Cas Réel : Rapprochement</span>
+              <h4 class="sc-title">Scénario Audit Trésorerie</h4>
+            </div>
+
+            <!-- Steps Progress Bar -->
+            <div class="sc-progress-wrapper">
+              <div class="sc-progress-bar">
+                <div class="sc-progress-fill" id="auditScProgressFill" style="width: 11%;"></div>
+              </div>
+              <div class="sc-steps-count" id="auditScStepsCount">Étape 1 sur 9</div>
+            </div>
+
+            <!-- Dynamic step card content -->
+            <div class="sc-step-card">
+              <h5 class="sc-step-name" id="auditScStepName">1. Initialisation de la mission</h5>
+              <p class="sc-step-desc" id="auditScStepDesc">Marie Dupont (Manager) crée la mission 'Audit légal 2026' pour la Société ABC, renseigne les seuils et active le cycle Trésorerie.</p>
+            </div>
+
+            <div class="sc-actions">
+              <button class="btn btn-primary cursor-hover" id="auditScNextBtn" style="width: 100%; padding: 0.65rem 1rem;">
+                <span>Étape Suivante</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+              <button class="btn btn-secondary cursor-hover" id="auditScResetBtn" style="width: 100%; padding: 0.5rem; font-size: 0.8rem; margin-top: 0.5rem;">
+                <span>Réinitialiser la Démo</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Back to Selection Selector -->
+          <button class="btn-back-universe cursor-hover" id="btnBackToSelection">
+            <span>⇄ Changer d'univers</span>
+          </button>
+        </aside>
+
+        <!-- Main Dashboard View Panel Audit -->
+        <main class="dashboard-main">
+          <!-- Top bar with Role Toggle & Simulated clock -->
+          <header class="db-topbar">
+            <div class="db-title-area">
+              <h2 class="db-view-title" id="auditTopbarTitle">Portefeuille d'Audits</h2>
+              <p class="db-view-subtitle" id="auditTopbarSubtitle">Sélectionnez une mission pour piloter l'avancement.</p>
+            </div>
+
+            <!-- Role View Buttons -->
+            <div class="db-role-selector" id="auditRoleSelector">
+              <button class="db-role-btn active cursor-hover" data-audit-role="collaborateur">Collaborateur</button>
+              <button class="db-role-btn cursor-hover" data-audit-role="manager">Manager</button>
+              <button class="db-role-btn cursor-hover" data-audit-role="associe">Associé</button>
+            </div>
+          </header>
+
+          <!-- Dynamic Views Wrapper Audit -->
+          <div class="db-view-container">
+            <!-- View 2: Portfolio -->
+            <div class="audit-view-panel" id="auditView-portfolio">
+              <div id="auditPortfolioGrid"></div>
+            </div>
+
+            <!-- View 3: Create Client & Mission -->
+            <div class="audit-view-panel" id="auditView-create-mission" style="display:none;">
+              <div class="excel-mapping-grid">
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:1.5rem;">Initialiser une nouvelle mission d'audit</h4>
+                  <form id="formAuditCreateMission" style="display:flex; flex-direction:column; gap:1rem;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                      <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                        <label style="font-size:0.75rem; color:#94A3B8;">Nom du Client :</label>
+                        <input type="text" id="auditCreateClientName" value="Société ABC" required class="form-input cursor-hover">
+                      </div>
+                      <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                        <label style="font-size:0.75rem; color:#94A3B8;">Entité Juridique :</label>
+                        <input type="text" id="auditCreateLegal" value="SAS" required class="form-input cursor-hover">
+                      </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                      <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                        <label style="font-size:0.75rem; color:#94A3B8;">Exercice Audité :</label>
+                        <input type="text" id="auditCreateExercice" value="2026" required class="form-input cursor-hover">
+                      </div>
+                      <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                        <label style="font-size:0.75rem; color:#94A3B8;">Date de Clôture :</label>
+                        <input type="date" id="auditCreateCloture" value="2026-12-31" required class="form-input cursor-hover">
+                      </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                      <label style="font-size:0.75rem; color:#94A3B8;">Dossier OneDrive/SharePoint connecté :</label>
+                      <input type="text" value="SharePoint/ABC_Audit_2026" class="form-input cursor-hover" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary cursor-hover" style="margin-top:0.5rem; align-self:flex-start;" onclick="alert('Mission créée et cycles générés !'); window.location.hash='#/audit/dashboard';">Créer et générer les cycles</button>
+                  </form>
+                </div>
+                
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:1rem;">Questionnaire d'Applicabilité & Méthodologie</h4>
+                  <p style="font-size:0.8rem; color:#94A3B8; margin-bottom:1rem;">Cochez les critères du client pour activer automatiquement les cycles requis :</p>
+                  
+                  <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem;" id="auditQuestionnaireChecks">
+                    <label style="display:flex; align-items:center; gap:0.5rem;" class="cursor-hover">
+                      <input type="checkbox" checked id="qCheckBanks"> Plusieurs comptes bancaires ? (Active Trésorerie)
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem;" class="cursor-hover">
+                      <input type="checkbox" checked id="qCheckStocks"> Présence de stocks significatifs ? (Active Stocks)
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem;" class="cursor-hover">
+                      <input type="checkbox" id="qCheckConsolidation"> Entité consolidante ? (Active Consolidation)
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem;" class="cursor-hover">
+                      <input type="checkbox" checked id="qCheckFixedAssets"> Immobilisations significatives ? (Active Immo)
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View 4: Dashboard Mission -->
+            <div class="audit-view-panel" id="auditView-dashboard" style="display:none;">
+              <!-- Three Thresholds Block -->
+              <div class="audit-thresholds-grid">
+                <div class="audit-threshold-card">
+                  <span class="audit-th-badge badge-approved">Approuvé</span>
+                  <span class="audit-th-label">Seuil de Signification (CA 1.5%)</span>
+                  <span class="audit-th-value" id="thSignVal">50 000 €</span>
+                  <span class="audit-th-base">Seuil d'opinion global</span>
+                </div>
+                <div class="audit-threshold-card">
+                  <span class="audit-th-badge badge-approved">Approuvé</span>
+                  <span class="audit-th-label">Seuil de Planification (75%)</span>
+                  <span class="audit-th-value" id="thPlanVal">37 500 €</span>
+                  <span class="audit-th-base">Seuil d'échantillonnage travaux</span>
+                </div>
+                <div class="audit-threshold-card">
+                  <span class="audit-th-badge badge-approved">Approuvé</span>
+                  <span class="audit-th-label">Seuil de Remontée (5%)</span>
+                  <span class="audit-th-value" id="thRemVal">2 500 €</span>
+                  <span class="audit-th-base">Seuil de trivialité comptable</span>
+                </div>
+              </div>
+
+              <!-- 5 Mini Metrics Cards Grid -->
+              <div class="audit-metrics-5grid">
+                <div class="audit-metric-mini">
+                  <span class="audit-mini-val" id="metricAvancementVal">92%</span>
+                  <span class="audit-mini-label">Travaux Renseignés (Saisie)</span>
+                  <div class="audit-mini-bar"><div class="audit-mini-fill" id="metricAvancementBar" style="width: 92%;"></div></div>
+                </div>
+                <div class="audit-metric-mini">
+                  <span class="audit-mini-val" id="metricPreuvesVal">68%</span>
+                  <span class="audit-mini-label">Couverture des Preuves (Dossier)</span>
+                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-warning" id="metricPreuvesBar" style="width: 68%;"></div></div>
+                </div>
+                <div class="audit-metric-mini">
+                  <span class="audit-mini-val" id="metricAutoVal">61%</span>
+                  <span class="audit-mini-label">Contrôles Auto. Réussis</span>
+                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-warning" id="metricAutoBar" style="width: 61%;"></div></div>
+                </div>
+                <div class="audit-metric-mini">
+                  <span class="audit-mini-val" id="metricRevueVal">35%</span>
+                  <span class="audit-mini-label">Revue Manager effectuée</span>
+                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-info" id="metricRevueBar" style="width: 35%;"></div></div>
+                </div>
+                <div class="audit-metric-mini">
+                  <span class="audit-mini-val" id="metricPointsVal">44%</span>
+                  <span class="audit-mini-label">Points de Revue Résolus</span>
+                  <div class="audit-mini-bar"><div class="audit-mini-fill fill-info" id="metricPointsBar" style="width: 44%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Anomalies Bar Indicator -->
+              <div class="audit-threshold-card" style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.5rem;">
+                <div style="flex-grow:1;">
+                  <span class="audit-th-label">Registre des anomalies cumulées</span>
+                  <div style="width:100%; height:8px; background:rgba(255,255,255,0.05); border-radius:4px; margin-top:0.5rem; overflow:hidden;">
+                    <div style="width:10%; height:100%; background:var(--color-audit-warning);" id="dashboardAnomalyBar" class="audit-mini-fill"></div>
+                  </div>
+                </div>
+                <span style="font-size:0.85rem; color:#E2E8F0; margin-left:2rem; text-align:right;" id="dashboardAnomalyLabel"><strong>4 800 €</strong> détectés (10% du seuil)</span>
+              </div>
+
+              <!-- Attention Banner -->
+              <div class="audit-attention-banner" id="auditAttentionBanner">
+                <div class="audit-att-header">
+                  <span>⚠ POINTS D'ATTENTION CRITIQUES DE LA MISSION</span>
+                </div>
+                <div class="audit-att-list" id="auditAttentionList">
+                  <!-- Loaded dynamically -->
+                </div>
+              </div>
+
+              <!-- Cycles Table Card -->
+              <div class="db-table-card" style="margin-top:0;">
+                <h4 class="audit-card-title" style="margin-bottom:1rem;">Suivi de l'avancement des cycles financiers</h4>
+                <div class="db-table-wrapper">
+                  <table class="audit-table">
+                    <thead>
+                      <tr>
+                        <th>Cycle financier</th>
+                        <th>Responsable</th>
+                        <th>Niveau Risque</th>
+                        <th>Saisie</th>
+                        <th>Preuves</th>
+                        <th>Contrôles Auto.</th>
+                        <th>Revue</th>
+                        <th>Statut Cycle</th>
+                      </tr>
+                    </thead>
+                    <tbody id="auditCyclesTableBody">
+                      <!-- Loaded dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Recent Activity & Logs split -->
+              <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:1.5rem; margin-top:1.5rem;">
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:1rem;">Flux d'activité de la mission</h4>
+                  <div id="auditRecentActivityList"></div>
+                </div>
+                
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:1rem;">Rapports et livrables finaux</h4>
+                  <p style="font-size:0.8rem; color:#94A3B8; margin-bottom:1rem;">Générez les documents de synthèse à l'issue de l'audit.</p>
+                  <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                    <button class="btn btn-secondary cursor-hover" style="font-size:0.8rem; justify-content:flex-start; padding: 0.5rem 1rem;" onclick="alert('Rapport général de certification généré en brouillon (ISA 700).')">📄 Rapport d'opinion (ISA 700)</button>
+                    <button class="btn btn-secondary cursor-hover" style="font-size:0.8rem; justify-content:flex-start; padding: 0.5rem 1rem;" onclick="alert('Lettre d\'affirmation générée.')">📝 Lettre d'affirmation de la direction</button>
+                    <button class="btn btn-secondary cursor-hover" style="font-size:0.8rem; justify-content:flex-start; padding: 0.5rem 1rem;" onclick="alert('Synthèse des anomalies cumulées exportée.')">📊 Lettre de commentaires sur le contrôle interne</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View 5: Cycles Grid -->
+            <div class="audit-view-panel" id="auditView-cycles" style="display:none;">
+              <div class="categories-grid" id="auditCyclesGrid" style="grid-template-columns: repeat(4, 1fr); min-height: auto;">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+
+            <!-- View 6: Cycle Detail -->
+            <div class="audit-view-panel" id="auditView-cycle-detail" style="display:none;">
+              <div id="auditCycleDetailContainer"></div>
+            </div>
+
+            <!-- View 7: Fiche Contrôle -->
+            <div class="audit-view-panel" id="auditView-control-fiche" style="display:none;">
+              <div id="auditControlFicheContainer"></div>
+            </div>
+
+            <!-- View 8: Revue Manager -->
+            <div class="audit-view-panel" id="auditView-review" style="display:none;">
+              <div id="auditReviewContainer"></div>
+            </div>
+
+            <!-- View 9: Registre Anomalies -->
+            <div class="audit-view-panel" id="auditView-findings" style="display:none;">
+              <div class="db-table-card" style="margin-top:0; margin-bottom:1.5rem;" id="findingsCumulatedText">
+                <!-- Loaded dynamically -->
+              </div>
+              <div class="db-table-card" style="margin-top:0;">
+                <h4 class="audit-card-title" style="margin-bottom:1rem;">Registre des anomalies d'audit ( findings )</h4>
+                <div class="db-table-wrapper">
+                  <table class="audit-table">
+                    <thead>
+                      <tr>
+                        <th>Réf</th>
+                        <th>Cycle (Source)</th>
+                        <th>Description anomalie</th>
+                        <th>Montant d'écart</th>
+                        <th>Nature</th>
+                        <th>Statut anomalie</th>
+                      </tr>
+                    </thead>
+                    <tbody id="auditFindingsTableBody">
+                      <!-- Loaded dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- View 10: Docs & Sources -->
+            <div class="audit-view-panel" id="auditView-documents" style="display:none;">
+              <div class="excel-mapping-grid" style="grid-template-columns: 1.3fr 1fr; align-items:start;">
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:1rem;">Documents probants du dossier client</h4>
+                  <div class="db-table-wrapper">
+                    <table class="audit-table">
+                      <thead>
+                        <tr>
+                          <th>Nom du fichier</th>
+                          <th>Catégorie</th>
+                          <th>Type</th>
+                          <th>Taille</th>
+                          <th>Analyse IA</th>
+                          <th>Reçu le</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="auditDocsTableBody">
+                        <!-- Loaded dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Excel file mapping simulator (Écran 12) -->
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:0.5rem;">Simulateur de mapping de feuille Excel</h4>
+                  <p style="font-size:0.8rem; color:#94A3B8; margin-bottom:1rem;">Détectez et mappez les lignes Excel vers les contrôles Valaura :</p>
+                  
+                  <div style="display:flex; flex-direction:column; gap:1rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem;">
+                      <span>Fichier actif : <strong>Rapprochement bancaire ABC.xlsx</strong></span>
+                      <button class="audit-tag tag-info" style="border:none;" onclick="alert('Fichier analysé : 8 colonnes, 52 lignes reconnues.')">Analyser</button>
+                    </div>
+                    
+                    <div class="excel-preview-table-container">
+                      <table class="excel-preview-table">
+                        <thead>
+                          <tr>
+                            <th>Ligne</th>
+                            <th>Col A (Réf)</th>
+                            <th>Col B (Montant)</th>
+                            <th>Col C (Statut)</th>
+                            <th>Mapping</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>TRE-011</td>
+                            <td>0 €</td>
+                            <td>Validé</td>
+                            <td>
+                              <select class="mapping-select">
+                                <option>Réf Contrôle</option>
+                                <option>Montant</option>
+                              </select>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>TRE-014</td>
+                            <td>7 500 €</td>
+                            <td>Écart</td>
+                            <td>
+                              <select class="mapping-select">
+                                <option>Réf Contrôle</option>
+                                <option>Montant</option>
+                              </select>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <button class="btn btn-primary cursor-hover" style="font-size:0.8rem; align-self:flex-end;" onclick="alert('Mapping validé et enregistré.')">Confirmer le mapping</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View 14: Methodology -->
+            <div class="audit-view-panel" id="auditView-methodology" style="display:none;">
+              <div id="auditMethodologyContainer"></div>
+            </div>
+
+            <!-- View 15: Configuration & Logs -->
+            <div class="audit-view-panel" id="auditView-config" style="display:none;">
+              <div id="auditConfigContainer"></div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- MODAL: PDF FILE VIEWER & OCR ANALYSIS (Écran 10) -->
+      <!-- ========================================== -->
+      <div class="demo-dashboard-modal" id="auditPDFViewerModal" aria-hidden="true" role="dialog" style="z-index:1300; display:none;">
+        <div class="demo-modal-overlay" onclick="closePDFViewer()"></div>
+        <div class="demo-modal-container" style="max-width:800px; height: auto; max-height:85vh; padding: 2rem;">
+          <button class="demo-modal-close cursor-hover" onclick="closePDFViewer()" aria-label="Fermer" style="cursor:none;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <h3 style="font-size:1.25rem; font-weight:600; color:#fff; margin-bottom:1rem;" id="pdfViewerTitle">Relevé de compte</h3>
+          <div class="pdf-viewer-sim">
+            <div class="pdf-header-sim">
+              <span style="font-size:0.8rem; color:#94A3B8;">Document : PDF Extrait (Lecture OCR Active)</span>
+              <span class="audit-tag tag-success">Couche texte reconnue</span>
+            </div>
+            
+            <div style="font-family:monospace; font-size:0.75rem; color:#CBD5E1; line-height:1.5;">
+              <p>--------------------------------------------------------------------------------</p>
+              <p>BNP PARIBAS SA - AGENCE ENTREPRISES LILLE</p>
+              <p>RELEVÉ DE COMPTE DE COURANT - N° COMPTE : 30004 01234 0000512100 89</p>
+              <p>PÉRIODE : DU 01/12/2026 AU 31/12/2026</p>
+              <p>--------------------------------------------------------------------------------</p>
+              <p>SOLDE INITIAL AU 01/12/2026 : ................................. 489 120,00 EUR</p>
+              <br>
+              <p>15/12/2026  VIR INTERBANCAIRE TRANSIT ...... CRÉDIT .......   2 700,00 EUR</p>
+              <p>18/12/2026  DEB HONORAIRES AVOCAT AB ...... DÉBIT .........  -4 800,00 EUR</p>
+              <p>28/12/2026  REMISE DE CHÈQUES N° 4589 ...... CRÉDIT .......  62 780,00 EUR</p>
+              <br>
+              <p>SOLDE DE CLÔTURE AU 31/12/2026 : ............................. 549 800,00 EUR</p>
+              <p>--------------------------------------------------------------------------------</p>
+            </div>
+
+            <!-- OCR highlight area -->
+            <div class="pdf-hl-box" id="pdfOcrHighlight" style="top:140px; left:320px; width:120px; height:30px;" onclick="alert('Donnée extraite par l\'IA :\nSolde de clôture : 549 800,00 EUR\nIndice de confiance : 98%')"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
