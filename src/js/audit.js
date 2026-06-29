@@ -434,8 +434,10 @@ function handleHashRouting(mainRouterCallback) {
       auditState.activeView = pathParts[2];
     }
     renderAuditUI();
-  } else {
+  } else if (hash === '#/selection') {
     mainRouterCallback('selection');
+  } else {
+    mainRouterCallback('landing');
   }
 }
 

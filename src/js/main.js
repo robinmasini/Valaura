@@ -71,22 +71,66 @@ function handleMainRoute(universe) {
   const selectPanel = document.getElementById('universeSelectorPanel');
   const prevoyanceWrapper = document.getElementById('prevoyanceDashboardWrapper');
   const auditWrapper = document.getElementById('auditDashboardWrapper');
+  const landingWrapper = document.getElementById('landingPageWrapper');
+  const modal = document.getElementById('demoDashboardModal');
+  const closeBtn = document.getElementById('demoModalClose');
+  const modalOverlay = document.getElementById('demoModalOverlay');
 
-  if (selectPanel && prevoyanceWrapper && auditWrapper) {
+  if (selectPanel && prevoyanceWrapper && auditWrapper && landingWrapper && modal) {
     if (universe === 'prevoyance') {
+      landingWrapper.style.display = 'none';
+      modal.classList.add('open');
+      modal.style.position = 'relative';
+      modal.style.height = '100vh';
+      modal.style.background = '#0F172A';
+      if (modalOverlay) modalOverlay.style.display = 'none';
+      if (closeBtn) closeBtn.style.display = 'none';
+      
       selectPanel.style.display = 'none';
       auditWrapper.style.display = 'none';
       prevoyanceWrapper.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     } else if (universe === 'audit') {
+      landingWrapper.style.display = 'none';
+      modal.classList.add('open');
+      modal.style.position = 'relative';
+      modal.style.height = '100vh';
+      modal.style.background = '#070B12';
+      if (modalOverlay) modalOverlay.style.display = 'none';
+      if (closeBtn) closeBtn.style.display = 'none';
+      
       selectPanel.style.display = 'none';
       prevoyanceWrapper.style.display = 'none';
       auditWrapper.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
       renderAuditUI();
-    } else {
-      // selection
+    } else if (universe === 'selection') {
+      landingWrapper.style.display = 'none';
+      modal.classList.add('open');
+      modal.style.position = 'relative';
+      modal.style.height = '100vh';
+      modal.style.background = '#0F172A';
+      if (modalOverlay) modalOverlay.style.display = 'none';
+      if (closeBtn) closeBtn.style.display = 'none';
+      
       prevoyanceWrapper.style.display = 'none';
       auditWrapper.style.display = 'none';
       selectPanel.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Return to landing page (universe === 'landing' or default hash '#/')
+      landingWrapper.style.display = 'block';
+      modal.classList.remove('open');
+      modal.style.position = '';
+      modal.style.height = '';
+      modal.style.background = '';
+      if (modalOverlay) modalOverlay.style.display = '';
+      if (closeBtn) closeBtn.style.display = '';
+      
+      prevoyanceWrapper.style.display = 'none';
+      auditWrapper.style.display = 'none';
+      selectPanel.style.display = 'none';
+      document.body.style.overflow = '';
     }
   }
 }

@@ -115,6 +115,7 @@
   </div>
 
   <!-- Header & Navigation -->
+  <div id="landingPageWrapper">
   <header class="header">
     <div class="header-container">
       <a href="#" class="logo-link cursor-hover" aria-label="Valaura Accueil">
@@ -888,6 +889,7 @@
       </div>
     </div>
   </footer>
+  </div>
 
   <!-- ========================================== -->
   <!-- FULLSCREEN DEMO DASHBOARD MODAL CONTAINER -->
@@ -928,6 +930,9 @@
             <button class="uni-card-cta">Entrer dans l'univers</button>
           </div>
         </div>
+        <button class="btn btn-secondary cursor-hover" style="margin-top: 3rem; font-size: 0.85rem; padding: 0.6rem 1.5rem; border-radius: 20px;" onclick="window.location.hash='#/'">
+          <span>← Retourner au site vitrine</span>
+        </button>
       </div>
 
       <!-- Dashboard Wrapper Grid -->
@@ -2052,6 +2057,92 @@ Tél : 06 88 99 00 11</textarea>
                   </div>
                 </div>
                 <span style="font-size:0.85rem; color:#E2E8F0; margin-left:2rem; text-align:right;" id="dashboardAnomalyLabel"><strong>4 800 €</strong> détectés (10% du seuil)</span>
+              </div>
+
+              <!-- 2-Column Grid: Treasury Summary & DataSnipper OCR Snips -->
+              <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+                    <span>💰 Cadrage Trésorerie Globale (Balance vs Relevés)</span>
+                  </h4>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.75rem;">
+                    <div style="border: 1px solid rgba(255,255,255,0.04); padding:1rem; border-radius:10px; background:rgba(255,255,255,0.01);">
+                      <span style="font-size:0.7rem; color:#94A3B8; display:block; text-transform:uppercase;">Total Grand Livre (BG N)</span>
+                      <strong style="font-size:1.3rem; color:#fff; display:block; margin-top:0.25rem;">5 855 174,27 €</strong>
+                      <span style="font-size:0.65rem; color:#64748B;">Somme des balances comptables classe 5</span>
+                    </div>
+                    <div style="border: 1px solid rgba(255,255,255,0.04); padding:1rem; border-radius:10px; background:rgba(255,255,255,0.01);">
+                      <span style="font-size:0.7rem; color:#94A3B8; display:block; text-transform:uppercase;">Total Banques (Relevés N)</span>
+                      <strong style="font-size:1.3rem; color:#8DA4C4; display:block; margin-top:0.25rem;">6 334 907,25 €</strong>
+                      <span style="font-size:0.65rem; color:#64748B;">Somme des soldes extraits bancaires</span>
+                    </div>
+                  </div>
+                  <div style="margin-top:1rem; border-top:1px dashed rgba(255,255,255,0.06); padding-top:1rem; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <span style="font-size:0.75rem; color:#E2E8F0; display:block; font-weight:600;">Écart de cadrage comptable brut :</span>
+                      <span style="font-size:0.7rem; color:#94A3B8;">Différence brute avant ERB/RAZ</span>
+                    </div>
+                    <div style="text-align:right;">
+                      <strong style="font-size:1.25rem; color:#EF4444; display:block;">-479 732,98 €</strong>
+                    </div>
+                  </div>
+                  <div style="margin-top:0.75rem; background:rgba(16,185,129,0.03); border:1px solid rgba(16,185,129,0.1); border-radius:8px; padding:0.75rem; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <span style="font-size:0.75rem; color:#34D399; font-weight:600; display:block;">Cadrage ERB &amp; RAZ de clôture :</span>
+                      <span style="font-size:0.65rem; color:#94A3B8;">Ajustements expliqués sur relevé janvier 2026</span>
+                    </div>
+                    <strong style="font-size:1.1rem; color:#34D399;">+479 732,98 €</strong>
+                  </div>
+                  <div style="margin-top:0.75rem; background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.1); border-radius:8px; padding:0.75rem; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <span style="font-size:0.75rem; color:#F87171; font-weight:600; display:block;">Écart résiduel non justifié (BNP Simulation) :</span>
+                      <span style="font-size:0.65rem; color:#94A3B8;">Avocats honoraires manquants (TRE-014)</span>
+                    </div>
+                    <strong style="font-size:1.1rem; color:#F87171;">-4 800,00 €</strong>
+                  </div>
+                </div>
+
+                <div class="db-table-card" style="margin-top:0;">
+                  <h4 class="audit-card-title" style="margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+                    <span>🤖 DataSnipper — Snipping IA</span>
+                  </h4>
+                  <p style="font-size:0.75rem; color:#94A3B8; margin-bottom:0.75rem; line-height:1.3;">Snippets IA extraits automatiquement des relevés PDF et intégrés aux feuilles de travail :</p>
+                  
+                  <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                    <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
+                      <div>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_CIC_RAZ_Clôture</span>
+                        <span style="font-size:0.65rem; color:#64748B;">Relevé CIC Decembre 2025 (p.1)</span>
+                      </div>
+                      <div style="text-align:right;">
+                        <span class="audit-tag tag-success" style="font-size:0.65rem; margin-bottom:0.25rem;">97% Match</span>
+                        <strong style="display:block; font-size:0.8rem; color:#8DA4C4;">479 701,95 €</strong>
+                      </div>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
+                      <div>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_BNP_Solde_Livre</span>
+                        <span style="font-size:0.65rem; color:#64748B;">Relevé BNP Decembre 2025 (p.1)</span>
+                      </div>
+                      <div style="text-align:right;">
+                        <span class="audit-tag tag-success" style="font-size:0.65rem; margin-bottom:0.25rem;">98% Match</span>
+                        <strong style="display:block; font-size:0.8rem; color:#8DA4C4;">12 757,80 €</strong>
+                      </div>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:0.6rem; display:flex; justify-content:space-between; align-items:center;">
+                      <div>
+                        <span style="display:block; font-size:0.75rem; color:#fff; font-weight:600;">Snip_Circularisation_CIC</span>
+                        <span style="font-size:0.65rem; color:#64748B;">Confirmation de Solde CIC (p.2)</span>
+                      </div>
+                      <div style="text-align:right;">
+                        <span class="audit-tag tag-success" style="font-size:0.65rem; margin-bottom:0.25rem;">100% Conf.</span>
+                        <strong style="display:block; font-size:0.8rem; color:#8DA4C4;">6 248 593,76 €</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Attention Banner -->
