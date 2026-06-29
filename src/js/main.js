@@ -375,7 +375,10 @@ function initCategoryExplorer() {
   const drawerFeatures = document.getElementById('drawerFeatures');
   const drawerBenefits = document.getElementById('drawerBenefits');
 
+  let activeDrawerCategory = '';
+
   function openDrawer(categoryKey) {
+    activeDrawerCategory = categoryKey;
     const data = categoryData[categoryKey];
     if (!data) return;
 
@@ -434,7 +437,14 @@ function initCategoryExplorer() {
         if (demoModal) {
           demoModal.classList.add('open');
           document.body.style.overflow = 'hidden';
-          window.location.hash = '#/prevoyance';
+          
+          if (activeDrawerCategory === 'category_income' || activeDrawerCategory === 'category_health' || activeDrawerCategory === 'category_family' || activeDrawerCategory === 'trigger_retirement') {
+            window.location.hash = '#/prevoyance/clients';
+          } else if (activeDrawerCategory === 'category_support') {
+            window.location.hash = '#/prevoyance/config';
+          } else {
+            window.location.hash = '#/prevoyance/dashboard';
+          }
           renderScenarioStep(0); // Load step 1
         }
       }, 350); // Small fluid delay for overlapping modals transition
@@ -928,7 +938,7 @@ function initDemoDashboard() {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const categoryKey = item.getAttribute('data-db-category');
-      switchDashboardCategory(categoryKey);
+      window.location.hash = '#/prevoyance/' + categoryKey;
     });
   });
 
@@ -1001,7 +1011,7 @@ function adjustScenarioPanelForMobile() {
   }
 }
 
-function switchDashboardCategory(categoryKey) {
+window.switchDashboardCategory = function(categoryKey) {
   dashboardState.activeCategory = categoryKey;
   
   // Toggle sidebar items active state
