@@ -162,6 +162,7 @@ export const auditState = {
 
   audit_mission_cycles: [
     { key: "tresorerie", name: "Trésorerie & Équivalents", risk: "Faible", weight: 2, lead: "Antoine Roche", progress: 92, evidence: 68, autoChecks: 61, review: 35, findings: 1, status: "Ready for review", alert: true },
+    { key: "financier", name: "Résultats & Charges Financières", risk: "Moyen", weight: 2, lead: "Paul Martin", progress: 85, evidence: 80, autoChecks: 100, review: 50, findings: 0, status: "En cours", alert: false },
     { key: "ventes", name: "Ventes & Créances Clients", risk: "Moyen", weight: 3, lead: "Paul Martin", progress: 40, evidence: 50, autoChecks: 70, review: 0, findings: 0, status: "En cours", alert: false },
     { key: "achats", name: "Achats & Dettes Fournisseurs", risk: "Moyen", weight: 3, lead: "Paul Martin", progress: 10, evidence: 10, autoChecks: 100, review: 0, findings: 0, status: "En cours", alert: false },
     { key: "immobilisations", name: "Immobilisations corporelles", risk: "Faible", weight: 1, lead: "Antoine Roche", progress: 100, evidence: 100, autoChecks: 100, review: 100, findings: 0, status: "Validé", alert: false }
@@ -191,7 +192,7 @@ export const auditState = {
       cycle: "tresorerie",
       subCategory: "Rapprochements bancaires",
       title: "Rapprochement Relevé et Comptabilité (BNP)",
-      objective: "Vérifier la concordance arithmétique entre le solde comptable (compte 512100) et le relevé bancaire BNP Paribas au 31/12/2026.",
+      objective: "Vérifier la concordance arithmétique entre le solde comptable (compte 51202000) et le relevé bancaire BNP Paribas au 31/12/2026.",
       risk: "Moyen",
       assertions: ["Réalité", "Exhaustivité", "Évaluation"],
       weight: 3,
@@ -205,6 +206,24 @@ export const auditState = {
       reviewNotes: [
         { author: "Marie Dupont", date: "16/02/2027", text: "Merci de justifier l'écart restant de 4 800 € et d'identifier si une facture d'honoraire est en attente d'enregistrement.", closed: false }
       ]
+    },
+    {
+      ref: "FIN-001",
+      cycle: "financier",
+      subCategory: "Charges d'intérêts",
+      title: "Recoupement des emprunts et charges financières",
+      objective: "Vérifier la cohérence globale des charges financières enregistrées par rapport aux contrats d'emprunts et taux applicables.",
+      risk: "Moyen",
+      assertions: ["Réalité", "Évaluation"],
+      weight: 2,
+      lead: "Paul Martin",
+      reviewer: "Marie Dupont",
+      status: "En cours",
+      evidence: ["Tableaux d'amortissement emprunts.xlsx", "Contrats de prêts structurés"],
+      procedure: "1. Obtenir les contrats de prêts et PGE.\n2. Recouper les charges d'intérêts comptabilisées en classe 661x avec les tableaux d'amortissement réels.",
+      conclusion: "Travaux en cours de finalisation. Le recoupement global montre une variation de 5% conforme à la baisse générale des encours.",
+      autoChecks: { run: true, result: "success", detail: "Charges recoupées à 98% avec les amortissements." },
+      reviewNotes: []
     }
   ],
 
@@ -826,7 +845,7 @@ function renderAuditCycleDetail() {
             <thead>
               <tr>
                 <th>Compte</th>
-                <th>Intitulé</th>
+                <th>Intitulé du Compte</th>
                 <th>Solde Livre Comptable (A)</th>
                 <th>Solde Extrait Relevé (B)</th>
                 <th>Écart (A - B)</th>
@@ -837,33 +856,243 @@ function renderAuditCycleDetail() {
             </thead>
             <tbody>
               <tr>
-                <td><strong>512100</strong></td>
-                <td>Banque BNP Paribas</td>
-                <td>542 300 €</td>
-                <td>549 800 €</td>
-                <td style="color:#F87171; font-weight:600;">- 7 500 €</td>
-                <td>2 700 €</td>
-                <td style="color:#EF4444; font-weight:700;">- 4 800 €</td>
+                <td><strong>51202000</strong></td>
+                <td>BNP Paribas (Simulation)</td>
+                <td>5 257,80 €</td>
+                <td>12 757,80 €</td>
+                <td style="color:#F87171; font-weight:600;">- 7 500,00 €</td>
+                <td>2 700,00 €</td>
+                <td style="color:#EF4444; font-weight:700;">- 4 800,00 €</td>
                 <td><span class="audit-tag tag-danger">Échec</span></td>
               </tr>
-              <tr style="opacity:0.7;">
-                <td><strong>512200</strong></td>
-                <td>Société Générale</td>
-                <td>124 150 €</td>
-                <td>124 150 €</td>
-                <td>0 €</td>
-                <td>0 €</td>
-                <td>0 €</td>
+              <tr style="opacity:0.85;">
+                <td><strong>51201900</strong></td>
+                <td>CIC GROUPE</td>
+                <td>6 248 593,76 €</td>
+                <td>6 248 593,76 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
                 <td><span class="audit-tag tag-success">Conforme</span></td>
               </tr>
-              <tr style="opacity:0.7;">
-                <td><strong>531100</strong></td>
-                <td>Caisse Siège</td>
-                <td>1 240 €</td>
-                <td>1 240 €</td>
-                <td>0 €</td>
-                <td>0 €</td>
-                <td>0 €</td>
+              <tr style="opacity:0.85;">
+                <td><strong>51203000</strong></td>
+                <td>CAISSE D EPARGNE</td>
+                <td>-437 978,79 €</td>
+                <td>-437 978,79 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.85;">
+                <td><strong>51212300</strong></td>
+                <td>BP EX GRPE DISTRI</td>
+                <td>68 977,38 €</td>
+                <td>68 977,38 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51212000</td>
+                <td>BANQUE POPULAIRE</td>
+                <td>10 805,36 €</td>
+                <td>10 805,36 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51208000</td>
+                <td>SG SMC</td>
+                <td>2 774,16 €</td>
+                <td>2 774,16 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51209004</td>
+                <td>CREDIT AGRICOLE AP</td>
+                <td>628,23 €</td>
+                <td>628,23 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51204000</td>
+                <td>ARKEA BANQUE</td>
+                <td>569,87 €</td>
+                <td>569,87 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>53110000</td>
+                <td>CAISSE</td>
+                <td>161,16 €</td>
+                <td>161,16 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51201000</td>
+                <td>CIC</td>
+                <td>-31,03 €</td>
+                <td>-31,03 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>51203010</td>
+                <td>CE EX GRPE DISTRI</td>
+                <td>-44 422,47 €</td>
+                <td>-44 422,47 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>50810005</td>
+                <td>CIC CAT</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>50810007</td>
+                <td>CAISSE D'EPARGNE CAT</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  } else if (cycle.key === 'financier') {
+    accountsHTML = `
+      <div class="db-table-card" style="margin-top:0;">
+        <h4 class="audit-card-title" style="margin-bottom:1rem;">Comptes de charges et produits financiers (Classe 66 & 76)</h4>
+        <div class="db-table-wrapper">
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>Compte</th>
+                <th>Intitulé du Compte</th>
+                <th>Solde Balance N (Livre)</th>
+                <th>Justificatif Requis / Tableaux</th>
+                <th>Écart Inexpliqué</th>
+                <th>Contrôle Auto.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>66800000</strong></td>
+                <td>AUTRES CHARGES FINANCIERES</td>
+                <td>1 373 736,00 €</td>
+                <td>Contrat de cession de créances</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr>
+                <td><strong>66100003</strong></td>
+                <td>INT EMPRUNT STRUCTURE</td>
+                <td>360 881,04 €</td>
+                <td>Tableau amortissement BPCE</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr>
+                <td><strong>66810000</strong></td>
+                <td>INTERET ET FINANCEMENT AFFACTURAGE</td>
+                <td>243 146,61 €</td>
+                <td>Grand livre et bordereaux factor</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr>
+                <td>66100063</td>
+                <td>INT AUTRE EMPRUNTS INTERET COURUS</td>
+                <td>232 500,00 €</td>
+                <td>Tableau d'amortissement CIC</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr>
+                <td>66100029</td>
+                <td>INT EMPRUNT STRUCTURE</td>
+                <td>210 361,52 €</td>
+                <td>Contrat Crédit Agricole</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.85;">
+                <td>66100000</td>
+                <td>CHARGES D'INTÉRÊTS</td>
+                <td>163 996,56 €</td>
+                <td>Vérification analytique globale</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.85;">
+                <td>66100064</td>
+                <td>INT AUTRES EMPRUNTS INTERET COURUS</td>
+                <td>116 250,00 €</td>
+                <td>Tableau d'amortissement SG</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.85;">
+                <td>66100032</td>
+                <td>INT AUTRES EMPRUNTS ET INTERETCOURU</td>
+                <td>106 666,67 €</td>
+                <td>Vérification des taux d'intérêts</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.85;">
+                <td>66100028</td>
+                <td>INT EMPRUNT STRUCTURE</td>
+                <td>106 227,31 €</td>
+                <td>Tableau amortissement Arkea</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>66160000</td>
+                <td>INTERETS BANCAIRES</td>
+                <td>103 757,16 €</td>
+                <td>Frais de découvert BNP/CIC</td>
+                <td>0,00 €</td>
+                <td><span class="audit-tag tag-success">Conforme</span></td>
+              </tr>
+              <tr style="opacity:0.6;">
+                <td>76150080</td>
+                <td>INTERET CC</td>
+                <td>-423 379,60 €</td>
+                <td>Produits sur comptes courants associés</td>
+                <td>0,00 €</td>
                 <td><span class="audit-tag tag-success">Conforme</span></td>
               </tr>
             </tbody>
