@@ -34,6 +34,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const goBack = () => { window.location.hash = '#/selection'; };
   if (btnBack) btnBack.addEventListener('click', goBack);
   if (btnBackPrev) btnBackPrev.addEventListener('click', goBack);
+
+  // Bind Hero section CTAs
+  const heroPrev = document.getElementById('btnHeroPrevoyance');
+  const heroAud = document.getElementById('btnHeroAudit');
+  const demoModal = document.getElementById('demoDashboardModal');
+
+  if (heroPrev && demoModal) {
+    heroPrev.addEventListener('click', () => {
+      demoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      window.location.hash = '#/prevoyance';
+    });
+  }
+
+  if (heroAud && demoModal) {
+    heroAud.addEventListener('click', () => {
+      demoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      window.location.hash = '#/audit/portfolio';
+    });
+  }
+
+  // Auto-open modal if hash is present on load
+  const currentHash = window.location.hash;
+  if (currentHash.startsWith('#/prevoyance') || currentHash.startsWith('#/audit') || currentHash.startsWith('#/selection')) {
+    if (demoModal) {
+      demoModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
 });
 
 // Routing Resolver
