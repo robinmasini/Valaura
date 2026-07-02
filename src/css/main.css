@@ -2741,7 +2741,7 @@ input:checked + .slider-round:before {
   }
 
   .logo-val {
-    height: 20px;
+    height: 26px;
     width: auto;
     object-fit: contain;
   }
@@ -2753,7 +2753,7 @@ input:checked + .slider-round:before {
   }
 
   .logo-gt {
-    height: 20px;
+    height: 26px;
     width: auto;
     object-fit: contain;
   }
