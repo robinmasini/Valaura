@@ -5,6 +5,14 @@ import { initAuditRouting, initAuditScenario, renderAuditUI } from './audit.js';
  * ------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // If on the dedicated dashboard page and there is no route or landing page route, set to selection
+  const isDashboardPage = !document.getElementById('landingPageWrapper');
+  if (isDashboardPage) {
+    if (!window.location.hash || window.location.hash === '#/' || window.location.hash === '#') {
+      window.location.hash = '#/selection';
+    }
+  }
+
   initCustomCursor();
   initSplitText();
   initScrollReveal();
@@ -76,61 +84,100 @@ function handleMainRoute(universe) {
   const closeBtn = document.getElementById('demoModalClose');
   const modalOverlay = document.getElementById('demoModalOverlay');
 
-  if (selectPanel && prevoyanceWrapper && auditWrapper && landingWrapper && modal) {
-    if (universe === 'prevoyance') {
-      landingWrapper.style.display = 'none';
-      modal.classList.add('open');
-      modal.style.position = 'relative';
-      modal.style.height = '100vh';
-      modal.style.background = '#0F172A';
-      if (modalOverlay) modalOverlay.style.display = 'none';
-      if (closeBtn) closeBtn.style.display = 'none';
-      
-      selectPanel.style.display = 'none';
-      auditWrapper.style.display = 'none';
-      prevoyanceWrapper.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    } else if (universe === 'audit') {
-      landingWrapper.style.display = 'none';
-      modal.classList.add('open');
-      modal.style.position = 'relative';
-      modal.style.height = '100vh';
-      modal.style.background = '#070B12';
-      if (modalOverlay) modalOverlay.style.display = 'none';
-      if (closeBtn) closeBtn.style.display = 'none';
-      
-      selectPanel.style.display = 'none';
-      prevoyanceWrapper.style.display = 'none';
-      auditWrapper.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      renderAuditUI();
-    } else if (universe === 'selection') {
-      landingWrapper.style.display = 'none';
-      modal.classList.add('open');
-      modal.style.position = 'relative';
-      modal.style.height = '100vh';
-      modal.style.background = '#0F172A';
-      if (modalOverlay) modalOverlay.style.display = 'none';
-      if (closeBtn) closeBtn.style.display = 'none';
-      
-      prevoyanceWrapper.style.display = 'none';
-      auditWrapper.style.display = 'none';
-      selectPanel.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Return to landing page (universe === 'landing' or default hash '#/')
-      landingWrapper.style.display = 'block';
-      modal.classList.remove('open');
-      modal.style.position = '';
-      modal.style.height = '';
-      modal.style.background = '';
-      if (modalOverlay) modalOverlay.style.display = '';
-      if (closeBtn) closeBtn.style.display = '';
-      
-      prevoyanceWrapper.style.display = 'none';
-      auditWrapper.style.display = 'none';
-      selectPanel.style.display = 'none';
-      document.body.style.overflow = '';
+  const isDashboardPage = !landingWrapper;
+
+  if (isDashboardPage) {
+    if (selectPanel && prevoyanceWrapper && auditWrapper) {
+      if (universe === 'prevoyance') {
+        selectPanel.style.display = 'none';
+        auditWrapper.style.display = 'none';
+        prevoyanceWrapper.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-initialize Prevoyance view details
+        if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
+        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(dashboardState.activeCategory || 'dashboard');
+        if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
+        if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
+      } else if (universe === 'audit') {
+        selectPanel.style.display = 'none';
+        prevoyanceWrapper.style.display = 'none';
+        auditWrapper.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        renderAuditUI();
+      } else if (universe === 'selection') {
+        prevoyanceWrapper.style.display = 'none';
+        auditWrapper.style.display = 'none';
+        selectPanel.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Redirect to vitrine landing page
+        window.location.href = '/';
+      }
+    }
+  } else {
+    if (selectPanel && prevoyanceWrapper && auditWrapper && landingWrapper && modal) {
+      if (universe === 'prevoyance') {
+        landingWrapper.style.display = 'none';
+        modal.classList.add('open');
+        modal.style.position = 'relative';
+        modal.style.height = '100vh';
+        modal.style.background = '#0F172A';
+        if (modalOverlay) modalOverlay.style.display = 'none';
+        if (closeBtn) closeBtn.style.display = 'none';
+        
+        selectPanel.style.display = 'none';
+        auditWrapper.style.display = 'none';
+        prevoyanceWrapper.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-initialize Prevoyance view details
+        if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
+        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(dashboardState.activeCategory || 'dashboard');
+        if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
+        if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
+      } else if (universe === 'audit') {
+        landingWrapper.style.display = 'none';
+        modal.classList.add('open');
+        modal.style.position = 'relative';
+        modal.style.height = '100vh';
+        modal.style.background = '#070B12';
+        if (modalOverlay) modalOverlay.style.display = 'none';
+        if (closeBtn) closeBtn.style.display = 'none';
+        
+        selectPanel.style.display = 'none';
+        prevoyanceWrapper.style.display = 'none';
+        auditWrapper.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        renderAuditUI();
+      } else if (universe === 'selection') {
+        landingWrapper.style.display = 'none';
+        modal.classList.add('open');
+        modal.style.position = 'relative';
+        modal.style.height = '100vh';
+        modal.style.background = '#0F172A';
+        if (modalOverlay) modalOverlay.style.display = 'none';
+        if (closeBtn) closeBtn.style.display = 'none';
+        
+        prevoyanceWrapper.style.display = 'none';
+        auditWrapper.style.display = 'none';
+        selectPanel.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Return to landing page (universe === 'landing' or default hash '#/')
+        landingWrapper.style.display = 'block';
+        modal.classList.remove('open');
+        modal.style.position = '';
+        modal.style.height = '';
+        modal.style.background = '';
+        if (modalOverlay) modalOverlay.style.display = '';
+        if (closeBtn) closeBtn.style.display = '';
+        
+        prevoyanceWrapper.style.display = 'none';
+        auditWrapper.style.display = 'none';
+        selectPanel.style.display = 'none';
+        document.body.style.overflow = '';
+      }
     }
   }
 }
