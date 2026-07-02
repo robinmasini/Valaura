@@ -28,67 +28,69 @@
   <style>
     .partnership-label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       color: var(--color-accent);
-      margin-top: 2rem;
-      margin-bottom: 1.5rem; /* Increased padding with card */
-      font-weight: 600;
+      font-weight: 700;
       z-index: 1;
       text-align: center;
+      margin: 0;
     }
     .client-logo-wrapper {
       position: relative;
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0 0 3rem 0;
-      padding: 2.25rem; /* Increased equidistant padding */
-      border-radius: 28px;
+      margin: 0 auto 3rem auto;
+      padding: 1.25rem 2.5rem;
+      border-radius: 20px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      gap: 0.75rem;
     }
     .client-logo-glow {
       position: absolute;
-      width: 320px; /* Increased glow width */
-      height: 320px;
-      background: radial-gradient(circle, rgba(143, 174, 166, 0.3) 0%, rgba(216, 180, 143, 0.18) 50%, transparent 70%);
-      filter: blur(35px);
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(143, 174, 166, 0.25) 0%, rgba(216, 180, 143, 0.12) 50%, transparent 70%);
+      filter: blur(25px);
       z-index: 0;
       pointer-events: none;
     }
     .client-logo-img {
-      height: 110px; /* Reduced logo height for better pixel density/quality */
+      height: 38px;
       width: auto;
       object-fit: contain;
       position: relative;
       z-index: 1;
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.12));
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
     }
 
     /* Mobile adjustments for client logo and padding */
     @media (max-width: 768px) {
       .partnership-label {
-        margin-top: 1rem;
-        margin-bottom: 1rem; /* Increased padding with card on mobile */
-        font-size: 0.65rem;
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        margin: 0;
       }
       .client-logo-wrapper {
-        margin: 0 0 1.5rem 0;
-        padding: 1.25rem; /* Increased equidistant padding on mobile */
-        border-radius: 16px;
+        margin: 0 auto 1.5rem auto;
+        padding: 0.9rem 1.8rem;
+        border-radius: 14px;
+        gap: 0.5rem;
       }
       .client-logo-glow {
-        width: 180px;
-        height: 180px;
+        width: 140px;
+        height: 140px;
         filter: blur(20px);
       }
       .client-logo-img {
-        height: 60px; /* Reduced logo height on mobile for better quality */
+        height: 28px;
       }
       .hero-section {
         padding-top: 140px !important; /* Push below mobile header */
@@ -155,11 +157,13 @@
 
 
         <!-- Custom Client Highlight (GT.png) -->
-        <span class="partnership-label reveal-fade-delay">EN PARTENARIAT AVEC</span>
         <div class="client-logo-wrapper reveal-fade-delay">
           <div class="client-logo-glow"></div>
+          <span class="partnership-label">EN PARTENARIAT AVEC</span>
           <img src="/src/assets/GT.png" alt="Client Logo" class="client-logo-img">
-                <h1 class="hero-title reveal-split">Organisez votre cabinet de Prévoyance & vos Missions d'Audit Financier</h1>
+        </div>
+
+        <h1 class="hero-title reveal-split">Organisez votre cabinet de Prévoyance & vos Missions d'Audit Financier</h1>
         
         <p class="hero-subtitle reveal-fade-delay">
           Valaura propose deux univers applicatifs indépendants. Automatisez votre suivi et la relance commerciale en Prévoyance, ou pilotez vos cycles financiers, vos circularisations et vos rapprochements comptables en Audit.
@@ -179,7 +183,7 @@
               <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
             </svg>
           </a>
-        </div>       </div>
+        </div>
 
         <div class="hero-scroll-indicator reveal-fade-delay-2" style="margin-top: 4rem; position: relative; bottom: 0;">
           <span class="scroll-text">Découvrir les enjeux</span>
