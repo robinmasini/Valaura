@@ -230,12 +230,27 @@
   }
 }
 
-/* ----------------------------------
- * 2. Audit Dashboard Styles & Layout
- * ---------------------------------- */
+/* Layout overrides for audit universe specifically */
+.dashboard-wrapper.audit-theme {
+  grid-template-columns: 200px 1fr;
+}
+
 .audit-theme .dashboard-sidebar {
   background-color: #0B0F19;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem 0.75rem;
+}
+
+.audit-theme .db-logo-area {
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.audit-theme .db-logo {
+  height: 65px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
 }
 
 /* Context Selector in Audit Sidebar */
