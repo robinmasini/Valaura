@@ -854,3 +854,45 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   pointer-events: none;
 }
+
+/* responsive mobile stacked logo in audit sidebar */
+.audit-theme .db-logo-desktop {
+  display: block;
+}
+
+.audit-theme .db-logo-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .audit-theme .db-logo-desktop {
+    display: none !important;
+  }
+  
+  .audit-theme .db-logo-mobile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .audit-theme .logo-val {
+    height: 18px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  .audit-theme .logo-sep {
+    width: 24px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .audit-theme .logo-gt {
+    height: 14px;
+    width: auto;
+    object-fit: contain;
+  }
+}
