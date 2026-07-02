@@ -2054,6 +2054,14 @@ p {
   object-fit: contain;
 }
 
+.db-logo-desktop {
+  display: block;
+}
+
+.db-logo-mobile {
+  display: none;
+}
+
 .db-demo-tag {
   background: rgba(143, 174, 166, 0.1);
   color: var(--color-primary);
@@ -2717,6 +2725,37 @@ input:checked + .slider-round:before {
   .db-logo {
     height: 28px !important;
     width: auto !important;
+  }
+
+  .db-logo-desktop {
+    display: none !important;
+  }
+
+  .db-logo-mobile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .logo-val {
+    height: 18px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .logo-sep {
+    width: 24px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .logo-gt {
+    height: 14px;
+    width: auto;
+    object-fit: contain;
   }
 
   /* Center category items and hide text */
