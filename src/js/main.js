@@ -85,6 +85,14 @@ function handleMainRoute(universe) {
   const modalOverlay = document.getElementById('demoModalOverlay');
 
   const isDashboardPage = !landingWrapper;
+  
+  // Extract Prevoyance active subcategory from URL hash
+  const hash = window.location.hash || '#/';
+  let targetCategory = dashboardState.activeCategory || 'dashboard';
+  const pathParts = hash.split('/');
+  if (pathParts.length > 2 && pathParts[1] === 'prevoyance') {
+    targetCategory = pathParts[2];
+  }
 
   if (isDashboardPage) {
     if (selectPanel && prevoyanceWrapper && auditWrapper) {
@@ -96,7 +104,7 @@ function handleMainRoute(universe) {
         
         // Auto-initialize Prevoyance view details
         if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
-        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(dashboardState.activeCategory || 'dashboard');
+        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(targetCategory);
         if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
         if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
       } else if (universe === 'audit') {
@@ -133,7 +141,7 @@ function handleMainRoute(universe) {
         
         // Auto-initialize Prevoyance view details
         if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
-        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(dashboardState.activeCategory || 'dashboard');
+        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(targetCategory);
         if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
         if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
       } else if (universe === 'audit') {
