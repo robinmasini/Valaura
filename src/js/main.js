@@ -1,16 +1,12 @@
-import { initAuditRouting, initAuditScenario, renderAuditUI } from './audit.js';
-
 /* -------------------------------------------------------------
  * Valaura B2B SaaS Premium Interactions, ROI Calculator & Live Demo
  * ------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // If on the dedicated dashboard page and there is no route or landing page route, set to selection
+  // On the dedicated dashboard page, always land in the Prévoyance universe
   const isDashboardPage = !document.getElementById('landingPageWrapper');
-  if (isDashboardPage) {
-    if (!window.location.hash || window.location.hash === '#/' || window.location.hash === '#') {
-      window.location.hash = '#/selection';
-    }
+  if (isDashboardPage && !(window.location.hash || '').startsWith('#/prevoyance')) {
+    window.location.hash = '#/prevoyance';
   }
 
   initCustomCursor();
@@ -26,26 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoryExplorer();
   initMomentsToggle();
 
-  // Initialize Audit bindings
-  initAuditScenario();
-  initAuditRouting(handleMainRoute);
+  // Hash routing
+  window.addEventListener('hashchange', resolveHashRoute);
+  resolveHashRoute();
 
-  // Bind universe selector buttons
-  const btnPrevoyance = document.getElementById('btnSelectPrevoyance');
-  const btnAudit = document.getElementById('btnSelectAudit');
-  const btnBack = document.getElementById('btnBackToSelection');
-  const btnBackPrev = document.getElementById('btnBackToSelectionPrevoyance');
-
-  if (btnPrevoyance) btnPrevoyance.addEventListener('click', () => { window.location.hash = '#/prevoyance'; });
-  if (btnAudit) btnAudit.addEventListener('click', () => { window.location.hash = '#/audit/portfolio'; });
-
-  const goBack = () => { window.location.hash = '#/selection'; };
-  if (btnBack) btnBack.addEventListener('click', goBack);
-  if (btnBackPrev) btnBackPrev.addEventListener('click', goBack);
+  // Back to the landing page
+  const btnBackPrev = document.getElementById('btnBackToLanding');
+  if (btnBackPrev) btnBackPrev.addEventListener('click', () => { window.location.href = '/'; });
 
   // Bind Hero section CTAs
   const heroPrev = document.getElementById('btnHeroPrevoyance');
-  const heroAud = document.getElementById('btnHeroAudit');
   const demoModal = document.getElementById('demoDashboardModal');
 
   if (heroPrev && demoModal) {
@@ -56,17 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (heroAud && demoModal) {
-    heroAud.addEventListener('click', () => {
-      demoModal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      window.location.hash = '#/audit/portfolio';
-    });
-  }
-
   // Auto-open modal if hash is present on load
   const currentHash = window.location.hash;
-  if (currentHash.startsWith('#/prevoyance') || currentHash.startsWith('#/audit') || currentHash.startsWith('#/selection')) {
+  if (currentHash.startsWith('#/prevoyance')) {
     if (demoModal) {
       demoModal.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -74,120 +52,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Routing Resolver
-function handleMainRoute(universe) {
-  const selectPanel = document.getElementById('universeSelectorPanel');
+// Hash Routing (dashboard page only: Prévoyance is the single universe)
+function resolveHashRoute() {
   const prevoyanceWrapper = document.getElementById('prevoyanceDashboardWrapper');
-  const auditWrapper = document.getElementById('auditDashboardWrapper');
-  const landingWrapper = document.getElementById('landingPageWrapper');
-  const modal = document.getElementById('demoDashboardModal');
-  const closeBtn = document.getElementById('demoModalClose');
-  const modalOverlay = document.getElementById('demoModalOverlay');
+  if (!prevoyanceWrapper) return;
 
-  const isDashboardPage = !landingWrapper;
-  
-  // Extract Prevoyance active subcategory from URL hash
   const hash = window.location.hash || '#/';
+  if (!hash.startsWith('#/prevoyance')) {
+    window.location.hash = '#/prevoyance';
+    return;
+  }
+
+  // Extract Prevoyance active subcategory from URL hash
   let targetCategory = dashboardState.activeCategory || 'dashboard';
   const pathParts = hash.split('/');
-  if (pathParts.length > 2 && pathParts[1] === 'prevoyance') {
+  if (pathParts.length > 2) {
     targetCategory = pathParts[2];
   }
 
-  if (isDashboardPage) {
-    if (selectPanel && prevoyanceWrapper && auditWrapper) {
-      if (universe === 'prevoyance') {
-        selectPanel.style.display = 'none';
-        auditWrapper.style.display = 'none';
-        prevoyanceWrapper.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        
-        // Auto-initialize Prevoyance view details
-        if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
-        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(targetCategory);
-        if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
-        if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
-      } else if (universe === 'audit') {
-        selectPanel.style.display = 'none';
-        prevoyanceWrapper.style.display = 'none';
-        auditWrapper.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        renderAuditUI();
-      } else if (universe === 'selection') {
-        prevoyanceWrapper.style.display = 'none';
-        auditWrapper.style.display = 'none';
-        selectPanel.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      } else {
-        // Redirect to vitrine landing page
-        window.location.href = '/';
-      }
-    }
-  } else {
-    if (selectPanel && prevoyanceWrapper && auditWrapper && landingWrapper && modal) {
-      if (universe === 'prevoyance') {
-        landingWrapper.style.display = 'none';
-        modal.classList.add('open');
-        modal.style.position = 'relative';
-        modal.style.height = '100vh';
-        modal.style.background = '#0F172A';
-        if (modalOverlay) modalOverlay.style.display = 'none';
-        if (closeBtn) closeBtn.style.display = 'none';
-        
-        selectPanel.style.display = 'none';
-        auditWrapper.style.display = 'none';
-        prevoyanceWrapper.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        
-        // Auto-initialize Prevoyance view details
-        if (typeof adjustScenarioPanelForMobile === 'function') adjustScenarioPanelForMobile();
-        if (typeof switchDashboardCategory === 'function') switchDashboardCategory(targetCategory);
-        if (typeof switchDashboardRole === 'function') switchDashboardRole(dashboardState.activeRole || 'dirigeant');
-        if (typeof renderScenarioStep === 'function') renderScenarioStep(0);
-      } else if (universe === 'audit') {
-        landingWrapper.style.display = 'none';
-        modal.classList.add('open');
-        modal.style.position = 'relative';
-        modal.style.height = '100vh';
-        modal.style.background = '#070B12';
-        if (modalOverlay) modalOverlay.style.display = 'none';
-        if (closeBtn) closeBtn.style.display = 'none';
-        
-        selectPanel.style.display = 'none';
-        prevoyanceWrapper.style.display = 'none';
-        auditWrapper.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        renderAuditUI();
-      } else if (universe === 'selection') {
-        landingWrapper.style.display = 'none';
-        modal.classList.add('open');
-        modal.style.position = 'relative';
-        modal.style.height = '100vh';
-        modal.style.background = '#0F172A';
-        if (modalOverlay) modalOverlay.style.display = 'none';
-        if (closeBtn) closeBtn.style.display = 'none';
-        
-        prevoyanceWrapper.style.display = 'none';
-        auditWrapper.style.display = 'none';
-        selectPanel.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      } else {
-        // Return to landing page (universe === 'landing' or default hash '#/')
-        landingWrapper.style.display = 'block';
-        modal.classList.remove('open');
-        modal.style.position = '';
-        modal.style.height = '';
-        modal.style.background = '';
-        if (modalOverlay) modalOverlay.style.display = '';
-        if (closeBtn) closeBtn.style.display = '';
-        
-        prevoyanceWrapper.style.display = 'none';
-        auditWrapper.style.display = 'none';
-        selectPanel.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    }
-  }
+  prevoyanceWrapper.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  adjustScenarioPanelForMobile();
+  switchDashboardCategory(targetCategory);
+  switchDashboardRole(dashboardState.activeRole || 'dirigeant');
+  renderScenarioStep(0);
 }
 
 /* 1. Custom Interactive Cursor */
@@ -382,7 +271,7 @@ const categoryData = {
     title: "Cession de l'entreprise",
     img: "/src/assets/trigger_sale.png",
     features: [
-      "Audit technique de conformité de vos contrats de prévoyance collective.",
+      "Diagnostic technique de conformité de vos contrats de prévoyance collective.",
       "Valorisation comptable de vos engagements sociaux (Indemnités IFC).",
       "Processus simplifié de transfert de gouvernance de vos régimes de santé.",
       "Accompagnement fiscal des dirigeants lors de la cession des actifs."
@@ -952,7 +841,7 @@ function initDemoDashboard() {
         document.body.style.overflow = 'hidden';
         
         // Reset state on open
-        window.location.hash = '#/selection';
+        window.location.hash = '#/prevoyance';
         dashboardState.activeCategory = 'dashboard';
         dashboardState.activeRole = 'dirigeant';
         adjustScenarioPanelForMobile();

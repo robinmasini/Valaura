@@ -22,76 +22,9 @@
   
   <!-- Custom stylesheet -->
   <link rel="stylesheet" href="/src/css/main.css">
-  <link rel="stylesheet" href="/src/css/audit.css">
 
-  <!-- Temporary Client Highlight Styles -->
   <style>
-    .partnership-label {
-      display: block;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--color-accent);
-      font-weight: 700;
-      z-index: 1;
-      text-align: center;
-      margin: 0;
-    }
-    .client-logo-wrapper {
-      position: relative;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 3rem auto;
-      padding: 1.25rem 2.5rem;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      gap: 0.75rem;
-    }
-    .client-logo-glow {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(143, 174, 166, 0.25) 0%, rgba(216, 180, 143, 0.12) 50%, transparent 70%);
-      filter: blur(25px);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .client-logo-img {
-      height: 38px;
-      width: auto;
-      object-fit: contain;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
-    }
-
-    /* Mobile adjustments for client logo and padding */
     @media (max-width: 768px) {
-      .partnership-label {
-        font-size: 0.55rem;
-        letter-spacing: 0.15em;
-        margin: 0;
-      }
-      .client-logo-wrapper {
-        margin: 0 auto 1.5rem auto;
-        padding: 0.9rem 1.8rem;
-        border-radius: 14px;
-        gap: 0.5rem;
-      }
-      .client-logo-glow {
-        width: 140px;
-        height: 140px;
-        filter: blur(20px);
-      }
-      .client-logo-img {
-        height: 28px;
-      }
       .hero-section {
         padding-top: 140px !important; /* Push below mobile header */
         min-height: auto !important; /* Disable vertical centering gaps */
@@ -156,25 +89,15 @@
         
 
 
-        <!-- Custom Client Highlight (GT.png) -->
-        <div class="client-logo-wrapper reveal-fade-delay">
-          <div class="client-logo-glow"></div>
-          <span class="partnership-label">EN PARTENARIAT AVEC</span>
-          <img src="/src/assets/GT.png" alt="Client Logo" class="client-logo-img">
-        </div>
-
-        <h1 class="hero-title reveal-split">Organisez votre cabinet de Prévoyance & vos Missions d'Audit Financier</h1>
+        <h1 class="hero-title reveal-split">Organisez votre cabinet de Prévoyance</h1>
         
         <p class="hero-subtitle reveal-fade-delay">
-          Valaura propose deux univers applicatifs indépendants. Automatisez votre suivi et la relance commerciale en Prévoyance, ou pilotez vos cycles financiers, vos circularisations et vos rapprochements comptables en Audit.
+          Automatisez le suivi de vos dossiers et la relance commerciale de votre cabinet de prévoyance.
         </p>
 
         <div class="hero-actions reveal-fade-delay-2" style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
           <a class="btn btn-primary btn-large cursor-hover" id="btnHeroPrevoyance" href="/dashboard.html#/prevoyance" style="background-color: var(--color-primary); border-color: var(--color-primary); color: var(--bg-dark);">
             <span>Univers Prévoyance</span>
-          </a>
-          <a class="btn btn-primary btn-large cursor-hover" id="btnHeroAudit" href="/dashboard.html#/audit/portfolio" style="background-color: #8DA4C4; border-color: #8DA4C4; color: #070B12;">
-            <span>Univers Audit Financier</span>
           </a>
           <a href="#roi" class="btn btn-secondary btn-large cursor-hover">
             <span>Estimer mon ROI</span>
@@ -399,51 +322,6 @@
 
         </div>
 
-        <!-- Divider / Subheader for Audit Financier -->
-        <header class="section-header reveal-fade" style="margin-top: 6rem; margin-bottom: 3rem;">
-          <span class="section-subtitle" style="color: #8DA4C4; border-color: rgba(141, 164, 196, 0.2);">Valaura Audits Financiers</span>
-          <h2 class="section-title reveal-split">Pilotage intelligent de vos missions d'audit financier</h2>
-          <p class="section-desc">
-            Connectez vos données comptables, automatisez vos rapprochements bancaires et organisez la revue manager en toute sécurité.
-          </p>
-        </header>
-
-        <!-- Audit Features Grid -->
-        <div class="moments-grid active" style="margin-bottom: 2rem;">
-          <div class="moment-card cursor-hover reveal-fade" style="height: auto; padding: 2.5rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius:16px;">
-            <div class="moment-content" style="height: 100%; justify-content: space-between;">
-              <span style="font-size: 1.25rem; color: #8DA4C4; font-weight:700;">01</span>
-              <h3 class="moment-title" style="font-size: 1.15rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Cadrage & Seuils Financiers</h3>
-              <p style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
-                Calculez automatiquement le Seuil de Signification (1.5% du CA), le Seuil de Planification (75%) et le Seuil de Remontée des Anomalies.
-              </p>
-              <a class="btn btn-secondary cursor-hover" style="font-size:0.75rem; padding:0.4rem 0.8rem; margin-top:1rem; align-self:flex-start;" href="/dashboard.html#/audit/dashboard">Tester en démo</a>
-            </div>
-          </div>
-
-          <div class="moment-card cursor-hover reveal-fade" style="height: auto; padding: 2.5rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius:16px;">
-            <div class="moment-content" style="height: 100%; justify-content: space-between;">
-              <span style="font-size: 1.25rem; color: #8DA4C4; font-weight:700;">02</span>
-              <h3 class="moment-title" style="font-size: 1.15rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Rapprochements Automatisés</h3>
-              <p style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
-                Rapprochez le Grand Livre (Classe 5) avec les extraits de comptes PDF (BNP, CIC) en exploitant l'OCR intelligent et les rapprochements automatisés.
-              </p>
-              <a class="btn btn-secondary cursor-hover" style="font-size:0.75rem; padding:0.4rem 0.8rem; margin-top:1rem; align-self:flex-start;" href="/dashboard.html#/audit/cycle-detail">Tester en démo</a>
-            </div>
-          </div>
-
-          <div class="moment-card cursor-hover reveal-fade" style="height: auto; padding: 2.5rem; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius:16px;">
-            <div class="moment-content" style="height: 100%; justify-content: space-between;">
-              <span style="font-size: 1.25rem; color: #8DA4C4; font-weight:700;">03</span>
-              <h3 class="moment-title" style="font-size: 1.15rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Revue Manager & RBAC</h3>
-              <p style="font-size: 0.8rem; color: var(--text-gray-light); line-height: 1.4;">
-                Supervisez les travaux des collaborateurs, ouvrez des points de revue et verrouillez les cycles validés sous profil Manager ou Associé.
-              </p>
-              <a class="btn btn-secondary cursor-hover" style="font-size:0.75rem; padding:0.4rem 0.8rem; margin-top:1rem; align-self:flex-start;" href="/dashboard.html#/audit/review">Tester en démo</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -526,7 +404,7 @@
             </div>
             <div class="moment-content">
               <h3 class="moment-title">Cession de l'entreprise</h3>
-              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Audit IFC, valorisation des passifs sociaux et transfert des régimes de santé.</p>
+              <p style="font-size: 0.8rem; color: #A0AEC0; margin-bottom: 0.5rem; line-height: 1.4;">Bilan IFC, valorisation des passifs sociaux et transfert des régimes de santé.</p>
               <button class="moment-btn" aria-label="En savoir plus sur la Cession">
                 <span>Détails du déclencheur</span>
                 <span class="moment-btn-circle">
